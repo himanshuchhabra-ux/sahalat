@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub Admin Management - Sahalat Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Admin Management</div>
+                <a href="subadmin-management.html" class="nav-item active">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-item-label">Sub Admins</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="login.html" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Sub Admin Management</h1>
+                <p class="page-subtitle">Manage sub-admin accounts and assign module permissions.</p>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-box">
+                <div class="stat-item">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Total Sub Admins</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Active</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Inactive</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Modules</div>
+                </div>
+            </div>
+
+            <!-- Add Sub Admin Button & Search -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search by name or email..." id="searchInput">
+                </div>
+                <button class="btn btn-primary" onclick="openModal('addSubAdminModal')">
+                    <i class="fas fa-plus"></i> Add Sub Admin
+                </button>
+            </div>
+
+            <!-- Sub Admins Table -->
+            <div class="card">
+                <table class="subadmin-table" id="subAdminTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>John Manager</strong></td>
+                            <td>john.manager@sahalat.com</td>
+                            <td><span class="role-badge">Sub Admin</span></td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>Jan 15, 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-icon" onclick="openModal('editPermissionModal')" title="Permissions">
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="btn btn-secondary btn-icon" onclick="openModal('editSubAdminModal')" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-icon" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sarah Support</strong></td>
+                            <td>sarah.support@sahalat.com</td>
+                            <td><span class="role-badge">Sub Admin</span></td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>Feb 10, 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-icon" onclick="openModal('editPermissionModal')" title="Permissions">
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="btn btn-secondary btn-icon" onclick="openModal('editSubAdminModal')" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-icon" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Michael Finance</strong></td>
+                            <td>michael.finance@sahalat.com</td>
+                            <td><span class="role-badge">Sub Admin</span></td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td>Dec 05, 2023</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-icon" onclick="openModal('editPermissionModal')" title="Permissions">
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="btn btn-secondary btn-icon" onclick="openModal('editSubAdminModal')" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-icon" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Emma Marketing</strong></td>
+                            <td>emma.marketing@sahalat.com</td>
+                            <td><span class="role-badge">Sub Admin</span></td>
+                            <td><span class="status-badge status-inactive">Inactive</span></td>
+                            <td>Mar 20, 2024</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-icon" onclick="openModal('editPermissionModal')" title="Permissions">
+                                        <i class="fas fa-lock"></i>
+                                    </button>
+                                    <button class="btn btn-secondary btn-icon" onclick="openModal('editSubAdminModal')" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-icon" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Sub Admin Modal -->
+    <div id="addSubAdminModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Sub Admin</h2>
+                <button class="modal-close" onclick="closeModal('addSubAdminModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="modal-form-group">
+                        <label>First Name *</label>
+                        <input type="text" placeholder="Enter first name">
+                    </div>
+                    <div class="modal-form-group">
+                        <label>Last Name *</label>
+                        <input type="text" placeholder="Enter last name">
+                    </div>
+                </div>
+
+                <div class="modal-form-group">
+                    <label>Email Address *</label>
+                    <input type="email" placeholder="Enter email address">
+                </div>
+
+                <div class="form-row">
+                    <div class="modal-form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" placeholder="Enter phone number">
+                    </div>
+                    <div class="modal-form-group">
+                        <label>Status</label>
+                        <select>
+                            <option selected>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-form-group">
+                    <label>Temporary Password *</label>
+                    <input type="password" value="TempPass123!" placeholder="Will be sent to email">
+                </div>
+
+                <div class="modal-form-group">
+                    <label>
+                        <input type="checkbox" checked> Send login credentials via email
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addSubAdminModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="createSubAdmin(event)">
+                    <i class="fas fa-plus"></i> Create Sub Admin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Sub Admin Modal -->
+    <div id="editSubAdminModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Sub Admin</h2>
+                <button class="modal-close" onclick="closeModal('editSubAdminModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="modal-form-group">
+                        <label>First Name *</label>
+                        <input type="text" value="John">
+                    </div>
+                    <div class="modal-form-group">
+                        <label>Last Name *</label>
+                        <input type="text" value="Manager">
+                    </div>
+                </div>
+
+                <div class="modal-form-group">
+                    <label>Email Address *</label>
+                    <input type="email" value="john.manager@sahalat.com" readonly style="opacity: 0.7;">
+                </div>
+
+                <div class="form-row">
+                    <div class="modal-form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" value="+1 (555) 123-4567">
+                    </div>
+                    <div class="modal-form-group">
+                        <label>Status</label>
+                        <select>
+                            <option selected>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editSubAdminModal')">Cancel</button>
+                <button class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+                <button class="btn btn-primary" onclick="updateSubAdmin(event)">
+                    <i class="fas fa-check"></i> Update
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permission Management Modal -->
+    <div id="editPermissionModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Manage Permissions - John Manager</h2>
+                <button class="modal-close" onclick="closeModal('editPermissionModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 6px;">
+                    <strong style="color: var(--text-primary);">Quick Actions:</strong>
+                    <div class="quick-permissions">
+                        <button class="quick-btn" onclick="selectAllPermissions(this)">
+                            <i class="fas fa-check-double"></i> Select All
+                        </button>
+                        <button class="quick-btn" onclick="deselectAllPermissions(this)">
+                            <i class="fas fa-times"></i> Deselect All
+                        </button>
+                        <button class="quick-btn" onclick="selectViewOnlyMode(this)">
+                            <i class="fas fa-eye"></i> View Only
+                        </button>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-weight: 600;">Module Permissions</h4>
+                <div class="permission-grid">
+                    <!-- Users Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-users"></i> User Management</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="users" data-permission="view">
+                                <label class="permission-label">View Users</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="users" data-permission="create">
+                                <label class="permission-label">Create Users</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="users" data-permission="edit">
+                                <label class="permission-label">Edit Users</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="users" data-permission="delete">
+                                <label class="permission-label">Delete Users</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- KYC Review Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-id-card"></i> KYC Review</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="view">
+                                <label class="permission-label">View KYC</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="approve">
+                                <label class="permission-label">Approve KYC</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="reject">
+                                <label class="permission-label">Reject KYC</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="export">
+                                <label class="permission-label">Export KYC</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Transactions Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-exchange-alt"></i> Transactions</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="transactions" data-permission="view">
+                                <label class="permission-label">View Transactions</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="approve">
+                                <label class="permission-label">Approve Transactions</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="reject">
+                                <label class="permission-label">Reject Transactions</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="export">
+                                <label class="permission-label">Export Report</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Banners Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-image"></i> Banners</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="banners" data-permission="view">
+                                <label class="permission-label">View Banners</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="banners" data-permission="create">
+                                <label class="permission-label">Create Banners</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="banners" data-permission="edit">
+                                <label class="permission-label">Edit Banners</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="banners" data-permission="delete">
+                                <label class="permission-label">Delete Banners</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Notifications Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-bell"></i> Notifications</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="notifications" data-permission="view">
+                                <label class="permission-label">View Notifications</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="notifications" data-permission="create">
+                                <label class="permission-label">Create Notifications</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="notifications" data-permission="schedule">
+                                <label class="permission-label">Schedule Notifications</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="notifications" data-permission="delete">
+                                <label class="permission-label">Delete Notifications</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tickets Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-ticket"></i> Support Tickets</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="tickets" data-permission="view">
+                                <label class="permission-label">View Tickets</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="tickets" data-permission="respond">
+                                <label class="permission-label">Respond to Tickets</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="tickets" data-permission="resolve">
+                                <label class="permission-label">Resolve Tickets</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="tickets" data-permission="delete">
+                                <label class="permission-label">Delete Tickets</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Content Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-file-alt"></i> Content Management</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="content" data-permission="view">
+                                <label class="permission-label">View Content</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="content" data-permission="edit">
+                                <label class="permission-label">Edit Content</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="content" data-permission="publish">
+                                <label class="permission-label">Publish Content</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="content" data-permission="delete">
+                                <label class="permission-label">Delete Content</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Analytics Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-chart-line"></i> Analytics</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="analytics" data-permission="view">
+                                <label class="permission-label">View Reports</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="analytics" data-permission="export">
+                                <label class="permission-label">Export Analytics</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="analytics" data-permission="schedule">
+                                <label class="permission-label">Schedule Reports</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- System Settings Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-cog"></i> System Settings</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="settings" data-permission="view">
+                                <label class="permission-label">View Settings</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="settings" data-permission="edit">
+                                <label class="permission-label">Edit Settings</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="settings" data-permission="manage-admins">
+                                <label class="permission-label">Manage Sub Admins</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Audit Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-history"></i> Audit Logs</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="audit" data-permission="view">
+                                <label class="permission-label">View Audit Logs</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="audit" data-permission="export">
+                                <label class="permission-label">Export Logs</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="audit" data-permission="delete">
+                                <label class="permission-label">Clear Logs</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editPermissionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="savePermissions(event)">
+                    <i class="fas fa-save"></i> Save Permissions
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        initTheme();
+
+        function createSubAdmin(event) {
+            event.preventDefault();
+            showNotification('Sub admin created successfully!', 'success');
+            closeModal('addSubAdminModal');
+        }
+
+        function updateSubAdmin(event) {
+            event.preventDefault();
+            showNotification('Sub admin updated successfully!', 'success');
+            closeModal('editSubAdminModal');
+        }
+
+        function savePermissions(event) {
+            event.preventDefault();
+            const selectedPermissions = [];
+            document.querySelectorAll('.permission-checkbox:checked').forEach(checkbox => {
+                selectedPermissions.push(`${checkbox.dataset.module}-${checkbox.dataset.permission}`);
+            });
+            showNotification(`Permissions saved! Total: ${selectedPermissions.length} permissions assigned.`, 'success');
+            closeModal('editPermissionModal');
+        }
+
+        function selectAllPermissions(btn) {
+            document.querySelectorAll('.permission-checkbox').forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            btn.parentElement.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function deselectAllPermissions(btn) {
+            document.querySelectorAll('.permission-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            btn.parentElement.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function selectViewOnlyMode(btn) {
+            document.querySelectorAll('.permission-checkbox').forEach(checkbox => {
+                checkbox.checked = checkbox.dataset.permission === 'view';
+            });
+            btn.parentElement.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
