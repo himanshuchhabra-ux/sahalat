@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Tickets - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon-select"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item active">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Support Ticket Management</h1>
+                <p class="page-subtitle">View and manage all support tickets raised by users. Respond and update ticket status.</p>
+            </div>
+
+            <!-- Ticket Statistics -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-box-value">68</div>
+                    <div class="stat-box-label">Total Tickets</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">24</div>
+                    <div class="stat-box-label">Open</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">15</div>
+                    <div class="stat-box-label">Pending</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">29</div>
+                    <div class="stat-box-label">Resolved</div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by ticket ID, subject, or user" 
+                        data-search-table="ticketsTable"
+                    >
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Status</option>
+                        <option>Open</option>
+                        <option>Pending</option>
+                        <option>Resolved</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Priority</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Priorities</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Categories</option>
+                        <option>Account Issue</option>
+                        <option>Transaction Problem</option>
+                        <option>Feature Request</option>
+                        <option>Technical Issue</option>
+                        <option>Billing</option>
+                    </select>
+                </div>
+                <div class="btn-flex-wrapper">
+                    <button class="btn btn-primary btn-full-flex">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary btn-full-flex">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('ticketsTable', 'tickets.csv')">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tickets Table -->
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading">All Support Tickets (68)</h3>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="ticketsTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-10">Ticket ID</th>
+                                <th class="col-20">Subject</th>
+                                <th class="col-15">User</th>
+                                <th class="col-12">Category</th>
+                                <th class="col-10">Priority</th>
+                                <th class="col-10">Status</th>
+                                <th class="col-10">Created</th>
+                                <th class="col-13">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#TKT001</strong></td>
+                                <td>Unable to withdraw funds</td>
+                                <td>
+                                    <div class="user-name">John Doe</div>
+                                    <div class="user-email">john.doe@email.com</div>
+                                </td>
+                                <td>Transaction Problem</td>
+                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
+                                <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
+                                <td>Today, 9:30 AM</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TKT002</strong></td>
+                                <td>KYC verification rejected without reason</td>
+                                <td>
+                                    <div class="user-name">Sarah Smith</div>
+                                    <div class="user-email">sarah.smith@email.com</div>
+                                </td>
+                                <td>Account Issue</td>
+                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
+                                <td><span class="ticket-status-badge ticket-status-pending">Pending</span></td>
+                                <td>Yesterday, 2:15 PM</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TKT003</strong></td>
+                                <td>Password reset not working</td>
+                                <td>
+                                    <div class="user-name">Mike Johnson</div>
+                                    <div class="user-email">mike.j@email.com</div>
+                                </td>
+                                <td>Technical Issue</td>
+                                <td><span class="ticket-priority-badge ticket-priority-medium">Medium</span></td>
+                                <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
+                                <td>2 days ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TKT004</strong></td>
+                                <td>2FA authentication codes not received</td>
+                                <td>
+                                    <div class="user-name">Emma Wilson</div>
+                                    <div class="user-email">emma.w@email.com</div>
+                                </td>
+                                <td>Account Issue</td>
+                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
+                                <td><span class="ticket-status-badge ticket-status-pending">Pending</span></td>
+                                <td>2 days ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TKT005</strong></td>
+                                <td>Request new feature: Recurring transfers</td>
+                                <td>
+                                    <div class="user-name">David Brown</div>
+                                    <div class="user-email">david.b@email.com</div>
+                                </td>
+                                <td>Feature Request</td>
+                                <td><span class="ticket-priority-badge ticket-priority-low">Low</span></td>
+                                <td><span class="ticket-status-badge ticket-status-resolved">Resolved</span></td>
+                                <td>3 days ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TKT006</strong></td>
+                                <td>Charges appearing on my account I didn't make</td>
+                                <td>
+                                    <div class="user-name">Lisa Anderson</div>
+                                    <div class="user-email">lisa.a@email.com</div>
+                                </td>
+                                <td>Billing</td>
+                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
+                                <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
+                                <td>1 day ago</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('respondTicketModal')" title="Respond">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-6 of 68 tickets
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <button class="btn btn-secondary btn-small">...</button>
+                        <button class="btn btn-secondary btn-small">11</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Ticket Modal -->
+    <div id="viewTicketModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Ticket Details - #TKT001</h2>
+                <button class="modal-close" onclick="closeModal('viewTicketModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="ticket-info">
+                    <div class="info-row">
+                        <span class="info-label">Subject:</span>
+                        <span class="info-value">Unable to withdraw funds</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Ticket ID:</span>
+                        <span class="info-value">#TKT001</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">User:</span>
+                        <span class="info-value">John Doe (john.doe@email.com)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Category:</span>
+                        <span class="info-value">Transaction Problem</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Priority:</span>
+                        <span class="info-value"><span class="ticket-priority-badge ticket-priority-high">High</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value"><span class="ticket-status-badge ticket-status-open">Open</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Created:</span>
+                        <span class="info-value">Feb 27, 2024 at 9:30 AM</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Updated:</span>
+                        <span class="info-value">Feb 27, 2024 at 10:15 AM</span>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-weight: 600;">Ticket Description:</h4>
+                <div style="padding: 1rem; background-color: var(--bg-tertiary); border-radius: 8px; margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">
+                    I have been trying to withdraw $500 from my wallet for the past 3 days but the request keeps getting rejected with a generic error message. I have verified my account, my bank details are correct, and I have sufficient funds. This is affecting my ability to access my own money and is very frustrating. Please help me resolve this issue urgently.
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-weight: 600;">Conversation History:</h4>
+                <div class="message-thread">
+                    <div class="message message-user">
+                        <div class="message-header">
+                            <span class="message-sender">John Doe</span>
+                            <span class="message-time">Feb 27, 2024 - 9:30 AM</span>
+                        </div>
+                        <div class="message-body">I have been trying to withdraw $500 from my wallet for the past 3 days...</div>
+                    </div>
+                    <div class="message message-admin">
+                        <div class="message-header">
+                            <span class="message-sender">Support Team (You)</span>
+                            <span class="message-time">Feb 27, 2024 - 10:00 AM</span>
+                        </div>
+                        <div class="message-body">Thank you for contacting us. We understand your concern and sincerely apologize for the inconvenience. We are investigating this issue and will get back to you shortly with a resolution.</div>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-weight: 600;">Update Status:</h4>
+                <div class="form-row">
+                    <div class="form-group-ticket">
+                        <label>Ticket Status</label>
+                        <select class="status-dropdown">
+                            <option selected>Open</option>
+                            <option>Pending</option>
+                            <option>Resolved</option>
+                        </select>
+                    </div>
+                    <div class="form-group-ticket">
+                        <label>Priority</label>
+                        <select class="status-dropdown">
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option selected>High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('viewTicketModal')">Close</button>
+                <button class="btn btn-primary" onclick="openModal('respondTicketModal')">
+                    <i class="fas fa-reply"></i> Send Response
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Respond to Ticket Modal -->
+    <div id="respondTicketModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Respond to Ticket #TKT001</h2>
+                <button class="modal-close" onclick="closeModal('respondTicketModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 1rem; background-color: var(--bg-tertiary); border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">To:</h4>
+                    <div style="color: var(--text-primary);">John Doe (john.doe@email.com)</div>
+                </div>
+
+                <div class="form-group-ticket">
+                    <label>Response Subject</label>
+                    <input type="text" value="Re: Unable to withdraw funds" readonly style="opacity: 0.7;">
+                </div>
+
+                <div class="form-group-ticket">
+                    <label>Response Message *</label>
+                    <textarea placeholder="Type your response message here. This will be sent directly to the user's registered email address."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-ticket">
+                        <label>Update Status</label>
+                        <select>
+                            <option selected>Keep Open</option>
+                            <option>Mark as Pending</option>
+                            <option>Mark as Resolved</option>
+                        </select>
+                    </div>
+                    <div class="form-group-ticket">
+                        <label>Priority</label>
+                        <select>
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option selected>High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-ticket">
+                    <label>
+                        <input type="checkbox" checked> Send response via email
+                    </label>
+                </div>
+
+                <div class="form-group-ticket">
+                    <label>
+                        <input type="checkbox"> Add internal note (not sent to user)
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('respondTicketModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="sendResponse(event)">
+                    <i class="fas fa-paper-plane"></i> Send Response
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+
+        function sendResponse(event) {
+            event.preventDefault();
+            showNotification('Response sent to user via email successfully!', 'success');
+            closeModal('respondTicketModal');
+        }
+
+        function updateTicketStatus(select) {
+            const currentStatus = select.value;
+            console.log(`Ticket status updated to: ${currentStatus}`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+  
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon-select"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">User Management</h1>
+                <p class="page-subtitle">View and manage all registered users in the platform.</p>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by name/email" 
+                        data-search-table="usersTable"
+                    >
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                        <option>Blocked</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Gender</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Age Range</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All</option>
+                        <option>18-25</option>
+                        <option>25-35</option>
+                        <option>35-50</option>
+                        <option>50+</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Join Date</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="btn-flex-wrapper">
+                    <button class="btn btn-primary btn-full-flex">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary btn-full-flex">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('usersTable', 'users.csv')">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading">All Users (12,458)</h3>
+                    <div class="content-info">
+                        Showing <strong>1-10</strong> of <strong>12,458</strong>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="usersTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-20">Name & Email</th>
+                                <th class="col-15">User ID</th>
+                                <th class="col-10">Gender</th>
+                                <th class="col-10">Age</th>
+                                <th class="col-15">Status</th>
+                                <th class="col-15">KYC Status</th>
+                                <th class="col-15">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-name">John Doe</div>
+                                    <div class="user-email">john.doe@email.com</div>
+                                </td>
+                                <td>#USR001</td>
+                                <td>Male</td>
+                                <td>28</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Sarah Smith</div>
+                                    <div class="user-email">sarah.smith@email.com</div>
+                                </td>
+                                <td>#USR002</td>
+                                <td>Female</td>
+                                <td>34</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Mike Johnson</div>
+                                    <div class="user-email">mike.j@email.com</div>
+                                </td>
+                                <td>#USR003</td>
+                                <td>Male</td>
+                                <td>45</td>
+                                <td><span class="badge badge-info">Inactive</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Emma Wilson</div>
+                                    <div class="user-email">emma.w@email.com</div>
+                                </td>
+                                <td>#USR004</td>
+                                <td>Female</td>
+                                <td>29</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-danger">Rejected</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">David Brown</div>
+                                    <div class="user-email">david.b@email.com</div>
+                                </td>
+                                <td>#USR005</td>
+                                <td>Male</td>
+                                <td>52</td>
+                                <td><span class="badge badge-danger">Blocked</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" title="Unblock User">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Lisa Anderson</div>
+                                    <div class="user-email">lisa.a@email.com</div>
+                                </td>
+                                <td>#USR006</td>
+                                <td>Female</td>
+                                <td>31</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">James Miller</div>
+                                    <div class="user-email">james.m@email.com</div>
+                                </td>
+                                <td>#USR007</td>
+                                <td>Male</td>
+                                <td>26</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Rachel Taylor</div>
+                                    <div class="user-email">rachel.t@email.com</div>
+                                </td>
+                                <td>#USR008</td>
+                                <td>Female</td>
+                                <td>38</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Kevin Davis</div>
+                                    <div class="user-email">kevin.d@email.com</div>
+                                </td>
+                                <td>#USR009</td>
+                                <td>Male</td>
+                                <td>41</td>
+                                <td><span class="badge badge-info">Inactive</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Amanda Martinez</div>
+                                    <div class="user-email">amanda.m@email.com</div>
+                                </td>
+                                <td>#USR010</td>
+                                <td>Female</td>
+                                <td>27</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><span class="badge badge-success">Verified</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Block User">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-10 of 12,458 users
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="btn btn-secondary btn-small">1245</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">User Profile</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-profile-info">
+                    <div class="info-row">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value">John Doe</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">john.doe@email.com</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">+1 (555) 123-4567</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Date of Birth:</span>
+                        <span class="info-value">January 15, 1996</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Gender:</span>
+                        <span class="info-value">Male</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Account Status:</span>
+                        <span class="info-value"><span class="badge badge-success">Active</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">KYC Status:</span>
+                        <span class="info-value"><span class="badge badge-success">Verified</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Joined Date:</span>
+                        <span class="info-value">March 10, 2023</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Login:</span>
+                        <span class="info-value">Today at 2:45 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('userModal')">Close</button>
+                <button class="btn btn-danger">Block User</button>
+                <button class="btn btn-primary">Edit Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+    </script>
+</body>
+</html>

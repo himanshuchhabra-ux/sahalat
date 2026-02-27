@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon-select"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item active">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Push Notification Scheduling</h1>
+                <p class="page-subtitle">Create and schedule push notifications for users across all platforms.</p>
+            </div>
+
+            <!-- Notification Statistics -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-box-value">24</div>
+                    <div class="stat-box-label">Total Notifications</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">18</div>
+                    <div class="stat-box-label">Sent</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">4</div>
+                    <div class="stat-box-label">Scheduled</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">2</div>
+                    <div class="stat-box-label">Drafts</div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by title or content" 
+                        data-search-table="notificationsTable"
+                    >
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Status</option>
+                        <option>Sent</option>
+                        <option>Scheduled</option>
+                        <option>Draft</option>
+                        <option>Failed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Types</option>
+                        <option>Alert</option>
+                        <option>Promotional</option>
+                        <option>Informative</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date Range</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="btn-flex-wrapper">
+                    <button class="btn btn-primary btn-full-flex">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary btn-full-flex">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('notificationsTable', 'notifications.csv')">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notifications Table -->
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading">All Notifications (24)</h3>
+                    <button class="btn btn-primary" onclick="openModal('createNotificationModal')">
+                        <i class="fas fa-plus"></i> Create Notification
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="notificationsTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-20">Title & Content</th>
+                                <th class="col-12">Type</th>
+                                <th class="col-12">Sent To</th>
+                                <th class="col-12">Schedule Date</th>
+                                <th class="col-12">Status</th>
+                                <th class="col-10">Active</th>
+                                <th class="col-22">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Account Security Alert</div>
+                                    <div class="user-email">Suspicious login attempt detected</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-alert">Alert</span></td>
+                                <td>All Users</td>
+                                <td>Today</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Special Offer: 20% Cash Back</div>
+                                    <div class="user-email">Limited time offer on transfers</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-promo">Promotional</span></td>
+                                <td>Active Users</td>
+                                <td>Feb 27, 2024</td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editNotificationModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">KYC Verification Complete</div>
+                                    <div class="user-email">Your profile has been verified</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-info">Informative</span></td>
+                                <td>Verified Users</td>
+                                <td>Feb 25, 2024</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Transaction Failed</div>
+                                    <div class="user-email">Your transaction could not be processed</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-alert">Alert</span></td>
+                                <td>All Users</td>
+                                <td>Feb 24, 2024</td>
+                                <td><span class="badge badge-success">Sent</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">New Feature: Recurring Transfers</div>
+                                    <div class="user-email">Automate your regular transfers</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-info">Informative</span></td>
+                                <td>New Users</td>
+                                <td>Mar 01, 2024</td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editNotificationModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Weekend Bonus: Extra Rewards</div>
+                                    <div class="user-email">Get 2x points on all transactions</div>
+                                </td>
+                                <td><span class="notification-type-badge notification-type-promo">Promotional</span></td>
+                                <td>Premium Members</td>
+                                <td>Feb 28, 2024</td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleNotificationStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewNotificationModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editNotificationModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-6 of 24 notifications
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <button class="btn btn-secondary btn-small">4</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Notification Modal -->
+    <div id="createNotificationModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Create Push Notification</h2>
+                <button class="modal-close" onclick="closeModal('createNotificationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-notification">
+                    <label>Notification Title *</label>
+                    <input type="text" placeholder="e.g., Special Offer: 20% Cash Back">
+                </div>
+
+                <div class="form-group-notification">
+                    <label>Notification Content *</label>
+                    <textarea placeholder="Brief message content (160 characters max)"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-notification">
+                        <label>Notification Type *</label>
+                        <select>
+                            <option>Select Type</option>
+                            <option>Alert</option>
+                            <option>Promotional</option>
+                            <option>Informative</option>
+                        </select>
+                    </div>
+                    <div class="form-group-notification">
+                        <label>Priority</label>
+                        <select>
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-notification">
+                    <label class="filter-section-title">Target Users *</label>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="allUsers" onchange="toggleUserSegment(this)">
+                        <label for="allUsers">All Users <span >(12,458)</span></label>
+                    </div>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="activeUsers" onchange="toggleUserSegment(this)">
+                        <label for="activeUsers">Active Users <span >(8,234)</span></label>
+                    </div>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="inactiveUsers" onchange="toggleUserSegment(this)">
+                        <label for="inactiveUsers">Inactive Users <span >(4,224)</span></label>
+                    </div>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="verifiedUsers" onchange="toggleUserSegment(this)">
+                        <label for="verifiedUsers">KYC Verified Users <span >(10,234)</span></label>
+                    </div>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="premiumUsers" onchange="toggleUserSegment(this)">
+                        <label for="premiumUsers">Premium Members <span >(3,120)</span></label>
+                    </div>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="newUsers" onchange="toggleUserSegment(this)">
+                        <label for="newUsers">New Users (Last 30 days) <span >(1,892)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-notification">
+                        <label>Schedule Type *</label>
+                        <select onchange="toggleScheduleType(this)">
+                            <option value="immediate">Send Immediately</option>
+                            <option value="scheduled">Schedule for Later</option>
+                        </select>
+                    </div>
+                    <div class="form-group-notification">
+                        <label>Send Date & Time</label>
+                        <input type="datetime-local" id="scheduleDateTime" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group-notification">
+                    <label>Action URL (Optional)</label>
+                    <input type="url" placeholder="https://example.com/promo">
+                </div>
+
+                <div class="form-group-notification">
+                    <label>
+                        <input type="checkbox" checked> Mark as Active (Enable immediately after creation)
+                    </label>
+                </div>
+
+                <div class="schedule-preview">
+                    <div class="schedule-preview-title">Preview:</div>
+                    <div class="schedule-preview-text">
+                        <strong>Title:</strong> Special Offer: 20% Cash Back<br>
+                        <strong>Message:</strong> Limited time offer on all transfers<br>
+                        <strong>Send to:</strong> All Users (12,458)<br>
+                        <strong>Time:</strong> Immediately
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('createNotificationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNotification(event)">Create & Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Notification Modal -->
+    <div id="editNotificationModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Scheduled Notification</h2>
+                <button class="modal-close" onclick="closeModal('editNotificationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-notification">
+                    <label>Notification Title *</label>
+                    <input type="text" value="Special Offer: 20% Cash Back">
+                </div>
+
+                <div class="form-group-notification">
+                    <label>Notification Content *</label>
+                    <textarea>Limited time offer on all transfers. Get 20% cash back now!</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-notification">
+                        <label>Notification Type *</label>
+                        <select>
+                            <option selected>Promotional</option>
+                            <option>Alert</option>
+                            <option>Informative</option>
+                        </select>
+                    </div>
+                    <div class="form-group-notification">
+                        <label>Priority</label>
+                        <select>
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-notification">
+                    <label class="filter-section-title">Target Users *</label>
+                    <div class="user-segment-checkbox">
+                        <input type="checkbox" id="editAllUsers" checked onchange="toggleUserSegment(this)">
+                        <label for="editAllUsers">Active Users <span style="color: var(--text-tertiary); margin-left: 0.5rem;">(8,234)</span></label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-notification">
+                        <label>Send Date & Time</label>
+                        <input type="datetime-local" value="2024-02-27T14:30">
+                    </div>
+                    <div class="form-group-notification">
+                        <label>Timezone</label>
+                        <select>
+                            <option>UTC</option>
+                            <option selected>EST</option>
+                            <option>CST</option>
+                            <option>PST</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-notification">
+                    <label>Action URL (Optional)</label>
+                    <input type="url" value="https://app.example.com/promo/cashback">
+                </div>
+
+                <div class="form-group-notification">
+                    <label>
+                        <input type="checkbox" checked> Active (Enable notification)
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editNotificationModal')">Cancel</button>
+                <button class="btn btn-danger">Delete Notification</button>
+                <button class="btn btn-primary" onclick="saveNotification(event)">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Notification Modal -->
+    <div id="viewNotificationModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Notification Details</h2>
+                <button class="modal-close" onclick="closeModal('viewNotificationModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-info">
+                    <div class="info-row">
+                        <span class="info-label">Title:</span>
+                        <span class="info-value">Account Security Alert</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Content:</span>
+                        <span class="info-value">Suspicious login attempt detected on your account</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Type:</span>
+                        <span class="info-value"><span class="notification-type-badge notification-type-alert">Alert</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Priority:</span>
+                        <span class="info-value">High</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Target Users:</span>
+                        <span class="info-value">All Users (12,458)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Sent Date:</span>
+                        <span class="info-value">Feb 27, 2024 at 10:15 AM</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value"><span class="badge badge-success">Sent</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Delivery Stats:</span>
+                        <span class="info-value">
+                            <strong>Sent:</strong> 12,458 | <strong>Delivered:</strong> 12,245 | <strong>Failed:</strong> 213
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Delivery Rate:</span>
+                        <span class="info-value">98.3%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('viewNotificationModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+
+        function toggleNotificationStatus(checkbox) {
+            const isActive = checkbox.checked;
+            const notificationName = checkbox.closest('tr').querySelector('.user-name').textContent;
+            const status = isActive ? 'enabled' : 'disabled';
+            showNotification(`Notification "${notificationName}" has been ${status}.`, isActive ? 'success' : 'info');
+        }
+
+        function toggleScheduleType(select) {
+            const dateTime = document.getElementById('scheduleDateTime');
+            const isScheduled = select.value === 'scheduled';
+            dateTime.disabled = !isScheduled;
+        }
+
+        function toggleUserSegment(checkbox) {
+            // Visual feedback for selection
+            const count = checkbox.checked ? '✓ ' : '';
+            console.log(`User segment toggled: ${checkbox.id}`);
+        }
+
+        function saveNotification(event) {
+            event.preventDefault();
+            const modalTitle = event.target.closest('.modal-content').querySelector('.modal-title').textContent;
+            const isCreate = modalTitle.includes('Create');
+            const message = isCreate ? 'Notification created and scheduled successfully!' : 'Notification updated successfully!';
+            showNotification(message, 'success');
+            closeModal(event.target.closest('.modal').id);
+        }
+    </script>
+</body>
+</html>

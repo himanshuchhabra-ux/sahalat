@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Sahalat Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item active">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Admin Profile</h1>
+                <p class="page-subtitle">View and manage your admin account settings and preferences.</p>
+            </div>
+
+            <div class="profile-container">
+                <!-- Profile Header Card -->
+                <div class="profile-header">
+                    <div class="profile-avatar-large">AD</div>
+                    <div class="profile-header-info">
+                        <div class="profile-name">Admin User</div>
+                        <div class="profile-role">Super Administrator</div>
+                        <div class="profile-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Email</div>
+                                <div class="meta-value">admin@sahalat.com</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Status</div>
+                                <div><span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span></div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Member Since</div>
+                                <div class="meta-value">Jan 15, 2024</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Last Login</div>
+                                <div class="meta-value">Today, 10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-secondary" onclick="openModal('editProfileModal')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="profile-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-circle"></i> Personal Information
+                    </div>
+                    <div class="profile-grid">
+                        <div class="profile-field">
+                            <div class="field-label">First Name</div>
+                            <div class="field-value">Admin</div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Last Name</div>
+                            <div class="field-value">User</div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Email Address</div>
+                            <div class="field-value">admin@sahalat.com</div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Phone Number</div>
+                            <div class="field-value">+1 (555) 123-4567</div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Role</div>
+                            <div class="field-value"><span class="status-badge status-verified">Super Admin</span></div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Department</div>
+                            <div class="field-value">Administration</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings Section -->
+                <div class="profile-section">
+                    <div class="section-title">
+                        <i class="fas fa-cog"></i> Account Settings
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title"><i class="fas fa-info-circle"></i> Account Status</div>
+                        <div class="info-text">Your account is active and fully operational. All permissions are enabled.</div>
+                    </div>
+
+                    <div class="profile-grid">
+                        <div class="profile-field">
+                            <div class="field-label">Account Status</div>
+                            <div class="field-value"><span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span></div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Email Verification</div>
+                            <div class="field-value"><span class="status-badge status-verified"><i class="fas fa-check-circle"></i> Verified</span></div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Account Created</div>
+                            <div class="field-value">January 15, 2024</div>
+                        </div>
+                        <div class="profile-field">
+                            <div class="field-label">Last Password Change</div>
+                            <div class="field-value">February 10, 2026</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <button class="btn btn-secondary" onclick="openModal('changePasswordModal')">
+                            <i class="fas fa-lock"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security & Permissions Section -->
+                <!-- <div class="profile-section">
+                    <div class="section-title">
+                        <i class="fas fa-shield-alt"></i> Security & Permissions
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-title"><i class="fas fa-star"></i> Your Permissions</div>
+                        <div class="info-text">As a Super Administrator, you have full access to all sections of the admin panel including user management, content management, transactions, and system settings.</div>
+                    </div>
+
+                    <ul class="security-list">
+                        <li class="security-item">
+                            <div class="security-info">
+                                <div class="security-icon"><i class="fas fa-mobile-alt"></i></div>
+                                <div class="security-details">
+                                    <h4>Two-Factor Authentication (2FA)</h4>
+                                    <p>Additional security layer for your account</p>
+                                </div>
+                            </div>
+                            <span class="status-badge status-verified"><i class="fas fa-check-circle"></i> Enabled</span>
+                        </li>
+                        <li class="security-item">
+                            <div class="security-info">
+                                <div class="security-icon"><i class="fas fa-key"></i></div>
+                                <div class="security-details">
+                                    <h4>Session Management</h4>
+                                    <p>Manage active login sessions across devices</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary btn-small">Manage</button>
+                        </li>
+                        <li class="security-item">
+                            <div class="security-info">
+                                <div class="security-icon"><i class="fas fa-clock"></i></div>
+                                <div class="security-details">
+                                    <h4>Login Alerts</h4>
+                                    <p>Get alerted on new login attempts</p>
+                                </div>
+                            </div>
+                            <span class="status-badge status-active"><i class="fas fa-check-circle"></i> Active</span>
+                        </li>
+                    </ul>
+                </div> -->
+
+                <!-- Activity Log Section -->
+                <!-- <div class="profile-section">
+                    <div class="section-title">
+                        <i class="fas fa-history"></i> Recent Activity
+                    </div>
+
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-title">Login Successful</div>
+                                <div class="activity-time">Today, 10:30 AM</div>
+                                <div class="activity-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA · Chrome on Windows</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-user-edit"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-title">Profile Updated</div>
+                                <div class="activity-time">Yesterday, 3:15 PM</div>
+                                <div class="activity-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA · Chrome on Windows</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-lock"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-title">Password Changed</div>
+                                <div class="activity-time">February 10, 2026 · 2:45 PM</div>
+                                <div class="activity-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA · Firefox on Windows</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-sign-in-alt"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-title">Login Successful</div>
+                                <div class="activity-time">February 8, 2026 · 9:10 AM</div>
+                                <div class="activity-location"><i class="fas fa-map-marker-alt"></i> New York, NY · Safari on macOS</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-2fa"></i></div>
+                            <div class="activity-details">
+                                <div class="activity-title">2FA Enabled</div>
+                                <div class="activity-time">January 20, 2026 · 11:30 AM</div>
+                                <div class="activity-location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA · Chrome on Windows</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Profile</h2>
+                <button class="modal-close" onclick="closeModal('editProfileModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-profile">
+                    <label>First Name</label>
+                    <input type="text" value="Admin">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Last Name</label>
+                    <input type="text" value="User">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Email Address</label>
+                    <input type="email" value="admin@sahalat.com" readonly style="opacity: 0.7;">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Phone Number</label>
+                    <input type="tel" value="+1 (555) 123-4567">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Department</label>
+                    <input type="text" value="Administration">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editProfileModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveProfile(event)">
+                    <i class="fas fa-check"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Change Password</h2>
+                <button class="modal-close" onclick="closeModal('changePasswordModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box">
+                    <div class="info-title"><i class="fas fa-info-circle"></i> Password Requirements</div>
+                    <div class="info-text">
+                        Your password must be at least 8 characters long and contain a mix of uppercase letters, lowercase letters, numbers, and special characters.
+                    </div>
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Current Password *</label>
+                    <input type="password" placeholder="Enter your current password">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>New Password *</label>
+                    <input type="password" placeholder="Enter your new password">
+                </div>
+
+                <div class="form-group-profile">
+                    <label>Confirm New Password *</label>
+                    <input type="password" placeholder="Confirm your new password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('changePasswordModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="changePassword(event)">
+                    <i class="fas fa-lock"></i> Update Password
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        initTheme();
+
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            showNotification('Profile updated successfully!', 'success');
+            closeModal('editProfileModal');
+        }
+
+        function changePassword(event) {
+            event.preventDefault();
+            showNotification('Password changed successfully!', 'success');
+            closeModal('changePasswordModal');
+        }
+    </script>
+</body>
+</html>

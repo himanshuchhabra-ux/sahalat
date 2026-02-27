@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sahalat Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="login.html" class="nav-item" >
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Welcome back! Here's what's happening in your wallet platform.</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="dashboard-grid">
+                <div class="stat-card stat-card-gradient-1">
+                    <div class="stat-icon-box"><i class="fas fa-users"></i></div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-value">12,458</div>
+                    <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 328 this week</div>
+                </div>
+
+                <div class="stat-card stat-card-gradient-2">
+                    <div class="stat-icon-box"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-label">KYC Approved</div>
+                    <div class="stat-value">10,234</div>
+                    <div class="stat-change positive"><i class="fas fa-check"></i> 82% of total</div>
+                </div>
+
+                <div class="stat-card stat-card-gradient-3">
+                    <div class="stat-icon-box"><i class="fas fa-clock"></i></div>
+                    <div class="stat-label">KYC Pending</div>
+                    <div class="stat-value">2,224</div>
+                    <div class="stat-change negative"><i class="fas fa-exclamation"></i> 18% awaiting</div>
+                </div>
+
+                <div class="stat-card stat-card-gradient-4">
+                    <div class="stat-icon-box"><i class="fas fa-ban"></i></div>
+                    <div class="stat-label">Blocked Users</div>
+                    <div class="stat-value">287</div>
+                    <div class="stat-change negative"><i class="fas fa-arrow-down"></i> 2.3% of total</div>
+                </div>
+            </div>
+
+            <!-- User Statistics With KYC Breakdown -->
+            <div class="chart-container">
+                <h3 class="chart-title">User Statistics & KYC Breakdown</h3>
+                <div class="kyc-breakdown">
+                    <div class="kyc-stat">
+                        <div class="kyc-stat-value">12,458</div>
+                        <div class="kyc-stat-label">Total Registered</div>
+                    </div>
+                    <div class="kyc-stat">
+                        <div class="kyc-stat-value kyc-stat-success">10,234</div>
+                        <div class="kyc-stat-label">KYC Verified</div>
+                    </div>
+                    <div class="kyc-stat">
+                        <div class="kyc-stat-value kyc-stat-warning">2,224</div>
+                        <div class="kyc-stat-label">KYC Pending</div>
+                    </div>
+                    <div class="kyc-stat">
+                        <div class="kyc-stat-value kyc-stat-danger">287</div>
+                        <div class="kyc-stat-label">KYC Rejected</div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-bar icon-with-margin"></i>
+                    Statistical chart visualization (Charts library integration in Phase 2)
+                </div>
+            </div>
+
+            <!-- Date-Based Filters -->
+            <div class="date-filter-section">
+                <span class="date-filter-label">Filter by:</span>
+                <button class="date-btn active" onclick="this.parentElement.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-calendar-day"></i> Daily
+                </button>
+                <button class="date-btn" onclick="this.parentElement.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-calendar-week"></i> Weekly
+                </button>
+                <button class="date-btn" onclick="this.parentElement.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-calendar"></i> Monthly
+                </button>
+                <button class="date-btn" onclick="this.parentElement.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-calendar-alt"></i> Yearly
+                </button>
+                <div>
+                    <span>From </span>
+                    <input type="date" class="date-input">
+                </div>
+                <div>
+                    <span>To </span>
+                    <input type="date" class="date-input">
+                </div>
+            </div>
+
+            <!-- Transaction Overview -->
+            <div class="chart-container">
+                <h3 class="chart-title">Transaction Overview</h3>
+                <div class="dashboard-grid dashboard-grid-spacing">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Transactions</div>
+                        <div class="metric-value">45,892</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Volume</div>
+                        <div class="metric-value">$2.3M</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Avg Per Transaction</div>
+                        <div class="metric-value">$50.15</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Success Rate</div>
+                        <div class="metric-value stat-value-success">98.7%</div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line chart-icon"></i>
+                    Transaction trend chart (Charts library integration in Phase 2)
+                </div>
+            </div>
+
+            <!-- Platform Usage Metrics -->
+            <div class="chart-container">
+                <h3 class="chart-title">Platform Usage Metrics</h3>
+                <div class="dashboard-grid dashboard-grid-margin">
+                    <div class="stat-card">
+                        <div class="metric-label">Active Users Today</div>
+                        <div class="metric-value">3,487</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="metric-label">New Users</div>
+                        <div class="metric-value">328</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="metric-label">Avg Session Duration</div>
+                        <div class="metric-value">12m 34s</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="metric-label">Bounce Rate</div>
+                        <div class="metric-value">2.1%</div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-pie chart-icon"></i>
+                    Usage distribution chart (Charts library integration in Phase 2)
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+    </script>
+</body>
+</html>

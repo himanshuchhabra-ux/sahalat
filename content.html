@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon-select"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item active">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Content Management</h1>
+                <p class="page-subtitle">Manage all legal documents, company information, and frequently asked questions.</p>
+            </div>
+
+            <!-- Content Statistics -->
+            <div class="stats-grid-content">
+                <div class="stat-box-content">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Total Content</div>
+                </div>
+                <div class="stat-box-content">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Published</div>
+                </div>
+                <div class="stat-box-content">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Total FAQs</div>
+                </div>
+                <div class="stat-box-content">
+                    <div class="stat-value">Feb 27, 2026</div>
+                    <div class="stat-label">Last Updated</div>
+                </div>
+            </div>
+
+            <!-- Content Tabs -->
+            <div class="card">
+                <div class="content-tabs">
+                    <button class="tab-button active" onclick="switchTab('privacy')">
+                        <i class="fas fa-shield-alt"></i> Privacy Policy
+                    </button>
+                    <button class="tab-button" onclick="switchTab('terms')">
+                        <i class="fas fa-gavel"></i> Terms & Conditions
+                    </button>
+                    <button class="tab-button" onclick="switchTab('faq')">
+                        <i class="fas fa-question-circle"></i> FAQ
+                    </button>
+                    <button class="tab-button" onclick="switchTab('about')">
+                        <i class="fas fa-info-circle"></i> About Us
+                    </button>
+                </div>
+
+                <!-- Privacy Policy Tab -->
+                <div id="privacy" class="tab-content active">
+                    <div class="content-info-box">
+                        <div class="content-info-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="content-info-text">
+                            Manage your application's privacy policy. This content is public and will be displayed to all users.
+                        </div>
+                    </div>
+
+                    <div class="editor-section">
+                        <div class="section-header">
+                            <div>
+                                <div class="section-title">Privacy Policy Document</div>
+                                <div class="section-meta">
+                                    <span><i class="fas fa-clock"></i> Updated: Feb 27, 2026</span>
+                                    <span><i class="fas fa-user"></i> By: Admin User</span>
+                                </div>
+                            </div>
+                            <span class="publish-status published">
+                                <i class="fas fa-check-circle"></i> Published
+                            </span>
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Document Title</label>
+                            <input type="text" value="Privacy Policy - Wallet Platform" readonly style="opacity: 0.8;">
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Content</label>
+                            <textarea readonly>
+PRIVACY POLICY
+
+Effective Date: January 1, 2024
+Last Updated: February 27, 2026
+
+1. INTRODUCTION
+Wallet Platform ("Company", "we", "us", "our") operates the wallet application. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+
+2. INFORMATION COLLECTION AND USE
+We collect several different types of information for various purposes to provide and improve our Service to you.
+
+Types of Data Collected:
+- Personal Data: Email address, Name, Phone number, Billing address
+- Usage Data: Browser type, IP address, Pages visited, Time spent
+- Device Data: Device type, Operating system, Device identifiers
+
+3. COOKIES
+We use cookies to collect information about browsing activities and to remember your preferences. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
+
+4. SECURITY
+The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure.
+
+5. CONTACT US
+If you have any questions about these terms and conditions, please contact us at privacy@wallet.com
+                            </textarea>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group-content">
+                                <label>Publication Date</label>
+                                <input type="date" value="2026-01-01" readonly style="opacity: 0.8;">
+                            </div>
+                            <div class="form-group-content">
+                                <label>Last Revision Date</label>
+                                <input type="date" value="2026-02-27" readonly style="opacity: 0.8;">
+                            </div>
+                        </div>
+
+                        <div class="btn-flex-wrapper">
+                            <button class="btn btn-primary" onclick="openModal('editPrivacyModal')">
+                                <i class="fas fa-edit"></i> Edit Content
+                            </button>
+                            <button class="btn btn-secondary" onclick="openModal('previewModal')">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms & Conditions Tab -->
+                <div id="terms" class="tab-content">
+                    <div class="content-info-box">
+                        <div class="content-info-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="content-info-text">
+                            Manage your application's terms and conditions. Users must accept these before using the platform.
+                        </div>
+                    </div>
+
+                    <div class="editor-section">
+                        <div class="section-header">
+                            <div>
+                                <div class="section-title">Terms & Conditions Document</div>
+                                <div class="section-meta">
+                                    <span><i class="fas fa-clock"></i> Updated: Feb 20, 2026</span>
+                                    <span><i class="fas fa-user"></i> By: Admin User</span>
+                                </div>
+                            </div>
+                            <span class="publish-status published">
+                                <i class="fas fa-check-circle"></i> Published
+                            </span>
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Document Title</label>
+                            <input type="text" value="Terms & Conditions - Wallet Platform" readonly style="opacity: 0.8;">
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Content</label>
+                            <textarea readonly>
+TERMS AND CONDITIONS
+
+Effective Date: January 1, 2024
+Last Updated: February 27, 2026
+
+1. AGREEMENT TO TERMS
+These Terms and Conditions constitute a legally binding agreement made between you and Wallet Platform ("Company", "we", "us", "our"). If you do not agree with any part of these terms, then you may not use our Service.
+
+2. INTELLECTUAL PROPERTY RIGHTS
+Unless otherwise indicated, we are the owner or the licensee of all intellectual property rights in our Service. All intellectual property rights are reserved.
+
+3. USER REPRESENTATIONS
+By using the Service, you represent and warrant that:
+(a) All information you submit is true, accurate, current, and complete
+(b) You have the legal capacity and you agree to comply with these Terms
+(c) You are not a minor in the jurisdiction in which you reside
+
+4. USER RIGHTS
+Subject to these Terms and Conditions, we grant you a limited, non-exclusive, revocable license to:
+- Access and use the Service
+- Download and print any content lawfully available through the Service
+
+5. LIMITATION OF LIABILITY
+In no event shall the Company or its suppliers be liable for any damages resulting from your use of or inability to use the materials on the Service.
+
+6. MODIFICATIONS TO SERVICE
+We reserve the right, in our sole discretion, to modify or discontinue the Service.
+
+7. GOVERNING LAW
+These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which the Company operates.
+
+8. CONTACT INFORMATION
+If you have questions about these Terms and Conditions, please contact us at legal@wallet.com
+                            </textarea>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group-content">
+                                <label>Publication Date</label>
+                                <input type="date" value="2026-01-01" readonly style="opacity: 0.8;">
+                            </div>
+                            <div class="form-group-content">
+                                <label>Last Revision Date</label>
+                                <input type="date" value="2026-02-20" readonly style="opacity: 0.8;">
+                            </div>
+                        </div>
+
+                        <div class="btn-flex-wrapper">
+                            <button class="btn btn-primary" onclick="openModal('editTermsModal')">
+                                <i class="fas fa-edit"></i> Edit Content
+                            </button>
+                            <button class="btn btn-secondary" onclick="openModal('previewModal')">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Tab -->
+                <div id="faq" class="tab-content">
+                    <div class="content-info-box">
+                        <div class="content-info-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="content-info-text">
+                            Manage frequently asked questions. Add, edit, or remove FAQs to help users find answers quickly.
+                        </div>
+                    </div>
+
+                    <div class="btn-flex-wrapper">
+                        <button class="btn btn-primary" onclick="openModal('addFaqModal')">
+                            <i class="fas fa-plus"></i> Add New FAQ
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Export FAQs
+                        </button>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <div class="faq-item expanded">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">How do I create an account?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                To create an account, click on the "Sign Up" button on the homepage. Fill in your email address, create a secure password, and follow the verification steps. Your account will be ready to use within minutes.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">What is KYC verification?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                KYC (Know Your Customer) is a verification process required by law. You'll need to provide government-issued ID, proof of address, and identity verification to complete KYC. This helps us ensure account security and prevent fraud.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">Is my money safe in this wallet?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, your funds are secured using contemporary encryption technology. We follow industry-standard security protocols and store funds in secure, insured accounts. Two-factor authentication adds an extra layer of protection to your account.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">How long do transfers take?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Domestic transfers typically take 1-2 business days. International transfers may take 3-5 business days depending on the destination country and banks involved. We'll provide real-time updates on your transfer status.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">What are the transaction fees?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Transaction fees vary based on the type and amount. Domestic transfers have a flat fee of $1 or 0.5% of the amount (whichever is lower). International transfers have a flat fee of $5. View detailed fee information in the Pricing section of our website.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">How do I enable two-factor authentication?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Go to Settings > Security > Two-Factor Authentication. Choose between SMS or authenticator app. Follow the verification steps and you're all set. This adds an extra security layer to your account.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">Can I withdraw my funds anytime?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, you can withdraw your funds anytime. However, you must have completed KYC verification. Withdrawals are processed during business hours and may take 1-2 business days depending on your bank.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">What if I forget my password?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Click "Forgot Password" on the login page. Enter your email address and follow the recovery steps. You'll receive a secure link to reset your password. Complete the process and you can log in with your new password.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">Is customer support available 24/7?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Our customer support team is available 24/7 to assist you. You can reach us via email, live chat, or support tickets. We typically respond to inquiries within 2 hours during peak hours.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">Can I link multiple bank accounts?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, you can link up to 5 bank accounts per user. Each account must be verified separately. Visit your account settings to manage linked accounts and set your primary account for transfers.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">What are the limits on transactions?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                Standard users can transfer up to $10,000 per transaction. Verified users can transfer up to $50,000. Enterprise users have custom limits. These limits reset daily and are subject to regulatory compliance.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-header" onclick="toggleFaqItem(this)">
+                                <div class="faq-question">How do I report suspicious activity?</div>
+                                <div class="faq-toggle-icon"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="faq-answer">
+                                If you notice suspicious activity, immediately contact our support team through the Help section or call our fraud hotline. Do not share your password or OTP with anyone. We take security seriously and investigate all reports.
+                            </div>
+                            <div class="faq-actions">
+                                <button class="btn btn-primary btn-icon-small" onclick="openModal('editFaqModal')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-icon-small">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Us Tab -->
+                <div id="about" class="tab-content">
+                    <div class="content-info-box">
+                        <div class="content-info-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="content-info-text">
+                            Update your company's "About Us" page content. This information helps users understand your mission, values, and company information.
+                        </div>
+                    </div>
+
+                    <div class="editor-section">
+                        <div class="section-header">
+                            <div>
+                                <div class="section-title">About Us Content</div>
+                                <div class="section-meta">
+                                    <span><i class="fas fa-clock"></i> Updated: Feb 25, 2026</span>
+                                    <span><i class="fas fa-user"></i> By: Admin User</span>
+                                </div>
+                            </div>
+                            <span class="publish-status published">
+                                <i class="fas fa-check-circle"></i> Published
+                            </span>
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Company Name</label>
+                            <input type="text" value="Wallet Platform Inc." readonly style="opacity: 0.8;">
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Company Tagline</label>
+                            <input type="text" value="Secure Digital Wallet Solutions for Everyone" readonly style="opacity: 0.8;">
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Company Description</label>
+                            <textarea readonly>
+Wallet Platform is a leading digital wallet provider dedicated to making secure, convenient money transfers accessible to everyone. Founded in 2020, we've grown to serve over 12,000 active users worldwide.
+
+Our Mission:
+To revolutionize how people manage, store, and transfer their money by providing secure, user-friendly financial solutions.
+
+Our Vision:
+To become the most trusted and widely-used digital wallet platform globally, enabling financial inclusion for everyone.
+
+Our Values:
+- Security: We prioritize the safety of your funds above everything
+- Transparency: We believe in clear communication and honest practices
+- Innovation: We continuously improve our platform with cutting-edge technology
+- Customer Focus: Your satisfaction and success is our priority
+- Responsibility: We operate with integrity and comply with all regulations
+                            </textarea>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group-content">
+                                <label>Contact Email</label>
+                                <input type="email" value="hello@walletplatform.com" readonly style="opacity: 0.8;">
+                            </div>
+                            <div class="form-group-content">
+                                <label>Support Phone</label>
+                                <input type="tel" value="+1 (800) 123-4567" readonly style="opacity: 0.8;">
+                            </div>
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-group-content">
+                                <label>Headquarters Address</label>
+                                <input type="text" value="123 Fintech Lane, San Francisco, CA 94105, USA" readonly style="opacity: 0.8;">
+                            </div>
+                            <div class="form-group-content">
+                                <label>Established Year</label>
+                                <input type="text" value="2020" readonly style="opacity: 0.8;">
+                            </div>
+                        </div>
+
+                        <div class="form-group-content">
+                            <label>Team Size</label>
+                            <input type="text" value="150+ dedicated professionals" readonly style="opacity: 0.8;">
+                        </div>
+
+                        <div class="btn-flex-wrapper">
+                            <button class="btn btn-primary" onclick="openModal('editAboutModal')">
+                                <i class="fas fa-edit"></i> Edit Content
+                            </button>
+                            <button class="btn btn-secondary" onclick="openModal('previewModal')">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Privacy Policy Modal -->
+    <div id="editPrivacyModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Privacy Policy</h2>
+                <button class="modal-close" onclick="closeModal('editPrivacyModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-content">
+                    <label>Document Title</label>
+                    <input type="text" value="Privacy Policy - Wallet Platform">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Content</label>
+                    <textarea placeholder="Enter privacy policy content here...">PRIVACY POLICY
+
+Effective Date: January 1, 2024
+Last Updated: February 27, 2026
+
+1. INTRODUCTION
+Wallet Platform ("Company", "we", "us", "our") operates the wallet application. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+
+2. INFORMATION COLLECTION AND USE
+We collect several different types of information for various purposes to provide and improve our Service to you.
+
+Types of Data Collected:
+- Personal Data: Email address, Name, Phone number, Billing address
+- Usage Data: Browser type, IP address, Pages visited, Time spent
+- Device Data: Device type, Operating system, Device identifiers
+
+3. COOKIES
+We use cookies to collect information about browsing activities and to remember your preferences. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
+
+4. SECURITY
+The security of your data is important to us, but remember that no method of transmission over the Internet or method of electronic storage is 100% secure.
+
+5. CONTACT US
+If you have any questions about these terms and conditions, please contact us at privacy@wallet.com</textarea>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group-content">
+                        <label>Publication Date</label>
+                        <input type="date" value="2026-01-01">
+                    </div>
+                    <div class="form-group-content">
+                        <label>Last Revision Date</label>
+                        <input type="date" value="2026-02-27">
+                    </div>
+                </div>
+
+                <div class="form-group-content">
+                    <label>
+                        <input type="checkbox" checked> Publish Changes Immediately
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editPrivacyModal')">Cancel</button>
+                <button class="btn btn-secondary" onclick="closeModal('editPrivacyModal')">Save as Draft</button>
+                <button class="btn btn-primary" onclick="saveContent(event, 'privacy')">
+                    <i class="fas fa-paper-plane"></i> Publish Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Terms Modal -->
+    <div id="editTermsModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Terms & Conditions</h2>
+                <button class="modal-close" onclick="closeModal('editTermsModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-content">
+                    <label>Document Title</label>
+                    <input type="text" value="Terms & Conditions - Wallet Platform">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Content</label>
+                    <textarea placeholder="Enter terms and conditions content here...">TERMS AND CONDITIONS
+
+Effective Date: January 1, 2024
+Last Updated: February 27, 2026
+
+1. AGREEMENT TO TERMS
+These Terms and Conditions constitute a legally binding agreement made between you and Wallet Platform ("Company", "we", "us", "our"). If you do not agree with any part of these terms, then you may not use our Service.
+
+2. INTELLECTUAL PROPERTY RIGHTS
+Unless otherwise indicated, we are the owner or the licensee of all intellectual property rights in our Service. All intellectual property rights are reserved.
+
+3. USER REPRESENTATIONS
+By using the Service, you represent and warrant that:
+(a) All information you submit is true, accurate, current, and complete
+(b) You have the legal capacity and you agree to comply with these Terms
+(c) You are not a minor in the jurisdiction in which you reside
+
+4. USER RIGHTS
+Subject to these Terms and Conditions, we grant you a limited, non-exclusive, revocable license to:
+- Access and use the Service
+- Download and print any content lawfully available through the Service
+
+5. LIMITATION OF LIABILITY
+In no event shall the Company or its suppliers be liable for any damages resulting from your use of or inability to use the materials on the Service.
+
+6. MODIFICATIONS TO SERVICE
+We reserve the right, in our sole discretion, to modify or discontinue the Service.
+
+7. GOVERNING LAW
+These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which the Company operates.
+
+8. CONTACT INFORMATION
+If you have questions about these Terms and Conditions, please contact us at legal@wallet.com</textarea>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group-content">
+                        <label>Publication Date</label>
+                        <input type="date" value="2026-01-01">
+                    </div>
+                    <div class="form-group-content">
+                        <label>Last Revision Date</label>
+                        <input type="date" value="2026-02-20">
+                    </div>
+                </div>
+
+                <div class="form-group-content">
+                    <label>
+                        <input type="checkbox" checked> Publish Changes Immediately
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editTermsModal')">Cancel</button>
+                <button class="btn btn-secondary" onclick="closeModal('editTermsModal')">Save as Draft</button>
+                <button class="btn btn-primary" onclick="saveContent(event, 'terms')">
+                    <i class="fas fa-paper-plane"></i> Publish Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add FAQ Modal -->
+    <div id="addFaqModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New FAQ</h2>
+                <button class="modal-close" onclick="closeModal('addFaqModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-content">
+                    <label>Question *</label>
+                    <input type="text" placeholder="Enter the frequently asked question">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Answer *</label>
+                    <textarea placeholder="Enter the answer to the question"></textarea>
+                </div>
+
+                <div class="form-group-content">
+                    <label>Category</label>
+                    <select>
+                        <option selected>General</option>
+                        <option>Account</option>
+                        <option>Transfers</option>
+                        <option>Security</option>
+                        <option>Verification</option>
+                        <option>Payments</option>
+                    </select>
+                </div>
+
+                <div class="form-group-content">
+                    <label>
+                        <input type="checkbox" checked> Publish Immediately
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addFaqModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveFaq(event)">
+                    <i class="fas fa-plus"></i> Add FAQ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit FAQ Modal -->
+    <div id="editFaqModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit FAQ</h2>
+                <button class="modal-close" onclick="closeModal('editFaqModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-content">
+                    <label>Question *</label>
+                    <input type="text" value="How do I create an account?">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Answer *</label>
+                    <textarea>To create an account, click on the "Sign Up" button on the homepage. Fill in your email address, create a secure password, and follow the verification steps. Your account will be ready to use within minutes.</textarea>
+                </div>
+
+                <div class="form-group-content">
+                    <label>Category</label>
+                    <select>
+                        <option selected>General</option>
+                        <option>Account</option>
+                        <option>Transfers</option>
+                        <option>Security</option>
+                        <option>Verification</option>
+                        <option>Payments</option>
+                    </select>
+                </div>
+
+                <div class="form-group-content">
+                    <label>
+                        <input type="checkbox" checked> Published
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editFaqModal')">Cancel</button>
+                <button class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+                <button class="btn btn-primary" onclick="saveFaq(event)">
+                    <i class="fas fa-check"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit About Us Modal -->
+    <div id="editAboutModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit About Us</h2>
+                <button class="modal-close" onclick="closeModal('editAboutModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-content">
+                    <label>Company Name</label>
+                    <input type="text" value="Wallet Platform Inc.">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Company Tagline</label>
+                    <input type="text" value="Secure Digital Wallet Solutions for Everyone">
+                </div>
+
+                <div class="form-group-content">
+                    <label>Company Description</label>
+                    <textarea>Wallet Platform is a leading digital wallet provider dedicated to making secure, convenient money transfers accessible to everyone. Founded in 2020, we've grown to serve over 12,000 active users worldwide.
+
+Our Mission:
+To revolutionize how people manage, store, and transfer their money by providing secure, user-friendly financial solutions.
+
+Our Vision:
+To become the most trusted and widely-used digital wallet platform globally, enabling financial inclusion for everyone.
+
+Our Values:
+- Security: We prioritize the safety of your funds above everything
+- Transparency: We believe in clear communication and honest practices
+- Innovation: We continuously improve our platform with cutting-edge technology
+- Customer Focus: Your satisfaction and success is our priority
+- Responsibility: We operate with integrity and comply with all regulations</textarea>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group-content">
+                        <label>Contact Email</label>
+                        <input type="email" value="hello@walletplatform.com">
+                    </div>
+                    <div class="form-group-content">
+                        <label>Support Phone</label>
+                        <input type="tel" value="+1 (800) 123-4567">
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group-content">
+                        <label>Headquarters Address</label>
+                        <input type="text" value="123 Fintech Lane, San Francisco, CA 94105, USA">
+                    </div>
+                    <div class="form-group-content">
+                        <label>Established Year</label>
+                        <input type="text" value="2020">
+                    </div>
+                </div>
+
+                <div class="form-group-content">
+                    <label>Team Size</label>
+                    <input type="text" value="150+ dedicated professionals">
+                </div>
+
+                <div class="form-group-content">
+                    <label>
+                        <input type="checkbox" checked> Publish Changes Immediately
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editAboutModal')">Cancel</button>
+                <button class="btn btn-secondary" onclick="closeModal('editAboutModal')">Save as Draft</button>
+                <button class="btn btn-primary" onclick="saveContent(event, 'about')">
+                    <i class="fas fa-paper-plane"></i> Publish Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content modal-xlarge">
+            <div class="modal-header">
+                <h2 class="modal-title">Content Preview</h2>
+                <button class="modal-close" onclick="closeModal('previewModal')">×</button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                <div style="padding: 1.5rem; background-color: var(--bg-tertiary); border-radius: 8px; line-height: 1.8; color: var(--text-secondary);">
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Privacy Policy - Wallet Platform</h3>
+                    <p>This is a preview of how your content will appear to users. The styling and formatting match your website's design standards.</p>
+                    <p style="margin-top: 1rem; color: var(--text-primary); font-weight: 600;">Content Preview:</p>
+                    <p>PRIVACY POLICY</p>
+                    <p>Effective Date: January 1, 2024... [Full content would be displayed here]</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('previewModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        initTheme();
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active to clicked button
+            event.target.closest('.tab-button').classList.add('active');
+        }
+
+        function toggleFaqItem(header) {
+            const faqItem = header.closest('.faq-item');
+            faqItem.classList.toggle('expanded');
+        }
+
+        function saveFaq(event) {
+            event.preventDefault();
+            showNotification('FAQ saved and published successfully!', 'success');
+            closeModal('addFaqModal');
+            closeModal('editFaqModal');
+        }
+
+        function saveContent(event, contentType) {
+            event.preventDefault();
+            showNotification(contentType.charAt(0).toUpperCase() + contentType.slice(1) + ' published successfully!', 'success');
+            closeModal('editPrivacyModal');
+            closeModal('editTermsModal');
+            closeModal('editAboutModal');
+        }
+    </script>
+</body>
+</html>

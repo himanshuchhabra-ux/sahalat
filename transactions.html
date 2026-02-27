@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item active">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Transaction Management</h1>
+                <p class="page-subtitle">Monitor all wallet transactions across the platform.</p>
+            </div>
+
+            <!-- Transaction Statistics -->
+            <div class="transaction-stats">
+                <div class="stat-box">
+                    <div class="stat-box-value">45,892</div>
+                    <div class="stat-box-label">Total Transactions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">$2.3M</div>
+                    <div class="stat-box-label">Total Volume</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">$50.15</div>
+                    <div class="stat-box-label">Avg Transaction</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value">98.7%</div>
+                    <div class="stat-box-label">Success Rate</div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        placeholder="Search" 
+                        data-search-table="transactionsTable"
+                    >
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select">
+                        <option>All</option>
+                        <option>Completed</option>
+                        <option>Pending</option>
+                        <option>Failed</option>
+                        <option>Processing</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type</label>
+                    <select class="form-select">
+                        <option>All</option>
+                        <option>Send</option>
+                        <option>Receive</option>
+                        <option>Top Up</option>
+                        <option>Withdrawal</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date From</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div class="filter-group">
+                    <label>Date To</label>
+                    <input type="date" class="form-input">
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: flex-end; flex: 1; min-width: 150px;">
+                    <button class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('transactionsTable', 'transactions.csv')">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transactions Table -->
+            <div class="card">
+                <div class="flex-between" style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600;">All Transactions (45,892)</h3>
+                    <div style="color: var(--text-secondary);">
+                        Showing <strong>1-10</strong> of <strong>45,892</strong>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="transactionsTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th style="width: 12%">Transaction ID</th>
+                                <th style="width: 15%">User</th>
+                                <th style="width: 12%">Type</th>
+                                <th style="width: 12%">Amount</th>
+                                <th style="width: 12%">Status</th>
+                                <th style="width: 12%">Payment Method</th>
+                                <th style="width: 15%">Date & Time</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#TXN001234</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">John Doe</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">john@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-send"><i class="fas fa-arrow-up"></i> Send</span></td>
+                                <td><span class="transaction-amount amount-negative">-$250.00</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-credit-card"></i> Card</span></td>
+                                <td class="transaction-timestamp">Today, 10:30 AM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001233</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Sarah Smith</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">sarah@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-receive"><i class="fas fa-arrow-down"></i> Receive</span></td>
+                                <td><span class="transaction-amount amount-positive">+$100.50</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-wallet"></i> Wallet</span></td>
+                                <td class="transaction-timestamp">Today, 09:15 AM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001232</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Mike Johnson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">mike@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-topup"><i class="fas fa-plus"></i> Top Up</span></td>
+                                <td><span class="transaction-amount amount-positive">+$500.00</span></td>
+                                <td><span class="status-badge-transaction status-pending">Pending</span></td>
+                                <td><span class="payment-method"><i class="fas fa-credit-card"></i> Card</span></td>
+                                <td class="transaction-timestamp">Today, 08:45 AM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001231</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Emma Wilson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">emma@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-send"><i class="fas fa-arrow-up"></i> Send</span></td>
+                                <td><span class="transaction-amount amount-negative">-$75.25</span></td>
+                                <td><span class="status-badge-transaction status-failed">Failed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-credit-card"></i> Card</span></td>
+                                <td class="transaction-timestamp">Yesterday, 03:20 PM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001230</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">David Brown</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">david@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-receive"><i class="fas fa-arrow-down"></i> Receive</span></td>
+                                <td><span class="transaction-amount amount-positive">+$320.00</span></td>
+                                <td><span class="status-badge-transaction status-processing">Processing</span></td>
+                                <td><span class="payment-method"><i class="fas fa-wallet"></i> Wallet</span></td>
+                                <td class="transaction-timestamp">Yesterday, 02:10 PM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001229</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Lisa Anderson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">lisa@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-topup"><i class="fas fa-plus"></i> Top Up</span></td>
+                                <td><span class="transaction-amount amount-positive">+$150.00</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-bank"></i> Bank</span></td>
+                                <td class="transaction-timestamp">Yesterday, 12:30 PM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001228</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">James Miller</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">james@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-send"><i class="fas fa-arrow-up"></i> Send</span></td>
+                                <td><span class="transaction-amount amount-negative">-$425.75</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-credit-card"></i> Card</span></td>
+                                <td class="transaction-timestamp">2 days ago, 05:45 PM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001227</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Rachel Taylor</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">rachel@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-receive"><i class="fas fa-arrow-down"></i> Receive</span></td>
+                                <td><span class="transaction-amount amount-positive">+$200.00</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-wallet"></i> Wallet</span></td>
+                                <td class="transaction-timestamp">2 days ago, 04:20 PM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001226</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Kevin Davis</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">kevin@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-topup"><i class="fas fa-plus"></i> Top Up</span></td>
+                                <td><span class="transaction-amount amount-positive">+$1000.00</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-bank"></i> Bank</span></td>
+                                <td class="transaction-timestamp">3 days ago, 11:00 AM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>#TXN001225</strong></td>
+                                <td>
+                                    <div style="font-weight: 500;">Amanda Martinez</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">amanda@email.com</div>
+                                </td>
+                                <td><span class="transaction-type type-send"><i class="fas fa-arrow-up"></i> Send</span></td>
+                                <td><span class="transaction-amount amount-negative">-$350.00</span></td>
+                                <td><span class="status-badge-transaction status-completed">Completed</span></td>
+                                <td><span class="payment-method"><i class="fas fa-credit-card"></i> Card</span></td>
+                                <td class="transaction-timestamp">3 days ago, 09:30 AM</td>
+                                <td>
+                                    <button class="btn btn-primary btn-small" onclick="openModal('transactionModal')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                    <div style="color: var(--text-secondary);">
+                        Showing 1-10 of 45,892 transactions
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <span style="padding: 0.5rem 0.75rem; color: var(--text-secondary);">...</span>
+                        <button class="btn btn-secondary btn-small">4589</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Transaction Details Modal -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Transaction Details</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="background-color: var(--bg-tertiary); padding: 1.5rem; border-radius: 8px;">
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Transaction ID</div>
+                                <div style="font-weight: 600;">#TXN001234</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Status</div>
+                                <div><span class="status-badge-transaction status-completed">Completed</span></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Amount</div>
+                                <div style="font-weight: 600; font-size: 1.2rem;">$250.00</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Type</div>
+                                <div><span class="transaction-type type-send"><i class="fas fa-arrow-up"></i> Send</span></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">From</div>
+                                <div style="font-weight: 500;">John Doe (john@email.com)</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">To</div>
+                                <div style="font-weight: 500;">Sarah Smith (sarah@email.com)</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Payment Method</div>
+                                <div><span class="payment-method"><i class="fas fa-credit-card"></i> Credit Card</span></div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Date & Time</div>
+                                <div style="font-weight: 500;">Feb 26, 2026 - 10:30 AM</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Fee</div>
+                                <div style="font-weight: 500;">$2.50</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Total</div>
+                                <div style="font-weight: 600;">$252.50</div>
+                            </div>
+                        </div>
+                        <div style="border-top: 1px solid var(--border-color); margin-top: 1rem; padding-top: 1rem;">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.5rem;">Reference / Notes</div>
+                            <div style="font-weight: 500;">Payment for invoice #INV2026-001</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('transactionModal')">Close</button>
+                <button class="btn btn-primary">Generate Receipt</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+    </script>
+</body>
+</html>

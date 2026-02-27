@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Review - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item active">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">KYC Review & Verification</h1>
+                <p class="page-subtitle">Review and approve/reject user KYC submissions.</p>
+            </div>
+
+            <!-- KYC Status Overview -->
+            <div class="kyc-status-card">
+                <div class="kyc-status-item">
+                    <div class="kyc-count">2,224</div>
+                    <div class="kyc-label">Pending Review</div>
+                </div>
+                <div class="kyc-status-item approved">
+                    <div class="kyc-count">10,234</div>
+                    <div class="kyc-label">Approved</div>
+                </div>
+                <div class="kyc-status-item rejected">
+                    <div class="kyc-count">287</div>
+                    <div class="kyc-label">Rejected</div>
+                </div>
+                <div class="kyc-status-item pending">
+                    <div class="kyc-count">1,845</div>
+                    <div class="kyc-label">Under Review</div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-filter"></i> All Applications (14,590)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-clock"></i> Pending (2,224)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-check"></i> Approved (10,234)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-times"></i> Rejected (287)
+                </button>
+            </div>
+
+            <!-- KYC Applications List -->
+            <div class="card">
+                <h3 class="kyc-pending-title">Pending Applications</h3>
+
+                <!-- KYC Item 1 -->
+                <div class="kyc-row">
+                    <div class="kyc-user-info">
+                        <div class="kyc-avatar">JD</div>
+                        <div class="kyc-user-details">
+                            <div class="kyc-user-name">John Doe</div>
+                            <div class="kyc-user-email">john.doe@email.com</div>
+                        </div>
+                    </div>
+                    <div class="doc-column">
+                        <button class="doc-btn" onclick="openModal('docModal')">
+                            <i class="fas fa-passport"></i> View ID
+                        </button>
+                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
+                            <i class="fas fa-camera"></i> View Selfie
+                        </button>
+                    </div>
+                    <div>
+                        <span class="badge badge-warning">Pending</span>
+                    </div>
+                    <div class="kyc-actions">
+                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('John Doe')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('John Doe')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KYC Item 2 -->
+                <div class="kyc-row">
+                    <div class="kyc-user-info">
+                        <div class="kyc-avatar kyc-avatar-success">SS</div>
+                        <div class="kyc-user-details">
+                            <div class="kyc-user-name">Sarah Smith</div>
+                            <div class="kyc-user-email">sarah.smith@email.com</div>
+                        </div>
+                    </div>
+                    <div class="kyc-user-fields">
+                        <button class="doc-btn" onclick="openModal('docModal')">
+                            <i class="fas fa-passport"></i> View ID
+                        </button>
+                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
+                            <i class="fas fa-camera"></i> View Selfie
+                        </button>
+                    </div>
+                    <div>
+                        <span class="badge badge-warning">Pending</span>
+                    </div>
+                    <div class="kyc-actions">
+                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Sarah Smith')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Sarah Smith')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KYC Item 3 -->
+                <div class="kyc-row">
+                    <div class="kyc-user-info">
+                        <div class="kyc-avatar kyc-avatar-warning">MJ</div>
+                        <div class="kyc-user-details">
+                            <div class="kyc-user-name">Mike Johnson</div>
+                            <div class="kyc-user-email">mike.j@email.com</div>
+                        </div>
+                    </div>
+                    <div class="kyc-user-fields">
+                        <button class="doc-btn" onclick="openModal('docModal')">
+                            <i class="fas fa-passport"></i> View ID
+                        </button>
+                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
+                            <i class="fas fa-camera"></i> View Selfie
+                        </button>
+                    </div>
+                    <div>
+                        <span class="badge badge-warning">Pending</span>
+                    </div>
+                    <div class="kyc-actions">
+                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Mike Johnson')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Mike Johnson')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KYC Item 4 -->
+                <div class="kyc-row">
+                    <div class="kyc-user-info">
+                        <div class="kyc-avatar kyc-avatar-danger">EW</div>
+                        <div class="kyc-user-details">
+                            <div class="kyc-user-name">Emma Wilson</div>
+                            <div class="kyc-user-email">emma.w@email.com</div>
+                        </div>
+                    </div>
+                    <div class="kyc-user-fields">
+                        <button class="doc-btn" onclick="openModal('docModal')">
+                            <i class="fas fa-passport"></i> View ID
+                        </button>
+                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
+                            <i class="fas fa-camera"></i> View Selfie
+                        </button>
+                    </div>
+                    <div>
+                        <span class="badge badge-warning">Pending</span>
+                    </div>
+                    <div class="kyc-actions">
+                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Emma Wilson')">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Emma Wilson')">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Document Preview Modal -->
+    <div id="docModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Identity Document</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-preview">
+                    <div class="document-preview-box">
+                        <div class="modal-document-container">
+                            <i class="fas fa-id-card modal-document-icon"></i>
+                            <div>Passport / ID Document Preview</div>
+                            <div class="modal-document-text">
+                                Document Image Placeholder
+                            </div>
+                        </div>
+                    </div>
+                    <div class="document-info-box">
+                        <div class="document-details-header">Document Details:</div>
+                        <div class="document-details-list">
+                            <div class="document-detail-item"><strong>Type:</strong> Passport</div>
+                            <div class="document-detail-item"><strong>Number:</strong> 123456789AB</div>
+                            <div class="document-detail-item"><strong>Expiry Date:</strong> 2030-01-01</div>
+                            <div class="document-detail-item"><strong>Verification Status:</strong> Valid</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('docModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selfie Preview Modal -->
+    <div id="selfieModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Selfie Verification</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-preview">
+                    <div class="document-preview-box">
+                        <div class="doc-preview-container">
+                            <i class="fas fa-camera doc-preview-icon"></i>
+                            <div>Selfie Photo Preview</div>
+                            <div class="doc-preview-text">
+                                Selfie Image Placeholder
+                            </div>
+                        </div>
+                    </div>
+                    <div class="document-info-box">
+                        <div class="document-details-header"><strong>Verification Status:</strong></div>
+                        <div class="document-details-list">
+                            <ul class="verification-list">
+                                <li class="verification-item success"><i class="fas fa-check"></i> Face Detected</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Single Face Confirmed</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Face Matches ID Document</li>
+                                <li class="verification-item warning"><i class="fas fa-exclamation"></i> Needs Manual Review</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('selfieModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banners - Wallet Admin</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-wallet"></i>
+                <span>Sahalat Admin Panel</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon-select"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item active">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Banner Management</h1>
+                <p class="page-subtitle">Create and manage promotional banners, announcements, and alerts.</p>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by title or location" 
+                        data-search-table="bannersTable"
+                    >
+                </div>
+                <div class="filter-group">
+                    <label>Banner Type</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Types</option>
+                        <option>Promotional</option>
+                        <option>Announcement</option>
+                        <option>Alert</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                        <option>Scheduled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Location</label>
+                    <select class="form-select form-select-full-width">
+                        <option>All Locations</option>
+                        <option>Homepage</option>
+                        <option>Dashboard</option>
+                        <option>Login Page</option>
+                        <option>Pop-up</option>
+                    </select>
+                </div>
+                <div class="btn-flex-wrapper">
+                    <button class="btn btn-primary btn-full-flex">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary btn-full-flex">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('bannersTable', 'banners.csv')">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banners Table -->
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading">All Banners (8)</h3>
+                    <button class="btn btn-primary" onclick="openModal('addBannerModal')">
+                        <i class="fas fa-plus"></i> Add New Banner
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="bannersTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-20">Banner Title</th>
+                                <th class="col-12">Type</th>
+                                <th class="col-15">Location</th>
+                                <th class="col-12">Start Date</th>
+                                <th class="col-12">End Date</th>
+                                <th class="col-10">Status</th>
+                                <th class="col-19">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Summer Sale 2024</div>
+                                    <div class="user-email">Wallet App Summer Promotion</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-promotion">Promotional</span></td>
+                                <td>Homepage</td>
+                                <td>Feb 15, 2024</td>
+                                <td>Mar 31, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">System Maintenance</div>
+                                    <div class="user-email">Scheduled maintenance notice</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-alert">Alert</span></td>
+                                <td>Dashboard</td>
+                                <td>Feb 25, 2024</td>
+                                <td>Feb 26, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">New Feature Launch</div>
+                                    <div class="user-email">Introducing wallet insurance</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-announcement">Announcement</span></td>
+                                <td>Login Page</td>
+                                <td>Feb 20, 2024</td>
+                                <td>Mar 15, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Referral Bonus Increased</div>
+                                    <div class="user-email">Get $15 for each friend</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-promotion">Promotional</span></td>
+                                <td>Pop-up</td>
+                                <td>Feb 10, 2024</td>
+                                <td>Apr 10, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Security Update</div>
+                                    <div class="user-email">Updated security protocols</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-alert">Alert</span></td>
+                                <td>Dashboard</td>
+                                <td>Feb 22, 2024</td>
+                                <td>Feb 28, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Holiday Special</div>
+                                    <div class="user-email">Exclusive December deals</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-promotion">Promotional</span></td>
+                                <td>Homepage</td>
+                                <td>Dec 01, 2024</td>
+                                <td>Dec 31, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Mobile App Update</div>
+                                    <div class="user-email">Download latest version</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-announcement">Announcement</span></td>
+                                <td>Pop-up</td>
+                                <td>Feb 01, 2024</td>
+                                <td>Mar 30, 2024</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Account Verification</div>
+                                    <div class="user-email">Complete your profile setup</div>
+                                </td>
+                                <td><span class="banner-type-badge banner-type-alert">Alert</span></td>
+                                <td>Login Page</td>
+                                <td>Jan 15, 2024</td>
+                                <td>Ongoing</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleBannerStatus(this)">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('viewBannerModal')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('editBannerModal')" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-8 of 8 banners
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add New Banner Modal -->
+    <div id="addBannerModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Banner</h2>
+                <button class="modal-close" onclick="closeModal('addBannerModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-banner">
+                    <label>Banner Title *</label>
+                    <input type="text" placeholder="e.g., Summer Sale 2024">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Description *</label>
+                    <textarea placeholder="Brief description of the banner content"></textarea>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group-banner">
+                        <label>Banner Type *</label>
+                        <select>
+                            <option>Select Type</option>
+                            <option>Promotional</option>
+                            <option>Announcement</option>
+                            <option>Alert</option>
+                        </select>
+                    </div>
+                    <div class="form-group-banner">
+                        <label>Display Location *</label>
+                        <select>
+                            <option>Select Location</option>
+                            <option>Homepage</option>
+                            <option>Dashboard</option>
+                            <option>Login Page</option>
+                            <option>Pop-up</option>
+                        </select>
+                    </div>
+                    <div class="form-group-banner">
+                        <label>Priority</label>
+                        <select>
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-banner">
+                        <label>Start Date *</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group-banner">
+                        <label>End Date *</label>
+                        <input type="date">
+                    </div>
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Banner Image</label>
+                    <div class="banner-preview">
+                        <i class="fas fa-image"></i> Click to upload image (1200x400px)
+                    </div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Call-to-Action Button Text</label>
+                    <input type="text" placeholder="e.g., Learn More, Shop Now, View Details">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Button Link URL</label>
+                    <input type="url" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>
+                        <input type="checkbox" checked> Active (Enable immediately)
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addBannerModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveBanner(event)">Create Banner</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Banner Modal -->
+    <div id="editBannerModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Banner</h2>
+                <button class="modal-close" onclick="closeModal('editBannerModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-banner">
+                    <label>Banner Title *</label>
+                    <input type="text" value="Summer Sale 2024">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Description *</label>
+                    <textarea>Wallet App Summer Promotion</textarea>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group-banner">
+                        <label>Banner Type *</label>
+                        <select>
+                            <option selected>Promotional</option>
+                            <option>Announcement</option>
+                            <option>Alert</option>
+                        </select>
+                    </div>
+                    <div class="form-group-banner">
+                        <label>Display Location *</label>
+                        <select>
+                            <option selected>Homepage</option>
+                            <option>Dashboard</option>
+                            <option>Login Page</option>
+                            <option>Pop-up</option>
+                        </select>
+                    </div>
+                    <div class="form-group-banner">
+                        <label>Priority</label>
+                        <select>
+                            <option>Low</option>
+                            <option selected>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group-banner">
+                        <label>Start Date *</label>
+                        <input type="date" value="2024-02-15">
+                    </div>
+                    <div class="form-group-banner">
+                        <label>End Date *</label>
+                        <input type="date" value="2024-03-31">
+                    </div>
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Banner Image</label>
+                    <div class="banner-preview">
+                        <i class="fas fa-image"></i> Click to upload image (1200x400px)
+                    </div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Call-to-Action Button Text</label>
+                    <input type="text" placeholder="e.g., Learn More, Shop Now, View Details">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>Button Link URL</label>
+                    <input type="url" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group-banner">
+                    <label>
+                        <input type="checkbox" checked> Active
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editBannerModal')">Cancel</button>
+                <button class="btn btn-danger">Delete Banner</button>
+                <button class="btn btn-primary" onclick="saveBanner(event)">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Banner Modal -->
+    <div id="viewBannerModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Banner Details</h2>
+                <button class="modal-close" onclick="closeModal('viewBannerModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="banner-preview" style="height: 250px;">
+                    <i class="fas fa-image" style="font-size: 3rem;"></i>
+                </div>
+
+                <div class="banner-info">
+                    <div class="info-row">
+                        <span class="info-label">Title:</span>
+                        <span class="info-value">Summer Sale 2024</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Description:</span>
+                        <span class="info-value">Wallet App Summer Promotion</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Type:</span>
+                        <span class="info-value"><span class="banner-type-badge banner-type-promotion">Promotional</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Location:</span>
+                        <span class="info-value">Homepage</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Priority:</span>
+                        <span class="info-value">Medium</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Start Date:</span>
+                        <span class="info-value">Feb 15, 2024</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">End Date:</span>
+                        <span class="info-value">Mar 31, 2024</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value"><span class="badge badge-success">Active</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Created:</span>
+                        <span class="info-value">Feb 01, 2024 at 10:30 AM</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Modified:</span>
+                        <span class="info-value">Feb 14, 2024 at 3:45 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('viewBannerModal')">Close</button>
+                <button class="btn btn-primary" onclick="closeModal('viewBannerModal'); openModal('editBannerModal')">Edit Banner</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+    <script>
+        // Use the theme system from script.js only
+        initTheme();
+
+        function toggleBannerStatus(checkbox) {
+            const isActive = checkbox.checked;
+            const bannerName = checkbox.closest('tr').querySelector('.user-name').textContent;
+            const status = isActive ? 'enabled' : 'disabled';
+            showNotification(`Banner "${bannerName}" has been ${status}.`, isActive ? 'success' : 'info');
+        }
+
+        function saveBanner(event) {
+            event.preventDefault();
+            const modalTitle = event.target.closest('.modal-content').querySelector('.modal-title').textContent;
+            const isCreate = modalTitle.includes('Add');
+            const message = isCreate ? 'Banner created successfully!' : 'Banner updated successfully!';
+            showNotification(message, 'success');
+            closeModal(event.target.closest('.modal').id);
+        }
+    </script>
+</body>
+</html>

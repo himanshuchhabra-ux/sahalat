@@ -1,0 +1,31 @@
+:root {
+    --main: #3dafa0;
+    --main-light: rgba(81, 173, 155, 0.8);
+    --secondary: #334049;
+    --secondary-light: #3340498e;
+    --dark: #606060;
+    --white: #FFFFFF;
+    --light-1: #F1E5FE;
+    --light-2: #E8E8E8;
+    --light-3: #E4E4E4;
+    --light-4: #D9D9D9;
+    --light-5: #000000;
+    --light-6: #636363;
+    --success: #41973C;
+    --success-light: #40973c5d;
+    --danger: #FF2D55;
+    --danger-light: #ff2d538a;
+    --warning: #FFC107;
+    --warning-light: #ffc10752;
+    --body-light: #F5F5F5;
+    --sidebar-width: 280px;
+    --header-height: 70px;
+    --border-radius: 12px;
+    --toggle-height: 45px;
+    --toggle-width
+90px
+: 90px;
+    --toggle-radius: 45px;
+    --box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
