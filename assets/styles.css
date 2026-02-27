@@ -4871,3 +4871,9 @@ html[data-theme="light"] .header {
     gap: 1rem;
   }
 }
+
+.stats-chart-container{
+  position: relative;
+   height: 350px;
+    padding: 1rem 0;
+}

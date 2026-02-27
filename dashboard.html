@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Sahalat Admin</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -166,9 +167,8 @@
                         <div class="kyc-stat-label">KYC Rejected</div>
                     </div>
                 </div>
-                <div class="chart-placeholder">
-                    <i class="fas fa-chart-bar icon-with-margin"></i>
-                    Statistical chart visualization (Charts library integration in Phase 2)
+                <div class="stats-chart-container">
+                    <canvas id="kycChart"></canvas>
                 </div>
             </div>
 
@@ -218,9 +218,8 @@
                         <div class="metric-value stat-value-success">98.7%</div>
                     </div>
                 </div>
-                <div class="chart-placeholder">
-                    <i class="fas fa-chart-line chart-icon"></i>
-                    Transaction trend chart (Charts library integration in Phase 2)
+                <div class="stats-chart-container">
+                    <canvas id="transactionChart"></canvas>
                 </div>
             </div>
 
@@ -245,9 +244,8 @@
                         <div class="metric-value">2.1%</div>
                     </div>
                 </div>
-                <div class="chart-placeholder">
-                    <i class="fas fa-chart-pie chart-icon"></i>
-                    Usage distribution chart (Charts library integration in Phase 2)
+                <div class="stats-chart-container">
+                    <canvas id="usageChart"></canvas>
                 </div>
             </div>
         </main>
@@ -257,6 +255,157 @@
     <script>
         // Use the theme system from script.js only
         initTheme();
+
+        // ============================================
+        // Chart.js Configuration
+        // ============================================
+        
+        // Get CSS variables for theming
+        const getComputedColor = (cssVarName) => {
+            return getComputedStyle(document.documentElement).getPropertyValue(cssVarName).trim();
+        };
+
+        // Wait for DOM to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get chart contexts
+            const kycCtx = document.getElementById('kycChart')?.getContext('2d');
+            const transactionCtx = document.getElementById('transactionChart')?.getContext('2d');
+            const usageCtx = document.getElementById('usageChart')?.getContext('2d');
+
+            // Color palette matching design system
+            const primaryColor = '#3dafa0';
+            const successColor = '#059669';
+            const warningColor = '#d97706';
+            const dangerColor = '#dc2626';
+            const infoColor = '#0e7490';
+            const lightBg = 'rgba(240, 248, 247, 0.1)';
+
+            // Chart 1: KYC Breakdown - Doughnut Chart
+            if (kycCtx) {
+                new Chart(kycCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['KYC Verified', 'KYC Pending', 'KYC Rejected'],
+                        datasets: [{
+                            data: [10234, 2224, 287],
+                            backgroundColor: [successColor, warningColor, dangerColor],
+                            borderColor: [successColor, warningColor, dangerColor],
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: getComputedColor('--text-primary'),
+                                    font: { size: 12 },
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Transaction Trends - Line Chart
+            if (transactionCtx) {
+                new Chart(transactionCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Successful',
+                            data: [6200, 6850, 5950, 7200, 8100, 7800, 6500],
+                            borderColor: successColor,
+                            backgroundColor: 'rgba(5, 150, 105, 0.05)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: successColor,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }, {
+                            label: 'Failed',
+                            data: [280, 340, 250, 380, 420, 380, 320],
+                            borderColor: dangerColor,
+                            backgroundColor: 'rgba(220, 38, 38, 0.05)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: dangerColor,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: getComputedColor('--text-primary'),
+                                    font: { size: 12 }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { color: getComputedColor('--text-secondary') },
+                                grid: { color: 'rgba(100, 116, 139, 0.1)' }
+                            },
+                            x: {
+                                ticks: { color: getComputedColor('--text-secondary') },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 3: Usage Distribution - Pie Chart
+            if (usageCtx) {
+                new Chart(usageCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Mobile App', 'Web Browser', 'Desktop App', 'API'],
+                        datasets: [{
+                            data: [45, 35, 15, 5],
+                            backgroundColor: [primaryColor, successColor, warningColor, infoColor],
+                            borderColor: [primaryColor, successColor, warningColor, infoColor],
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: getComputedColor('--text-primary'),
+                                    font: { size: 12 },
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // Update charts when theme changes
+        const originalToggleTheme = window.toggleTheme;
+        window.toggleTheme = function() {
+            originalToggleTheme?.call(this);
+            // Reload page to refresh charts with new theme colors
+            setTimeout(() => {
+                location.reload();
+            }, 300);
+        };
     </script>
 </body>
 </html>
