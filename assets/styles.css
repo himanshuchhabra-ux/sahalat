@@ -277,7 +277,7 @@ html[data-theme="light"] .header {
 .header-left {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-md);
   flex: 1;
 }
 
@@ -512,7 +512,7 @@ html[data-theme="light"] .header {
   top: 0;
   bottom: 0;
   width: 4px;
-  background-color: var(--color-primary);
+
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
@@ -1059,6 +1059,15 @@ html[data-theme="light"] .header {
   color: var(--main);
 }
 
+.logo-div{
+  display: flex;
+  align-items: center;
+  gap:11px;
+}
+
+.logo-div h1{
+  margin-top: 20px;
+}
 /* ============================================
    MODAL STYLES
    ============================================ */
