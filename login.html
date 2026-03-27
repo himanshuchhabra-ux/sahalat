@@ -3,122 +3,491 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wallet Admin - Login</title>
-    <link rel="stylesheet" href="assets/styles.css" />
+    <title>Wallet Login Screen</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+      :root {
+        --bg-body: #0a1b23;
+        --bg-card: #0a1b23;
+        --bg-input: #2a2a2f;
+        --color-primary: #347273;
+        --color-primary-light: #b1aef5;
+        --text-main: #ffffff;
+        --text-muted: #8e8e93;
+        --border-color: #3f3f46;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-body);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        overflow-y: hidden; /* Stops Y scrolling as requested */
+      }
+
+      /* Main Container */
+      .login-container {
+        background-color: var(--bg-card);
+        height: 85vh; /* User defined height */
+        min-height: 550px; /* Safety net so it doesn't crush completely on tiny screens */
+        border-radius: 32px;
+        width: 80%;
+        max-width: 900px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 16px;
+        gap: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      /* --- LEFT PANEL --- */
+      .left-panel {
+        padding: 20px 30px; /* Reduced padding */
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        justify-content: center; /* Centers content vertically */
+      }
+      .logo-text {
+        color: #48c3a7;
+        font-size: 40px;
+        font-weight: 600;
+      }
+
+      .logo-area {
+        height: 20px;
+        margin-bottom: 100px; /* Reduced from 60px */
+      }
+
+      .header h1 {
+        color: var(--text-main);
+        font-size: 24px; /* Reduced from 28px */
+        font-weight: 500;
+        margin-bottom: 15px;
+      }
+
+      .header p {
+        color: var(--text-muted);
+        font-size: 13px; /* Reduced from 14px */
+        margin-bottom: 30px; /* Reduced from 40px */
+      }
+
+      /* Form Elements */
+      .input-group {
+        position: relative;
+        margin-bottom: 30px; /* Reduced from 16px */
+      }
+
+      .input-group input {
+        width: 100%;
+        background-color: var(--bg-input);
+        border: 1px solid transparent;
+        color: var(--text-main);
+        padding: 12px 16px; /* Reduced padding */
+        border-radius: 20px;
+        font-size: 13px; /* Reduced font size */
+        outline: none;
+        transition: border 0.3s ease;
+      }
+
+      .input-group input:focus {
+        border-color: var(--color-primary);
+      }
+
+      .input-group input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .eye-icon {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        cursor: pointer;
+        width: 16px; /* Scaled down icon */
+      }
+
+      /* Remember Me & Forgot Password */
+      .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px; /* Reduced from 32px */
+        font-size: 12px; /* Reduced font size */
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        color: var(--text-main);
+        cursor: pointer;
+        gap: 6px;
+      }
+
+      .forgot-link {
+        color: var(--text-muted);
+        text-decoration: none;
+      }
+
+      .forgot-link:hover {
+        color: var(--text-main);
+      }
+
+      /* Buttons */
+      .btn {
+        width: 100%;
+        padding: 12px; /* Reduced padding */
+        border-radius: 20px;
+        border: none;
+        font-size: 13px; /* Reduced font size */
+        font-weight: 500;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .btn-primary {
+        background-color: var(--color-primary);
+        color: white;
+        margin-bottom: 45px; /* Reduced from 32px */
+      }
+
+      /* Divider */
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--border-color);
+        margin-bottom: 20px; /* Reduced from 32px */
+        font-size: 11px; /* Reduced font size */
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .divider span {
+        padding: 0 16px;
+      }
+
+      /* Google Button */
+      .btn-google {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 16px; /* Reduced from 24px */
+      }
+
+      .btn-google img,
+      .btn-google svg {
+        width: 16px; /* Scaled down */
+        height: 16px;
+      }
+
+      .register-text {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      .register-text a {
+        color: var(--color-primary-light);
+        text-decoration: none;
+      }
+
+      .footer-text {
+        position: absolute;
+        bottom: 20px;
+        left: 30px;
+        color: var(--text-muted);
+        font-size: 11px; /* Reduced from 12px */
+      }
+
+      /* --- RIGHT PANEL --- */
+      .right-panel {
+        background-color: var(--bg-card);
+        border-radius: 24px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      /* 3D Image Placeholder */
+      .wallet-illustration {
+        width: 102%;
+        height: 102%;
+        object-fit: cover;
+        transform-origin: center center;
+        margin: -1%;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Bottom Info Card */
+      .info-card {
+        position: absolute;
+        bottom: -3px;
+        right: -20px;
+        background-color: var(--bg-card);
+        padding: 16px 20px;
+        border-top-left-radius: 10px;
+        transform: skewX(-20deg);
+        transform-origin: bottom;
+        width: 65%;
+      }
+
+      .info-card p,
+      .info-card .carousel-dots {
+        transform: skewX(20deg);
+      }
+      /* Inverted Corner Hack for the info card */
+      .info-card::before {
+        content: "";
+        position: absolute;
+        top: -30px; /* Match new radius */
+        right: 0;
+        width: 30px;
+        height: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: 0 15px 0 0 var(--bg-card); /* Adjusted shadow */
+        background: transparent;
+      }
+
+      .info-card p {
+        color: var(--text-main);
+        font-size: 16px; /* Reduced from 20px */
+        font-weight: 500;
+        line-height: 1.4;
+        margin-left: -20px;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .carousel-dots {
+        display: flex;
+        gap: 6px;
+        margin-left: 72px;
+      }
+
+      .dot {
+        width: 30px;
+        height: 3px;
+        background-color: var(--border-color);
+        border: none;
+        outline: none;
+      }
+
+      .dot.active {
+        background-color: var(--text-main);
+      }
+      .right-panel .info-card p {
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .login-container {
+          grid-template-columns: 1fr;
+          max-width: 500px;
+          height: auto; /* Let mobile flow naturally */
+          padding: 16px;
+        }
+        .right-panel {
+          display: none;
+        }
+        .left-panel {
+          padding: 30px;
+        }
+        .footer-text {
+          position: relative;
+          left: 0;
+          bottom: 0;
+          text-align: center;
+          margin-top: 30px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <button class="theme-toggle-login" title="Toggle Theme">
-      <i class="fas fa-moon"></i>
-    </button>
     <div class="login-container">
-      <!-- ======== LEFT SIDE — Wallet Visual Panel ======== -->
-      <div class="login-left">
-        <!-- Animated gradient layers -->
-        <div class="gradient-layer-1"></div>
-        <div class="gradient-layer-2"></div>
-        <div class="gradient-layer-3"></div>
-
-        <div class="login-left-content">
-          <!-- Live status badge -->
-          <div class="brand-badge">
-            <span class="brand-badge-dot"></span>
-            <span>Admin Platform</span>
-          </div>
-          <div>
-            <div class="logo-div">
-            <img src="assets/s_logo.png"/>
-            <h1>Sahalat</h1>
-            </div>
-             
-          <h1>سهلات<span class="highlight"></span><span class="highlight"></span></h1>
-          
-          </div>
-         
-
-          <!-- Mock Wallet Card -->
-          <!-- <div class="wallet-card-preview">
-                    <div class="wallet-card-top">
-                        <div class="wallet-card-chip"></div>
-                        <div class="wallet-card-type">Admin Wallet</div>
-                    </div>
-                    <div class="wallet-card-balance-label">Total Platform Volume</div>
-                    <div class="wallet-card-balance">
-                        <span>$</span>1,248,530
-                    </div>
-                    <div class="wallet-card-bottom">
-                        <div class="wallet-card-number">•••• •••• •••• 4821</div>
-                        <div class="wallet-card-holder">Admin Panel</div>
-                    </div>
-                </div> -->
-
-          <!-- Feature list -->
-          <ul class="login-features">
-            <li><i class="fas fa-users"></i> Real-time user management</li>
-            <li><i class="fas fa-id-card-clip"></i> KYC verification system</li>
-            <li>
-              <i class="fas fa-arrow-right-arrow-left"></i> Transaction
-              monitoring
-            </li>
-            <li><i class="fas fa-chart-line"></i> Advanced analytics</li>
-          </ul>
+      <div class="left-panel">
+        <div class="logo-area">
+          <img src="/assets/s_logo.png" alt="Company Logo" />
+          <span class="logo-text">ahalat</span>
         </div>
+
+        <div class="header">
+          <h1>Welcome back</h1>
+          <p>We're delighted to have you here!</p>
+        </div>
+
+        <form action="dashboard.html">
+          <div class="input-group">
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              
+            />
+          </div>
+
+          <div class="input-group">
+            <input type="password" placeholder="Enter your password"  />
+            <svg
+              class="eye-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+              ></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox" /> Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <a href="dashboard.html">
+            <button  class="btn btn-primary" >Sign in</button>
+          </a>
+          
+          <div class="footer-text">© Sahalat 2026, All right reserved</div>
+        </form>
       </div>
 
-      <!-- ======== RIGHT SIDE — Login Form ======== -->
-      <div class="login-right">
-        <div class="login-form-wrapper">
-          <div class="login-header">
-            <h2>Welcome Back</h2>
-            <p>Sign in to your admin account</p>
+      <div class="right-panel">
+        <img
+          src="/assets/wallet.png"
+          alt="3D Wallet"
+          class="wallet-illustration"
+        />
+
+        <div class="info-card">
+          <p>Simple way to manage<br />your money</p>
+          <div class="carousel-dots">
+            <button class="dot active"></button>
+            <button class="dot"></button>
+            <button class="dot"></button>
           </div>
-
-          <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="form-group-login">
-              <label class="form-label" for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                class="login-input"
-                placeholder="admin@walletapp.com"
-              />
-            </div>
-
-            <div class="form-group-login">
-              <label class="form-label" for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                class="login-input"
-                placeholder="Enter your password"
-              />
-            </div>
-
-            <div class="remember-forgot">
-              <label class="form-checkbox-label">
-                <input type="checkbox" class="form-checkbox" />
-                Remember me
-              </label>
-              <a href="forgot-password.html">Forgot password?</a>
-            </div>
-
-            <a href="dashboard.html" class="login-btn">
-              <i class="fas fa-sign-in-alt icon-with-margin"></i>
-              Sign In
-            </a>
-
-            <div class="login-secure-note">
-              <i class="fas fa-shield-halved"></i>
-              Secured admin panel
-            </div>
-          </form>
         </div>
       </div>
     </div>
+    <script>
+      const slides = [
+        {
+          img: "/assets/wallet.png",
+          text: "Simple way to manage<br>your money",
+        },
+        {
+          img: "/assets/wallet6.png",
+          text: "Track every transaction<br>in real time",
+        },
+        {
+          img: "/assets/wallet4.png",
+          text: "Safe & secure<br>payments, always",
+        },
+      ];
 
-    <script src="assets/script.js"></script>
+      let current = 0;
+      let autoTimer;
+
+      const textEl = document.querySelector(".info-card p");
+      const imgEl = document.querySelector(".wallet-illustration");
+      const dots = document.querySelectorAll(".dot");
+
+      function goTo(index) {
+        const next = (index + slides.length) % slides.length;
+
+        // Fade out both
+        textEl.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+        imgEl.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+        textEl.style.opacity = "0";
+        textEl.style.transform = "skewX(20deg) translateX(-12px)";
+        imgEl.style.opacity = "0";
+        imgEl.style.transform = "scale(1.04)";
+
+        setTimeout(() => {
+          current = next;
+          // Swap content
+          textEl.innerHTML = slides[current].text;
+          imgEl.src = slides[current].img;
+
+          // Update dots
+          dots.forEach((d, i) => d.classList.toggle("active", i === current));
+
+          // Fade in both
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              textEl.style.opacity = "1";
+              textEl.style.transform = "skewX(20deg)";
+              imgEl.style.opacity = "1";
+              imgEl.style.transform = "scale(1)";
+            });
+          });
+        }, 300);
+      }
+
+      // Dot clicks
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          clearInterval(autoTimer);
+          goTo(i);
+          startAuto();
+        });
+      });
+
+      function startAuto() {
+        autoTimer = setInterval(() => goTo(current + 1), 3000);
+      }
+
+      startAuto();
+    </script>
   </body>
 </html>

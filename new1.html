@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wallet Admin - Login</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="theme-toggle-login" title="Toggle Theme">
+      <i class="fas fa-moon"></i>
+    </button>
+    <div class="login-container">
+      <!-- ======== LEFT SIDE — Wallet Visual Panel ======== -->
+      <div class="login-left">
+        <!-- Animated gradient layers -->
+        <div class="gradient-layer-1"></div>
+        <div class="gradient-layer-2"></div>
+        <div class="gradient-layer-3"></div>
+
+        <div class="login-left-content">
+          <!-- Live status badge -->
+          <div class="brand-badge">
+            <span class="brand-badge-dot"></span>
+            <span>Admin Platform</span>
+          </div>
+          <div>
+            <div class="logo-div">
+            <img src="assets/s_logo.png"/>
+            <h1>Sahalat</h1>
+            </div>
+             
+          <h1>سهلات<span class="highlight"></span><span class="highlight"></span></h1>
+          
+          </div>
+         
+
+          <!-- Mock Wallet Card -->
+          <!-- <div class="wallet-card-preview">
+                    <div class="wallet-card-top">
+                        <div class="wallet-card-chip"></div>
+                        <div class="wallet-card-type">Admin Wallet</div>
+                    </div>
+                    <div class="wallet-card-balance-label">Total Platform Volume</div>
+                    <div class="wallet-card-balance">
+                        <span>$</span>1,248,530
+                    </div>
+                    <div class="wallet-card-bottom">
+                        <div class="wallet-card-number">•••• •••• •••• 4821</div>
+                        <div class="wallet-card-holder">Admin Panel</div>
+                    </div>
+                </div> -->
+
+          <!-- Feature list -->
+          <ul class="login-features">
+            <li><i class="fas fa-users"></i> Real-time user management</li>
+            <li><i class="fas fa-id-card-clip"></i> KYC verification system</li>
+            <li>
+              <i class="fas fa-arrow-right-arrow-left"></i> Transaction
+              monitoring
+            </li>
+            <li><i class="fas fa-chart-line"></i> Advanced analytics</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ======== RIGHT SIDE — Login Form ======== -->
+      <div class="login-right">
+        <div class="login-form-wrapper">
+          <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your admin account</p>
+          </div>
+
+          <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group-login">
+              <label class="form-label" for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="login-input"
+                placeholder="admin@walletapp.com"
+              />
+            </div>
+
+            <div class="form-group-login">
+              <label class="form-label" for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="login-input"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div class="remember-forgot">
+              <label class="form-checkbox-label">
+                <input type="checkbox" class="form-checkbox" />
+                Remember me
+              </label>
+              <a href="forgot-password.html">Forgot password?</a>
+            </div>
+
+            <a href="dashboard.html" class="login-btn">
+              <i class="fas fa-sign-in-alt icon-with-margin"></i>
+              Sign In
+            </a>
+
+            <div class="login-secure-note">
+              <i class="fas fa-shield-halved"></i>
+              Secured admin panel
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+  </body>
+</html>
