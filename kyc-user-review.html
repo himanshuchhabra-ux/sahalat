@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Full Review - Wallet Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-tertiary);
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .review-section {
+            margin-top: 1rem;
+        }
+
+        .risk-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .risk-low { background: rgba(5, 150, 105, 0.12); color: #047857; border-color: rgba(5, 150, 105, 0.35); }
+        .risk-medium { background: rgba(217, 119, 6, 0.14); color: #b45309; border-color: rgba(217, 119, 6, 0.35); }
+        .risk-high { background: rgba(220, 38, 38, 0.14); color: #b91c1c; border-color: rgba(220, 38, 38, 0.4); }
+
+        .section-title-small {
+            margin: 0 0 0.75rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .table td, .table th {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <img src="assets/s_logo.png"/>
+            <span class="logo">Sahalat Admin Panel</span>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-chart-line"></i><span class="nav-item-label">Dashboard</span></a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item"><i class="fas fa-users"></i><span class="nav-item-label">Users</span></a>
+                <a href="kyc-review.html" class="nav-item active"><i class="fas fa-id-card"></i><span class="nav-item-label">KYC Review</span></a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span class="nav-item-label">Profile</span></a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');"><i class="fas fa-sign-out-alt"></i><span class="nav-item-label">Logout</span></a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="page-header">
+                <h1 class="page-title" id="reviewTitle">KYC Full Review</h1>
+                <p class="page-subtitle">Complete case profile, AML screening, document intelligence, and selfie/liveness evidence.</p>
+            </div>
+
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading"><i class="fas fa-user-shield"></i> User Profile Context</h3>
+                    <button class="btn btn-secondary" onclick="window.location.href='kyc-review.html'">
+                        <i class="fas fa-arrow-left"></i> Back to KYC List
+                    </button>
+                </div>
+                <div class="detail-grid" id="profileGrid"></div>
+            </div>
+
+            <div class="card review-section">
+                <h3 class="section-title-small"><i class="fas fa-chart-bar"></i> Risk Scoring</h3>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Country Risk</th>
+                                <th>Document Risk</th>
+                                <th>Match Score</th>
+                                <th>Overall Score</th>
+                                <th>Risk Tier</th>
+                                <th>Queue Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody id="riskTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card review-section">
+                <h3 class="section-title-small"><i class="fas fa-shield-virus"></i> AML & Sanction Screening</h3>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Sanctions Check</th>
+                                <th>PEP Status</th>
+                                <th>Watchlist Matches</th>
+                                <th>Match Confidence</th>
+                                <th>Flags</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amlTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card review-section">
+                <h3 class="section-title-small"><i class="fas fa-id-card"></i> Document Intelligence</h3>
+                <div class="detail-grid" id="docGrid"></div>
+            </div>
+
+            <div class="card review-section">
+                <h3 class="section-title-small"><i class="fas fa-camera"></i> Selfie & Liveness Evidence</h3>
+                <div class="detail-grid" id="selfieGrid"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        const kycReviewData = {
+            "John Doe": {
+                email: "john.doe@email.com",
+                country: "United States",
+                mobile: "+1-202-555-0148",
+                employer: "Tech Corp",
+                walletStatus: "Active",
+                signupDate: "2023-08-12",
+                priorSubmissions: 3,
+                rejectionHistory: 1,
+                deviceRisk: "Medium (new device)",
+                countryRisk: "7.2 (High)",
+                documentRisk: "5.8 (Medium)",
+                matchScore: "92%",
+                overallScore: "7.5",
+                riskTier: "HIGH",
+                queuePriority: "High",
+                sanctionsCheck: "CLEAR",
+                pepStatus: "NOT PEP",
+                watchlistMatches: "0 MATCHES",
+                matchConfidence: "98%",
+                flags: "No flags raised",
+                docType: "Passport",
+                docNumber: "123456789AB",
+                issuingCountry: "United Arab Emirates (UAE)",
+                expiryDate: "2030-01-01",
+                expiryWarning: "No warning",
+                mrz: "Success (98% confidence)",
+                ocr: "Success (97% confidence)",
+                tamper: "Passed",
+                dataSource: "Auto-read (OCR/MRZ)",
+                faceDetected: "99.1%",
+                singleFace: "98.4%",
+                faceMatch: "96.7%",
+                liveness: "94.3% (PASS)",
+                spoof: "No spoof indicators (PASS)",
+                quality: "Mild motion blur; Uneven lighting"
+            },
+            "Sarah Smith": {
+                email: "sarah.smith@email.com",
+                country: "United Kingdom",
+                mobile: "+44-7700-900123",
+                employer: "Finance Ltd",
+                walletStatus: "Active",
+                signupDate: "2024-01-19",
+                priorSubmissions: 2,
+                rejectionHistory: 0,
+                deviceRisk: "Low (trusted device)",
+                countryRisk: "3.1 (Low)",
+                documentRisk: "5.2 (Medium)",
+                matchScore: "87%",
+                overallScore: "5.2",
+                riskTier: "MEDIUM",
+                queuePriority: "Medium",
+                sanctionsCheck: "CLEAR",
+                pepStatus: "NOT PEP",
+                watchlistMatches: "0 MATCHES",
+                matchConfidence: "95%",
+                flags: "No flags raised",
+                docType: "Passport",
+                docNumber: "787443390UK",
+                issuingCountry: "United Kingdom",
+                expiryDate: "2029-11-14",
+                expiryWarning: "No warning",
+                mrz: "Success (96% confidence)",
+                ocr: "Success (95% confidence)",
+                tamper: "Passed",
+                dataSource: "Auto-read + one manual correction",
+                faceDetected: "98.9%",
+                singleFace: "98.1%",
+                faceMatch: "93.8%",
+                liveness: "91.6% (PASS)",
+                spoof: "No spoof indicators (PASS)",
+                quality: "Minor glare on forehead"
+            },
+            "Mike Johnson": {
+                email: "mike.j@email.com",
+                country: "Canada",
+                mobile: "+1-416-555-0194",
+                employer: "Retail Store",
+                walletStatus: "Limited",
+                signupDate: "2022-11-04",
+                priorSubmissions: 4,
+                rejectionHistory: 1,
+                deviceRisk: "Low (same ASN)",
+                countryRisk: "2.5 (Low)",
+                documentRisk: "3.2 (Low)",
+                matchScore: "95%",
+                overallScore: "2.8",
+                riskTier: "LOW",
+                queuePriority: "Low",
+                sanctionsCheck: "CLEAR",
+                pepStatus: "NOT PEP",
+                watchlistMatches: "0 MATCHES",
+                matchConfidence: "99%",
+                flags: "No flags raised",
+                docType: "Driver License",
+                docNumber: "CA-9400-321-77",
+                issuingCountry: "Canada",
+                expiryDate: "2028-07-09",
+                expiryWarning: "No warning",
+                mrz: "N/A (license format)",
+                ocr: "Success (98% confidence)",
+                tamper: "Passed",
+                dataSource: "Auto-read (OCR)",
+                faceDetected: "99.3%",
+                singleFace: "99.0%",
+                faceMatch: "97.2%",
+                liveness: "96.4% (PASS)",
+                spoof: "No spoof indicators (PASS)",
+                quality: "Good quality"
+            },
+            "Emma Wilson": {
+                email: "emma.w@email.com",
+                country: "Hong Kong",
+                mobile: "+852-6123-8890",
+                employer: "Trading Co.",
+                walletStatus: "On Hold",
+                signupDate: "2025-02-27",
+                priorSubmissions: 6,
+                rejectionHistory: 2,
+                deviceRisk: "High (TOR/VPN pattern)",
+                countryRisk: "8.9 (High)",
+                documentRisk: "8.2 (High)",
+                matchScore: "65%",
+                overallScore: "8.7",
+                riskTier: "CRITICAL",
+                queuePriority: "Critical",
+                sanctionsCheck: "REVIEW",
+                pepStatus: "NOT PEP",
+                watchlistMatches: "2 MATCHES",
+                matchConfidence: "76%",
+                flags: "High-risk jurisdiction; Potential entity match",
+                docType: "Passport",
+                docNumber: "HK9901123",
+                issuingCountry: "Hong Kong",
+                expiryDate: "2027-03-12",
+                expiryWarning: "Review in 12 months",
+                mrz: "Success (90% confidence)",
+                ocr: "Success (88% confidence)",
+                tamper: "Manual review recommended",
+                dataSource: "Auto-read + manual verification",
+                faceDetected: "96.2%",
+                singleFace: "95.0%",
+                faceMatch: "78.4%",
+                liveness: "72.8% (REVIEW)",
+                spoof: "Suspicious texture anomalies detected",
+                quality: "Low-light image; compression artifacts"
+            }
+        };
+
+        function createDetailItem(label, value) {
+            return `<div class="detail-item"><div class="detail-label">${label}</div><div class="detail-value">${value}</div></div>`;
+        }
+
+        (function initReviewPage() {
+            const user = new URLSearchParams(window.location.search).get("user") || "John Doe";
+            const data = kycReviewData[user] || kycReviewData["John Doe"];
+
+            document.getElementById("reviewTitle").textContent = `KYC Full Review - ${user}`;
+
+            document.getElementById("profileGrid").innerHTML = [
+                createDetailItem("User", user),
+                createDetailItem("Email", data.email),
+                createDetailItem("Country", data.country),
+                createDetailItem("Mobile", data.mobile),
+                createDetailItem("Employer", data.employer),
+                createDetailItem("Wallet Status", data.walletStatus),
+                createDetailItem("Signup Date", data.signupDate),
+                createDetailItem("Prior Submissions", data.priorSubmissions),
+                createDetailItem("Rejection History", data.rejectionHistory),
+                createDetailItem("Device/IP Risk", data.deviceRisk)
+            ].join("");
+
+            document.getElementById("riskTableBody").innerHTML = `
+                <tr>
+                    <td>${data.countryRisk}</td>
+                    <td>${data.documentRisk}</td>
+                    <td>${data.matchScore}</td>
+                    <td>${data.overallScore}</td>
+                    <td>${data.riskTier}</td>
+                    <td>${data.queuePriority}</td>
+                </tr>
+            `;
+
+            document.getElementById("amlTableBody").innerHTML = `
+                <tr>
+                    <td>${data.sanctionsCheck}</td>
+                    <td>${data.pepStatus}</td>
+                    <td>${data.watchlistMatches}</td>
+                    <td>${data.matchConfidence}</td>
+                    <td>${data.flags}</td>
+                </tr>
+            `;
+
+            document.getElementById("docGrid").innerHTML = [
+                createDetailItem("Type", data.docType),
+                createDetailItem("Number", data.docNumber),
+                createDetailItem("Issuing Country", data.issuingCountry),
+                createDetailItem("Expiry Date", data.expiryDate),
+                createDetailItem("Expiry Warning", data.expiryWarning),
+                createDetailItem("MRZ", data.mrz),
+                createDetailItem("OCR", data.ocr),
+                createDetailItem("Tamper Checks", data.tamper),
+                createDetailItem("Data Source", data.dataSource)
+            ].join("");
+
+            document.getElementById("selfieGrid").innerHTML = [
+                createDetailItem("Face Detected Confidence", data.faceDetected),
+                createDetailItem("Single Face Confidence", data.singleFace),
+                createDetailItem("Face Match Score", data.faceMatch),
+                createDetailItem("Liveness Score", data.liveness),
+                createDetailItem("Spoof Detection", data.spoof),
+                createDetailItem("Image Quality Warnings", data.quality)
+            ].join("");
+        })();
+    </script>
+</body>
+</html>

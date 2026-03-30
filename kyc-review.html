@@ -121,167 +121,343 @@
             <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">KYC Review & Verification</h1>
-                <p class="page-subtitle">Review and approve/reject user KYC submissions.</p>
+                <p class="page-subtitle">Minimal KYC queue view. Open Full Review to see complete user details.</p>
             </div>
 
-            <!-- KYC Status Overview -->
-            <div class="kyc-status-card">
-                <div class="kyc-status-item">
-                    <div class="kyc-count">2,224</div>
-                    <div class="kyc-label">Pending Review</div>
-                </div>
-                <div class="kyc-status-item approved">
-                    <div class="kyc-count">10,234</div>
-                    <div class="kyc-label">Approved</div>
-                </div>
-                <div class="kyc-status-item rejected">
-                    <div class="kyc-count">287</div>
-                    <div class="kyc-label">Rejected</div>
-                </div>
-                <div class="kyc-status-item pending">
-                    <div class="kyc-count">1,845</div>
-                    <div class="kyc-label">Under Review</div>
+            <div class="card qa-tools-card">
+                <h3 class="section-heading"><i class="fas fa-shield-check"></i> Quality Control Tools</h3>
+                <div class="qa-tools-grid">
+                    <div class="qa-tool-block">
+                        <h4 class="qa-tool-title"><i class="fas fa-shuffle"></i> Random QA Sampling</h4>
+                        <div class="qa-tool-inline">
+                            <select class="form-control" style="min-width: 170px;">
+                                <option>Sample 5% of today cases</option>
+                                <option>Sample 10% of today cases</option>
+                                <option>Sample 20% of high-risk cases</option>
+                            </select>
+                            <button class="doc-btn"><i class="fas fa-play"></i> Run Sample</button>
+                        </div>
+                    </div>
+
+                    <div class="qa-tool-block">
+                        <h4 class="qa-tool-title"><i class="fas fa-chart-line"></i> Reviewer Scorecards</h4>
+                        <div class="qa-scorecards">
+                            <div class="qa-score-item"><strong>A. Hassan</strong><span>QA Pass: 96% | Error: 1.2%</span></div>
+                            <div class="qa-score-item"><strong>S. Watson</strong><span>QA Pass: 94% | Error: 1.9%</span></div>
+                            <div class="qa-score-item"><strong>R. Malik</strong><span>QA Pass: 91% | Error: 2.8%</span></div>
+                        </div>
+                    </div>
+
+                    <div class="qa-tool-block">
+                        <h4 class="qa-tool-title"><i class="fas fa-triangle-exclamation"></i> Exception Reporting</h4>
+                        <div class="qa-tags">
+                            <span class="qa-tag warn">Manual Overrides: 12</span>
+                            <span class="qa-tag danger">SLA Breaches: 8</span>
+                            <span class="qa-tag info">Policy Exceptions: 5</span>
+                        </div>
+                    </div>
+
+                    <div class="qa-tool-block">
+                        <h4 class="qa-tool-title"><i class="fas fa-user-secret"></i> Duplicate-Account Detection</h4>
+                        <div class="qa-duplicate-list">
+                            <div class="dup-item">John D. / J. Doe - Same device fingerprint (92%)</div>
+                            <div class="dup-item">Emma W. / E. Wilson Trading - Shared phone + IP overlap (87%)</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Filter Tabs -->
-            <div class="filter-tabs">
-                <button class="tab-btn active" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
-                    <i class="fas fa-filter"></i> All Applications (14,590)
-                </button>
-                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
-                    <i class="fas fa-clock"></i> Pending (2,224)
-                </button>
-                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
-                    <i class="fas fa-check"></i> Approved (10,234)
-                </button>
-                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
-                    <i class="fas fa-times"></i> Rejected (287)
-                </button>
+            <div class="card reg-tools-card">
+                <h3 class="section-heading"><i class="fas fa-book"></i> Regulatory Record Keeping (Logs)</h3>
+                <div class="reg-tools-grid">
+                    <div class="reg-tool-block">
+                        <h4 class="reg-tool-title"><i class="fas fa-hourglass-half"></i> Retention Flags</h4>
+                        <div class="reg-tags">
+                            <span class="reg-tag good">KYC Decision Logs: 7 Years</span>
+                            <span class="reg-tag good">Consent Artifacts: 5 Years</span>
+                            <span class="reg-tag warn">High-Risk Case Logs: Legal Hold</span>
+                        </div>
+                    </div>
+
+                    <div class="reg-tool-block">
+                        <h4 class="reg-tool-title"><i class="fas fa-file-signature"></i> Consent Evidence</h4>
+                        <div class="reg-list">
+                            <div class="reg-item">Terms version accepted: v4.2 (Hash: SHA256-AX3F...)</div>
+                            <div class="reg-item">Privacy consent captured at onboarding and at KYC submission</div>
+                            <div class="reg-item">IP + device fingerprint stored with signer identity</div>
+                        </div>
+                    </div>
+
+                    <div class="reg-tool-block">
+                        <h4 class="reg-tool-title"><i class="fas fa-clock"></i> Source-of-Truth Timestamps</h4>
+                        <div class="reg-list">
+                            <div class="reg-item">UTC event time: 2026-03-30T09:42:11Z</div>
+                            <div class="reg-item">Server write time: 2026-03-30T09:42:12Z</div>
+                            <div class="reg-item">Ledger sequence: KYC-LEDGER-884219</div>
+                        </div>
+                    </div>
+
+                    <div class="reg-tool-block">
+                        <h4 class="reg-tool-title"><i class="fas fa-file-export"></i> Exportable Audit Records</h4>
+                        <div class="reg-tool-inline">
+                            <button class="doc-btn"><i class="fas fa-file-csv"></i> Export CSV</button>
+                            <button class="doc-btn"><i class="fas fa-file-code"></i> Export JSON</button>
+                            <button class="doc-btn"><i class="fas fa-file-pdf"></i> Export PDF Pack</button>
+                        </div>
+                        <div class="reg-hint">Includes reviewer actions, evidence links, policy checks, and immutable event IDs for regulator or internal audit review.</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- KYC Applications List -->
             <div class="card">
-                <h3 class="kyc-pending-title">Pending Applications</h3>
-
-                <!-- KYC Item 1 -->
-                <div class="kyc-row">
-                    <div class="kyc-user-info">
-                        <div class="kyc-avatar">JD</div>
-                        <div class="kyc-user-details">
-                            <div class="kyc-user-name">John Doe</div>
-                            <div class="kyc-user-email">john.doe@email.com</div>
-                        </div>
-                    </div>
-                    <div class="doc-column">
-                        <button class="doc-btn" onclick="openModal('docModal')">
-                            <i class="fas fa-passport"></i> View ID
-                        </button>
-                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
-                            <i class="fas fa-camera"></i> View Selfie
-                        </button>
-                    </div>
-                    <div>
-                        <span class="badge badge-warning">Pending</span>
-                    </div>
-                    <div class="kyc-actions">
-                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('John Doe')">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('John Doe')">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
+                <div class="workflow-states-section" style="margin-bottom: 1rem;">
+                    <h4 class="workflow-states-title"><i class="fas fa-diagram-project"></i> Case Workflow States</h4>
+                    <div class="workflow-states-grid">
+                        <span class="approval-badge awaiting-resubmission"><i class="fas fa-rotate-right"></i> Awaiting Resubmission</span>
+                        <span class="approval-badge escalated"><i class="fas fa-arrow-up-right-dots"></i> Escalated</span>
+                        <span class="approval-badge on-hold"><i class="fas fa-pause-circle"></i> On Hold</span>
+                        <span class="approval-badge more-info-required"><i class="fas fa-circle-info"></i> More Info Required</span>
+                        <span class="approval-badge failed-screening"><i class="fas fa-triangle-exclamation"></i> Failed Screening</span>
+                        <span class="approval-badge qa-review"><i class="fas fa-magnifying-glass"></i> QA Review</span>
                     </div>
                 </div>
-
-                <!-- KYC Item 2 -->
-                <div class="kyc-row">
-                    <div class="kyc-user-info">
-                        <div class="kyc-avatar kyc-avatar-success">SS</div>
-                        <div class="kyc-user-details">
-                            <div class="kyc-user-name">Sarah Smith</div>
-                            <div class="kyc-user-email">sarah.smith@email.com</div>
-                        </div>
-                    </div>
-                    <div class="kyc-user-fields">
-                        <button class="doc-btn" onclick="openModal('docModal')">
-                            <i class="fas fa-passport"></i> View ID
-                        </button>
-                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
-                            <i class="fas fa-camera"></i> View Selfie
-                        </button>
-                    </div>
-                    <div>
-                        <span class="badge badge-warning">Pending</span>
-                    </div>
-                    <div class="kyc-actions">
-                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Sarah Smith')">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Sarah Smith')">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                    </div>
-                </div>
-
-                <!-- KYC Item 3 -->
-                <div class="kyc-row">
-                    <div class="kyc-user-info">
-                        <div class="kyc-avatar kyc-avatar-warning">MJ</div>
-                        <div class="kyc-user-details">
-                            <div class="kyc-user-name">Mike Johnson</div>
-                            <div class="kyc-user-email">mike.j@email.com</div>
-                        </div>
-                    </div>
-                    <div class="kyc-user-fields">
-                        <button class="doc-btn" onclick="openModal('docModal')">
-                            <i class="fas fa-passport"></i> View ID
-                        </button>
-                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
-                            <i class="fas fa-camera"></i> View Selfie
-                        </button>
-                    </div>
-                    <div>
-                        <span class="badge badge-warning">Pending</span>
-                    </div>
-                    <div class="kyc-actions">
-                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Mike Johnson')">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Mike Johnson')">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                    </div>
-                </div>
-
-                <!-- KYC Item 4 -->
-                <div class="kyc-row">
-                    <div class="kyc-user-info">
-                        <div class="kyc-avatar kyc-avatar-danger">EW</div>
-                        <div class="kyc-user-details">
-                            <div class="kyc-user-name">Emma Wilson</div>
-                            <div class="kyc-user-email">emma.w@email.com</div>
-                        </div>
-                    </div>
-                    <div class="kyc-user-fields">
-                        <button class="doc-btn" onclick="openModal('docModal')">
-                            <i class="fas fa-passport"></i> View ID
-                        </button>
-                        <button class="doc-btn doc-btn-spaced" onclick="openModal('selfieModal')">
-                            <i class="fas fa-camera"></i> View Selfie
-                        </button>
-                    </div>
-                    <div>
-                        <span class="badge badge-warning">Pending</span>
-                    </div>
-                    <div class="kyc-actions">
-                        <button class="action-btn-small action-btn-approve" onclick="approveKYC('Emma Wilson')">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="action-btn-small action-btn-reject" onclick="rejectKYC('Emma Wilson')">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                    </div>
+                <div class="table-container">
+                    <table class="table" id="kycMinimalTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th>User</th>
+                                <th>Country</th>
+                                <th>Mobile</th>
+                                <th>Employer</th>
+                                <th>Wallet</th>
+                                <th>Signup</th>
+                                <th>Prior Submissions</th>
+                                <th>Rejection History</th>
+                                <th>Device/IP Risk</th>
+                                <th>Risk Tier</th>
+                                <th>Overall Score</th>
+                                <th>Status</th>
+                                <th>Workflow State</th>
+                                <th>Updated</th>
+                                <th>Evidence</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-name">John Doe</div>
+                                    <div class="user-email">john.doe@email.com</div>
+                                </td>
+                                <td>United States</td>
+                                <td>+1-202-555-0148</td>
+                                <td>Tech Corp</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>2023-08-12</td>
+                                <td>3</td>
+                                <td>1</td>
+                                <td><span class="device-risk-indicator medium">Medium</span></td>
+                                <td><span class="risk-badge risk-high"><i class="fas fa-exclamation-circle"></i> HIGH</span></td>
+                                <td>7.5</td>
+                                <td><span class="approval-badge pending-maker">Pending Maker</span></td>
+                                <td><span class="approval-badge awaiting-resubmission"><i class="fas fa-rotate-right"></i> Awaiting Resubmission</span></td>
+                                <td>2 days ago</td>
+                                <td>
+                                    <div class="evidence-stack">
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-file-circle-check"></i> Docs: 2/2</span>
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-camera"></i> Selfie: Verified</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="kyc-table-actions">
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="openModal('docModal')">
+                                                <i class="fas fa-passport"></i> View ID
+                                            </button>
+                                            <button class="doc-btn" onclick="openModal('selfieModal')">
+                                                <i class="fas fa-camera"></i> View Selfie
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=John%20Doe'">
+                                                <i class="fas fa-folder-open"></i> Full Review
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="action-btn-small action-btn-approve" onclick="openDecisionModal('John Doe', 'approve')">
+                                                <i class="fas fa-check"></i> Maker
+                                            </button>
+                                            <button class="action-btn-small action-btn-reject" onclick="openDecisionModal('John Doe', 'reject')">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('John Doe')">
+                                                <i class="fas fa-history"></i> Audit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Sarah Smith</div>
+                                    <div class="user-email">sarah.smith@email.com</div>
+                                </td>
+                                <td>United Kingdom</td>
+                                <td>+44-7700-900123</td>
+                                <td>Finance Ltd</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>2024-01-19</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td><span class="device-risk-indicator low">Low</span></td>
+                                <td><span class="risk-badge risk-medium"><i class="fas fa-info-circle"></i> MEDIUM</span></td>
+                                <td>5.2</td>
+                                <td><span class="approval-badge pending-checker"><i class="fas fa-hourglass-half"></i> Pending Checker</span></td>
+                                <td><span class="approval-badge qa-review"><i class="fas fa-magnifying-glass"></i> QA Review</span></td>
+                                <td>1 day ago</td>
+                                <td>
+                                    <div class="evidence-stack">
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-file-circle-check"></i> Docs: 2/2</span>
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-camera"></i> Selfie: Verified</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="kyc-table-actions">
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="openModal('docModal')">
+                                                <i class="fas fa-passport"></i> View ID
+                                            </button>
+                                            <button class="doc-btn" onclick="openModal('selfieModal')">
+                                                <i class="fas fa-camera"></i> View Selfie
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Sarah%20Smith'">
+                                                <i class="fas fa-folder-open"></i> Full Review
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="action-btn-small action-btn-approve" onclick="openCheckerReviewModal('Sarah Smith', 'approve')">
+                                                <i class="fas fa-eye"></i> Checker Review
+                                            </button>
+                                            <button class="action-btn-small action-btn-reject" onclick="openCheckerReviewModal('Sarah Smith', 'reject')">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Sarah Smith')">
+                                                <i class="fas fa-history"></i> Audit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Mike Johnson</div>
+                                    <div class="user-email">mike.j@email.com</div>
+                                </td>
+                                <td>Canada</td>
+                                <td>+1-416-555-0194</td>
+                                <td>Retail Store</td>
+                                <td><span class="badge badge-warning">Limited</span></td>
+                                <td>2022-11-04</td>
+                                <td>4</td>
+                                <td>1</td>
+                                <td><span class="device-risk-indicator low">Low</span></td>
+                                <td><span class="risk-badge risk-low"><i class="fas fa-check-circle"></i> LOW</span></td>
+                                <td>2.8</td>
+                                <td><span class="approval-badge pending-checker"><i class="fas fa-hourglass-half"></i> Pending Checker</span></td>
+                                <td><span class="approval-badge more-info-required"><i class="fas fa-circle-info"></i> More Info Required</span></td>
+                                <td>3 days ago</td>
+                                <td>
+                                    <div class="evidence-stack">
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-file-circle-check"></i> Docs: 2/2</span>
+                                        <span class="evidence-item evidence-warn"><i class="fas fa-camera"></i> Selfie: Manual Review</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="kyc-table-actions">
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="openModal('docModal')">
+                                                <i class="fas fa-passport"></i> View ID
+                                            </button>
+                                            <button class="doc-btn" onclick="openModal('selfieModal')">
+                                                <i class="fas fa-camera"></i> View Selfie
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Mike%20Johnson'">
+                                                <i class="fas fa-folder-open"></i> Full Review
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="action-btn-small action-btn-approve" onclick="openCheckerReviewModal('Mike Johnson', 'approve')">
+                                                <i class="fas fa-eye"></i> Checker Review
+                                            </button>
+                                            <button class="action-btn-small action-btn-reject" onclick="openCheckerReviewModal('Mike Johnson', 'reject')">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Mike Johnson')">
+                                                <i class="fas fa-history"></i> Audit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-name">Emma Wilson</div>
+                                    <div class="user-email">emma.w@email.com</div>
+                                </td>
+                                <td>Hong Kong</td>
+                                <td>+852-6123-8890</td>
+                                <td>Trading Co.</td>
+                                <td><span class="badge badge-danger">On Hold</span></td>
+                                <td>2025-02-27</td>
+                                <td>6</td>
+                                <td>2</td>
+                                <td><span class="device-risk-indicator high">High</span></td>
+                                <td><span class="risk-badge risk-high sla-breach"><i class="fas fa-exclamation-triangle"></i> CRITICAL</span></td>
+                                <td>8.7</td>
+                                <td><span class="approval-badge pending-maker urgent">Urgent - Pending Maker</span></td>
+                                <td><span class="approval-badge failed-screening"><i class="fas fa-triangle-exclamation"></i> Failed Screening</span></td>
+                                <td>6 hours ago</td>
+                                <td>
+                                    <div class="evidence-stack">
+                                        <span class="evidence-item evidence-pass"><i class="fas fa-file-circle-check"></i> Docs: 2/2</span>
+                                        <span class="evidence-item evidence-fail"><i class="fas fa-camera"></i> Selfie: Liveness Risk</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="kyc-table-actions">
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="openModal('docModal')">
+                                                <i class="fas fa-passport"></i> View ID
+                                            </button>
+                                            <button class="doc-btn" onclick="openModal('selfieModal')">
+                                                <i class="fas fa-camera"></i> View Selfie
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Emma%20Wilson'">
+                                                <i class="fas fa-folder-open"></i> Full Review
+                                            </button>
+                                        </div>
+                                        <div class="action-row">
+                                            <button class="action-btn-small action-btn-approve" onclick="openDecisionModal('Emma Wilson', 'approve')">
+                                                <i class="fas fa-check"></i> Maker
+                                            </button>
+                                            <button class="action-btn-small action-btn-reject" onclick="openDecisionModal('Emma Wilson', 'reject')">
+                                                <i class="fas fa-times"></i> Reject
+                                            </button>
+                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Emma Wilson')">
+                                                <i class="fas fa-history"></i> Audit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -310,14 +486,165 @@
                         <div class="document-details-list">
                             <div class="document-detail-item"><strong>Type:</strong> Passport</div>
                             <div class="document-detail-item"><strong>Number:</strong> 123456789AB</div>
+                            <div class="document-detail-item"><strong>Issuing Country:</strong> United Arab Emirates (UAE)</div>
                             <div class="document-detail-item"><strong>Expiry Date:</strong> 2030-01-01</div>
+                            <div class="document-detail-item"><strong>Expiry Warning:</strong> No warning (more than 36 months remaining)</div>
                             <div class="document-detail-item"><strong>Verification Status:</strong> Valid</div>
+                            <div class="document-detail-item"><strong>MRZ Extraction:</strong> Success (98% confidence)</div>
+                            <div class="document-detail-item"><strong>OCR Extraction:</strong> Success (97% confidence)</div>
+                            <div class="document-detail-item"><strong>Tamper Checks:</strong> Passed (no edits, clone, or overlay artifacts detected)</div>
+                            <div class="document-detail-item"><strong>Data Entry Source:</strong> Auto-read (OCR/MRZ) with no manual override</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('docModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checker Review Modal (4-Eyes Approval) -->
+    <div id="checkerReviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-shield-alt"></i> 4-Eyes Checker Review</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkerReviewForm" class="checker-form">
+                    <input type="hidden" id="checkerUserName" name="checkerUserName" value="">
+                    <input type="hidden" id="checkerDecision" name="checkerDecision" value="">
+
+                    <!-- Original Maker Decision Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-user-check"></i> Original Maker Decision
+                        </h3>
+                        <div id="makerDecisionBox" class="maker-decision-box">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- KYC Metadata Review -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-file-alt"></i> KYC Metadata & Risk Assessment
+                        </h3>
+                        <div class="metadata-grid">
+                            <div class="metadata-row">
+                                <label class="metadata-label">Risk Tier:</label>
+                                <span id="displayRiskTier" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">Nationality:</label>
+                                <span id="displayNationality" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">Submission Age:</label>
+                                <span id="displaySubmissionAge" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">Document Type:</label>
+                                <span id="displayDocumentType" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">Employer:</label>
+                                <span id="displayEmployer" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">Submission Reviewer (Maker):</label>
+                                <span id="displayMaker" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-row">
+                                <label class="metadata-label">SLA Status:</label>
+                                <span id="displaySLAStatus" class="metadata-value sla-status">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Role-Based Restriction Check -->
+                    <div id="roleRestrictionBox" class="form-section" style="display: none;">
+                        <h3 class="form-section-title" style="color: var(--color-danger);">
+                            <i class="fas fa-lock"></i> Role Restriction
+                        </h3>
+                        <p id="roleRestrictionMessage" class="restriction-message"></p>
+                    </div>
+
+                    <!-- Checker Review Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-eye"></i> Checker Verification
+                        </h3>
+
+                        <div class="form-group">
+                            <label class="form-label">Checker Findings</label>
+                            <textarea id="checkerFindings" class="form-control" rows="3" placeholder="Verify the maker's decision, add your observations, concerns, or approval rationale..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Checklist Items</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="docVerified" class="form-checkbox">
+                                    <span>Document authenticity verified</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="faceMatched" class="form-checkbox">
+                                    <span>Face matches ID document</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="noRedFlags" class="form-checkbox">
+                                    <span>No red flags or suspicious patterns</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="makerLogicSound" class="form-checkbox">
+                                    <span>Maker's decision logic is sound</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Checker Decision</label>
+                            <div class="checker-decision-group">
+                                <label class="decision-radio">
+                                    <input type="radio" name="checkerApproval" value="approve" onchange="updateCheckerDecision('approve')">
+                                    <span class="radio-label approve-label">
+                                        <i class="fas fa-check-circle"></i> Approve
+                                    </span>
+                                </label>
+                                <label class="decision-radio">
+                                    <input type="radio" name="checkerApproval" value="reject" onchange="updateCheckerDecision('reject')">
+                                    <span class="radio-label reject-label">
+                                        <i class="fas fa-times-circle"></i> Reject
+                                    </span>
+                                </label>
+                                <label class="decision-radio">
+                                    <input type="radio" name="checkerApproval" value="escalate" onchange="updateCheckerDecision('escalate')">
+                                    <span class="radio-label escalate-label">
+                                        <i class="fas fa-exclamation-triangle"></i> Escalate to Senior
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Approval Summary for Checker -->
+                    <div class="form-section decision-summary-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-clipboard-check"></i> Checker Summary
+                        </h3>
+                        <div id="checkerSummary" class="decision-summary-box">
+                            <!-- Summary will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('checkerReviewModal')">Cancel</button>
+                <button class="btn btn-primary" id="submitCheckerBtn" onclick="submitCheckerReview()" style="display: none;">
+                    <i class="fas fa-check"></i> Submit Checker Decision
+                </button>
             </div>
         </div>
     </div>
@@ -344,9 +671,13 @@
                         <div class="document-details-header"><strong>Verification Status:</strong></div>
                         <div class="document-details-list">
                             <ul class="verification-list">
-                                <li class="verification-item success"><i class="fas fa-check"></i> Face Detected</li>
-                                <li class="verification-item success"><i class="fas fa-check"></i> Single Face Confirmed</li>
-                                <li class="verification-item success"><i class="fas fa-check"></i> Face Matches ID Document</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Face Detected (Confidence: 99.1%)</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Single Face Confirmed (Confidence: 98.4%)</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Face Matches ID Document (Match Score: 96.7%)</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Liveness Score: 94.3% (PASS)</li>
+                                <li class="verification-item success"><i class="fas fa-check"></i> Spoof Detection: No spoof indicators (PASS)</li>
+                                <li class="verification-item warning"><i class="fas fa-exclamation-triangle"></i> Image Quality Warning: Mild motion blur detected</li>
+                                <li class="verification-item warning"><i class="fas fa-exclamation-triangle"></i> Image Quality Warning: Uneven lighting on left cheek</li>
                                 <li class="verification-item warning"><i class="fas fa-exclamation"></i> Needs Manual Review</li>
                             </ul>
                         </div>
@@ -355,6 +686,259 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('selfieModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decision Control Modal for Approve/Reject -->
+    <div id="decisionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">KYC Decision - Structured Rationale</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="decisionForm" class="decision-form">
+                    <!-- Hidden field to store decision type and user name -->
+                    <input type="hidden" id="decisionType" name="decisionType" value="">
+                    <input type="hidden" id="kycUserName" name="kycUserName" value="">
+
+                    <!-- Decision Type Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-check-circle"></i> Decision Type
+                        </h3>
+                        <div id="decisionTypeDisplay" class="decision-type-display">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Rejection Reason Section (Shown only for Reject) -->
+                    <div id="rejectionReasonSection" class="form-section" style="display: none;">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-times-circle"></i> Rejection Reason
+                        </h3>
+                        <div class="form-group">
+                            <label for="rejectionReason" class="form-label">Primary Reason <span class="required">*</span></label>
+                            <select id="rejectionReason" name="rejectionReason" class="form-control" required>
+                                <option value="">-- Select a reason --</option>
+                                <option value="document-invalid">Document Invalid/Expired</option>
+                                <option value="face-mismatch">Face Does Not Match Document</option>
+                                <option value="poor-quality">Poor Document Quality</option>
+                                <option value="suspicious-activity">Suspicious Activity Detected</option>
+                                <option value="missing-info">Missing Required Information</option>
+                                <option value="duplicate-submission">Duplicate Submission</option>
+                                <option value="policy-violation">Policy Violation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rejectionDetails" class="form-label">Detailed Explanation <span class="required">*</span></label>
+                            <textarea id="rejectionDetails" name="rejectionDetails" class="form-control" rows="3" placeholder="Provide specific details about the rejection reason..." required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Reviewer Notes Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-sticky-note"></i> Reviewer Notes
+                        </h3>
+                        <div class="form-group">
+                            <label for="reviewerNotes" class="form-label">Internal Notes</label>
+                            <textarea id="reviewerNotes" name="reviewerNotes" class="form-control" rows="3" placeholder="Add internal notes about this KYC review (visible only to admins)..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Escalation Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-exclamation-triangle"></i> Escalation & Action Required
+                        </h3>
+                        <div class="form-group">
+                            <label for="escalationComments" class="form-label">Escalation Comments</label>
+                            <textarea id="escalationComments" name="escalationComments" class="form-control" rows="3" placeholder="Add comments if this case needs escalation or further review..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Escalation Required?</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="escalateToManager" name="escalateToManager" class="form-checkbox">
+                                    <span>Escalate to Manager</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="escalateToCompliance" name="escalateToCompliance" class="form-checkbox">
+                                    <span>Escalate to Compliance Team</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="requiresManualVerification" name="requiresManualVerification" class="form-checkbox">
+                                    <span>Requires Manual Verification</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conditions Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-list-check"></i> Conditions & Restrictions (Approval Only)
+                        </h3>
+                        <div id="conditionsSection" class="form-group" style="display: none;">
+                            <label class="form-label">Apply Conditions</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="conditionalApproval" name="conditionalApproval" class="form-checkbox">
+                                    <span>Conditional Approval - User has restrictions</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="limitedTransaction" name="limitedTransaction" class="form-checkbox">
+                                    <span>Limited Transaction Amount</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="needsReVerification" name="needsReVerification" class="form-checkbox">
+                                    <span>Re-verification Required After 12 Months</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="geographicRestriction" name="geographicRestriction" class="form-checkbox">
+                                    <span>Geographic Restriction Applied</span>
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="conditionDetails" class="form-label">Condition Details</label>
+                                <textarea id="conditionDetails" name="conditionDetails" class="form-control" rows="2" placeholder="Specify the conditions and any restrictions..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decision Summary for Review -->
+                    <div class="form-section decision-summary-section">
+                        <h3 class="form-section-title">
+                            <i class="fas fa-eye"></i> Decision Summary
+                        </h3>
+                        <div id="decisionSummary" class="decision-summary-box">
+                            <!-- Summary will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('decisionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitDecision()">
+                    <i class="fas fa-check"></i> Submit Decision
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit Trail Modal - Compliance & History Tracking -->
+    <div id="auditTrailModal" class="modal">
+        <div class="modal-content" style="max-width: 1000px; max-height: 95vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-history"></i> Audit Trail - Compliance Record</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- User Case Summary -->
+                <div class="audit-summary-section">
+                    <h3 class="section-title"><i class="fas fa-user-circle"></i> Case Information</h3>
+                    <div class="audit-info-grid">
+                        <div class="audit-info-item">
+                            <label>User Name:</label>
+                            <span id="auditUserName" class="audit-value">--</span>
+                        </div>
+                        <div class="audit-info-item">
+                            <label>Case Opened:</label>
+                            <span id="auditCaseOpenedTime" class="audit-value">--</span>
+                        </div>
+                        <div class="audit-info-item">
+                            <label>Opened By:</label>
+                            <span id="auditCaseOpenedBy" class="audit-value">--</span>
+                        </div>
+                        <div class="audit-info-item">
+                            <label>Current Status:</label>
+                            <span id="auditCurrentStatus" class="audit-value audit-badge">--</span>
+                        </div>
+                        <div class="audit-info-item">
+                            <label>Risk Tier:</label>
+                            <span id="auditRiskTier" class="audit-value">--</span>
+                        </div>
+                        <div class="audit-info-item">
+                            <label>Last Modified:</label>
+                            <span id="auditLastModified" class="audit-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline of Events -->
+                <div class="audit-timeline-section">
+                    <h3 class="section-title"><i class="fas fa-timeline"></i> Event Timeline & Reviewer History</h3>
+                    <div id="auditTimeline" class="audit-timeline">
+                        <!-- Timeline events will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Decision Changes & Overrides -->
+                <div class="audit-changes-section">
+                    <h3 class="section-title"><i class="fas fa-sync-alt"></i> Decision Changes & Overrides</h3>
+                    <div id="auditChanges" class="audit-changes-log">
+                        <p class="no-data">No changes recorded.</p>
+                    </div>
+                </div>
+
+                <!-- Detailed Decisions Log -->
+                <div class="audit-decisions-section">
+                    <h3 class="section-title"><i class="fas fa-gavel"></i> Decision History</h3>
+                    <div id="auditDecisions" class="audit-decisions-list">
+                        <!-- Decisions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Compliance Notes -->
+                <div class="audit-compliance-section">
+                    <h3 class="section-title"><i class="fas fa-shield-alt"></i> Compliance & Audit Notes</h3>
+                    <div class="audit-compliance-box">
+                        <div class="compliance-requirement">
+                            <label>4-Eyes Approval Status:</label>
+                            <span id="auditFourEyesStatus" class="audit-value">--</span>
+                        </div>
+                        <div class="compliance-requirement">
+                            <label>SLA Compliance:</label>
+                            <span id="auditSLAStatus" class="audit-value">--</span>
+                        </div>
+                        <div class="compliance-requirement">
+                            <label>Required Escalations:</label>
+                            <span id="auditEscalations" class="audit-value">--</span>
+                        </div>
+                        <div class="compliance-requirement">
+                            <label>Data Integrity:</label>
+                            <span id="auditDataIntegrity" class="audit-value">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Audit Trail -->
+                <div class="audit-export-section">
+                    <h3 class="section-title"><i class="fas fa-download"></i> Export Audit Trail</h3>
+                    <div class="export-buttons">
+                        <button class="btn btn-secondary" onclick="exportAuditTrail('pdf')">
+                            <i class="fas fa-file-pdf"></i> Export as PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportAuditTrail('csv')">
+                            <i class="fas fa-file-csv"></i> Export as CSV
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportAuditTrail('json')">
+                            <i class="fas fa-code"></i> Export as JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('auditTrailModal')">Close</button>
+                <button class="btn btn-primary" onclick="printAuditTrail()">
+                    <i class="fas fa-print"></i> Print Audit Trail
+                </button>
             </div>
         </div>
     </div>

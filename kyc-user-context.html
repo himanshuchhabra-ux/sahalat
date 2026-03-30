@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC User Context - Wallet Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .context-table-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .context-highlight {
+            background: rgba(72, 195, 167, 0.18) !important;
+            outline: 2px solid rgba(72, 195, 167, 0.5);
+            outline-offset: -2px;
+        }
+
+        .risk-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .risk-chip.low {
+            background: rgba(5, 150, 105, 0.12);
+            color: #047857;
+            border-color: rgba(5, 150, 105, 0.35);
+        }
+
+        .risk-chip.medium {
+            background: rgba(217, 119, 6, 0.14);
+            color: #b45309;
+            border-color: rgba(217, 119, 6, 0.35);
+        }
+
+        .risk-chip.high {
+            background: rgba(220, 38, 38, 0.14);
+            color: #b91c1c;
+            border-color: rgba(220, 38, 38, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="assets/s_logo.png"/>
+            <span class="logo">Sahalat Admin Panel</span>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item active">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Admin Management</div>
+                <a href="subadmin-management.html" class="nav-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-item-label">Sub Admins</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="page-header">
+                <h1 class="page-title">KYC User Profile Context</h1>
+                <p class="page-subtitle">Clean reviewer snapshot for profile, account, and device risk data.</p>
+            </div>
+
+            <div class="card">
+                <div class="context-table-actions">
+                    <h3 class="section-heading">Reviewer Context Table</h3>
+                    <button class="btn btn-secondary" onclick="window.location.href='kyc-review.html'">
+                        <i class="fas fa-arrow-left"></i> Back to KYC Review
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="contextTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th>User</th>
+                                <th>Mobile</th>
+                                <th>Employer</th>
+                                <th>Wallet Status</th>
+                                <th>Signup Date</th>
+                                <th>Prior Submissions</th>
+                                <th>Rejection History</th>
+                                <th>Device/IP Risk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-user="John Doe">
+                                <td>
+                                    <div class="user-name">John Doe</div>
+                                    <div class="user-email">john.doe@email.com</div>
+                                </td>
+                                <td>+1-202-555-0148</td>
+                                <td>Tech Corp</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>2023-08-12</td>
+                                <td>3</td>
+                                <td>1</td>
+                                <td><span class="risk-chip medium"><i class="fas fa-network-wired"></i> Medium</span></td>
+                            </tr>
+                            <tr data-user="Sarah Smith">
+                                <td>
+                                    <div class="user-name">Sarah Smith</div>
+                                    <div class="user-email">sarah.smith@email.com</div>
+                                </td>
+                                <td>+44-7700-900123</td>
+                                <td>Finance Ltd</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>2024-01-19</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td><span class="risk-chip low"><i class="fas fa-network-wired"></i> Low</span></td>
+                            </tr>
+                            <tr data-user="Mike Johnson">
+                                <td>
+                                    <div class="user-name">Mike Johnson</div>
+                                    <div class="user-email">mike.j@email.com</div>
+                                </td>
+                                <td>+1-416-555-0194</td>
+                                <td>Retail Store</td>
+                                <td><span class="badge badge-warning">Limited</span></td>
+                                <td>2022-11-04</td>
+                                <td>4</td>
+                                <td>1</td>
+                                <td><span class="risk-chip low"><i class="fas fa-network-wired"></i> Low</span></td>
+                            </tr>
+                            <tr data-user="Emma Wilson">
+                                <td>
+                                    <div class="user-name">Emma Wilson</div>
+                                    <div class="user-email">emma.w@email.com</div>
+                                </td>
+                                <td>+852-6123-8890</td>
+                                <td>Trading Co.</td>
+                                <td><span class="badge badge-danger">On Hold</span></td>
+                                <td>2025-02-27</td>
+                                <td>6</td>
+                                <td>2</td>
+                                <td><span class="risk-chip high"><i class="fas fa-network-wired"></i> High</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        (function () {
+            const selectedUser = new URLSearchParams(window.location.search).get("user");
+            if (!selectedUser) return;
+
+            const targetRow = document.querySelector(`[data-user="${selectedUser}"]`);
+            if (targetRow) {
+                targetRow.classList.add("context-highlight");
+                targetRow.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        })();
+    </script>
+</body>
+</html>
