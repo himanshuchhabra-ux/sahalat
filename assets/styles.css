@@ -920,7 +920,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
    ============================================ */
 .btn {
   padding: 0.75rem var(--spacing-lg);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-lg);
   font-size: 0.8rem;
   font-weight: 700;
@@ -928,6 +928,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   transition: all var(--transition-fast);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-sm);
   text-decoration: none;
   letter-spacing: 0.03em;
@@ -1231,7 +1232,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   align-items: center;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-2xl);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   background-color: var(--bg-surface);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);
@@ -1240,6 +1241,11 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
 .filter-group {
   flex: 1;
   min-width: 180px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-group label {
@@ -1252,22 +1258,58 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   letter-spacing: 0.06em;
 }
 
+.filter-group select,
+.filter-group input[type="date"] {
+  height: 44px;
+  padding: 0.75rem var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: "Inter", sans-serif;
+  font-size: 0.94rem;
+}
+
 .search-box {
   position: relative;
   flex: 1;
   min-width: 220px;
-  margin-top: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.search-bar label{
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+
+}
+.search-box label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  min-height: 17px;
 }
 
 .search-box input {
   width: 100%;
+  height: 44px;
   padding: 0.75rem var(--spacing-md) 0.75rem 2.5rem;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
   color: var(--text-primary);
   font-family: "Inter", sans-serif;
   transition: all var(--transition-fast);
+  font-size: 0.94rem;
 }
 
 .search-box input:focus {
@@ -1276,12 +1318,17 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   box-shadow: 0 0 0 3px rgba(0, 29, 59, 0.12);
 }
 
+.search-box input::placeholder {
+  color: var(--text-tertiary);
+}
+
 .search-box i {
   position: absolute;
   left: var(--spacing-md);
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 12px;
   color: var(--text-tertiary);
+  pointer-events: none;
+  font-size: 0.95rem;
 }
 
 /* ============================================
@@ -1752,7 +1799,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   display: flex;
   gap: 0.5rem;
   align-items: flex-end;
-  flex: 1;
+
   min-width: 150px;
 }
 
@@ -4097,6 +4144,19 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-flex-wrapper .btn {
+  height: 44px;
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-lg);
+}
+
+.btn-flex-wrapper .btn:not(.btn-full-flex) {
+  width: 44px;
+  padding: 0;
 }
 
 .btn-full-flex {
@@ -4930,6 +4990,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
 
 .profile-header {
   display: flex;
+  align-items: center;
   gap: 2rem;
   padding: 2rem;
   background-color: var(--bg-secondary);
@@ -4971,6 +5032,10 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   color: var(--main);
   font-weight: 600;
   margin-bottom: 1rem;
+}
+
+html[data-theme="dark"] .profile-role {
+  color: var(--color-accent);
 }
 
 .profile-meta {
@@ -5024,6 +5089,10 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
 
 .section-title i {
   color: var(--main);
+}
+
+html[data-theme="dark"] .section-title i {
+  color: var(--color-accent);
 }
 
 .profile-grid {
@@ -6253,11 +6322,11 @@ html[data-theme="dark"] .role-badge {
 }
 
 .search-box {
-  flex: 1;
-  min-width: 250px;
+
+  min-width: 200px;
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.05rem 0.3rem;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -6265,7 +6334,6 @@ html[data-theme="dark"] .role-badge {
 
 .search-box i {
   color: var(--text-tertiary);
-  margin-right: 0.5rem;
 }
 
 .search-box input {

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Closure Requests - Sahalat Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="assets/s_logo.png"/>
+            <span class="logo">Sahalat Admin Panel</span>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc-review.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+                <a href="account-closure.html" class="nav-item active">
+                    <i class="fas fa-times-circle"></i>
+                    <span class="nav-item-label">Account Closure</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Admin Management</div>
+                <a href="subadmin-management.html" class="nav-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-item-label">Sub Admins</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Account Closure Requests</h1>
+                <p class="page-subtitle">Manage user account closure requests and take necessary actions.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                  
+                    <div class="stat-content">
+                        <div class="stat-label">Total Requests</div>
+                        <div class="stat-value">2,547</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                   
+                    <div class="stat-content">
+                        <div class="stat-label">Pending Requests</div>
+                        <div class="stat-value">348</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    
+                    <div class="stat-content">
+                        <div class="stat-label">Approved Requests</div>
+                        <div class="stat-value">1,889</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    
+                    <div class="stat-content">
+                        <div class="stat-label">Rejected Requests</div>
+                        <div class="stat-value">310</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+               <div class="search-bar">
+                <label>Search</label>
+                <div class="search-box">
+                    
+                    <i class="fas fa-search"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by email,name" 
+                        data-search-table="closureTable"
+                    >
+                </div>
+               </div> 
+                
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select form-select-full-width" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Request Date</label>
+                    <input type="date" class="form-input" id="dateFilter">
+                </div>
+                <div class="filter-group">
+                    <label>Reason</label>
+                    <select class="form-select form-select-full-width" id="reasonFilter">
+                        <option value="">All Reasons</option>
+                        <option value="personal">Personal Reasons</option>
+                        <option value="security">Security Concerns</option>
+                        <option value="unused">Account Unused</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="display: flex; flex-direction: row; gap: 0.75rem; align-items: flex-end; flex: 2;">
+                    <button class="btn btn-primary" style=" height: 44px;" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary" style=" height: 44px;" onclick="resetFilters()">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-secondary" style="height: 44px; width: 44px; padding: 0;" onclick="exportClosureData()">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Requests Table -->
+            <div class="card">
+                <div class="flex-between section-with-margin">
+                    <h3 class="section-heading">Closure Requests (2,547)</h3>
+                    <div class="content-info">
+                        Showing <strong>1-10</strong> of <strong>2,547</strong>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="closureTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th class="col-10">Request ID</th>
+                                <th class="col-10">User ID</th>
+                                <th class="col-15">Full Name</th>
+                                <th class="col-15">Email</th>
+                                <th class="col-12">Mobile</th>
+                                <th class="col-12">Wallet Balance</th>
+                                <th class="col-12">Reason</th>
+                                <th class="col-10">Date</th>
+                                <th class="col-12">Status</th>
+                                <th class="col-12">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Request 1 -->
+                            <tr>
+                                <td><strong>#REQ-001524</strong></td>
+                                <td>#USR-45821</td>
+                                <td>Ahmed Hassan</td>
+                                <td>ahmed.hassan@email.com</td>
+                                <td>+966-541234567</td>
+                                <td><span class="status-badge status-verified">SAR 2,450.50</span></td>
+                                <td><span class="badge-light">Security Concerns</span></td>
+                                <td>Feb 28, 2026</td>
+                                <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001524')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" onclick="approveRequest('#REQ-001524')" title="Approve">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" onclick="rejectRequest('#REQ-001524')" title="Reject">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 2 -->
+                            <tr>
+                                <td><strong>#REQ-001523</strong></td>
+                                <td>#USR-45820</td>
+                                <td>Fatima Al-Rashid</td>
+                                <td>fatima.rashid@email.com</td>
+                                <td>+966-556789012</td>
+                                <td><span class="status-badge status-verified">SAR 890.25</span></td>
+                                <td><span class="badge-light">Account Unused</span></td>
+                                <td>Feb 27, 2026</td>
+                                <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001523')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Approved">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 3 -->
+                            <tr>
+                                <td><strong>#REQ-001522</strong></td>
+                                <td>#USR-45819</td>
+                                <td>Mohammed Al-Otaibi</td>
+                                <td>m.otaibi@email.com</td>
+                                <td>+966-507654321</td>
+                                <td><span class="status-badge status-verified">SAR 5,120.00</span></td>
+                                <td><span class="badge-light">Personal Reasons</span></td>
+                                <td>Feb 26, 2026</td>
+                                <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001522')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Rejected">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 4 -->
+                            <tr>
+                                <td><strong>#REQ-001521</strong></td>
+                                <td>#USR-45818</td>
+                                <td>Noor Al-Qurashi</td>
+                                <td>noor.qurashi@email.com</td>
+                                <td>+966-533445566</td>
+                                <td><span class="status-badge status-verified">SAR 1,750.75</span></td>
+                                <td><span class="badge-light">Other</span></td>
+                                <td>Feb 25, 2026</td>
+                                <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001521')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" onclick="approveRequest('#REQ-001521')" title="Approve">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" onclick="rejectRequest('#REQ-001521')" title="Reject">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 5 -->
+                            <tr>
+                                <td><strong>#REQ-001520</strong></td>
+                                <td>#USR-45817</td>
+                                <td>Karim Al-Sabah</td>
+                                <td>karim.sabah@email.com</td>
+                                <td>+966-515667788</td>
+                                <td><span class="status-badge status-verified">SAR 3,300.00</span></td>
+                                <td><span class="badge-light">Security Concerns</span></td>
+                                <td>Feb 24, 2026</td>
+                                <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001520')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Approved">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 6 -->
+                            <tr>
+                                <td><strong>#REQ-001519</strong></td>
+                                <td>#USR-45816</td>
+                                <td>Layla Al-Marsadi</td>
+                                <td>layla.marsadi@email.com</td>
+                                <td>+966-541112233</td>
+                                <td><span class="status-badge status-verified">SAR 650.00</span></td>
+                                <td><span class="badge-light">Account Unused</span></td>
+                                <td>Feb 23, 2026</td>
+                                <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001519')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" onclick="approveRequest('#REQ-001519')" title="Approve">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" onclick="rejectRequest('#REQ-001519')" title="Reject">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 7 -->
+                            <tr>
+                                <td><strong>#REQ-001518</strong></td>
+                                <td>#USR-45815</td>
+                                <td>Samir Al-Harthi</td>
+                                <td>samir.harthi@email.com</td>
+                                <td>+966-533778899</td>
+                                <td><span class="status-badge status-verified">SAR 4,200.50</span></td>
+                                <td><span class="badge-light">Other</span></td>
+                                <td>Feb 22, 2026</td>
+                                <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001518')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Rejected">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 8 -->
+                            <tr>
+                                <td><strong>#REQ-001517</strong></td>
+                                <td>#USR-45814</td>
+                                <td>Hana Al-Qarni</td>
+                                <td>hana.qarni@email.com</td>
+                                <td>+966-552334455</td>
+                                <td><span class="status-badge status-verified">SAR 1,999.99</span></td>
+                                <td><span class="badge-light">Personal Reasons</span></td>
+                                <td>Feb 21, 2026</td>
+                                <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001517')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Approved">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 9 -->
+                            <tr>
+                                <td><strong>#REQ-001516</strong></td>
+                                <td>#USR-45813</td>
+                                <td>Majed Al-Fahad</td>
+                                <td>majed.fahad@email.com</td>
+                                <td>+966-546789000</td>
+                                <td><span class="status-badge status-verified">SAR 2,875.25</span></td>
+                                <td><span class="badge-light">Security Concerns</span></td>
+                                <td>Feb 20, 2026</td>
+                                <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001516')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" onclick="approveRequest('#REQ-001516')" title="Approve">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-icon" onclick="rejectRequest('#REQ-001516')" title="Reject">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Request 10 -->
+                            <tr>
+                                <td><strong>#REQ-001515</strong></td>
+                                <td>#USR-45812</td>
+                                <td>Rania Al-Shehri</td>
+                                <td>rania.shehri@email.com</td>
+                                <td>+966-509876543</td>
+                                <td><span class="status-badge status-verified">SAR 1,100.00</span></td>
+                                <td><span class="badge-light">Account Unused</span></td>
+                                <td>Feb 19, 2026</td>
+                                <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="viewDetails('#REQ-001515')" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" disabled title="Already Rejected">
+                                            <i class="fas fa-lock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination-btn" onclick="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="pagination-info">
+                        Page <span id="currentPage">1</span> of <span id="totalPages">255</span>
+                    </div>
+                    <button class="pagination-btn" onclick="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Request Details Modal -->
+    <div id="viewDetailsModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Account Closure Request Details</h2>
+                <button class="modal-close" onclick="closeModal('viewDetailsModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-grid-2">
+                    <div>
+                        <div class="form-group-profile">
+                            <label>Request ID</label>
+                            <div class="field-value" id="modalRequestId">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>User ID</label>
+                            <div class="field-value" id="modalUserId">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>Full Name</label>
+                            <div class="field-value" id="modalUserName">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>Email Address</label>
+                            <div class="field-value" id="modalEmail">-</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group-profile">
+                            <label>Mobile Number</label>
+                            <div class="field-value" id="modalMobile">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>Wallet Balance</label>
+                            <div class="field-value" id="modalBalance">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>Request Date</label>
+                            <div class="field-value" id="modalDate">-</div>
+                        </div>
+                        <div class="form-group-profile">
+                            <label>Status</label>
+                            <div class="field-value" id="modalStatus">-</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-profile" style="margin-top: 1.5rem; grid-column: 1/-1;">
+                    <label>Reason for Closure</label>
+                    <div class="field-value" id="modalReason" style="min-height: 60px; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">-</div>
+                </div>
+                <div class="form-group-profile" style="margin-top: 1rem; grid-column: 1/-1;">
+                    <label>Additional Comments</label>
+                    <div class="field-value" id="modalComments" style="min-height: 80px; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">-</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('viewDetailsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve Request Confirmation Modal -->
+    <div id="approveModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Approval</h2>
+                <button class="modal-close" onclick="closeModal('approveModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box" style="margin-bottom: 1.5rem;">
+                    <div class="info-title"><i class="fas fa-info-circle"></i> Approval Confirmation</div>
+                    <div class="info-text">
+                        Are you sure you want to approve this account closure request? The user's account will be deactivated and their wallet balance will be refunded.
+                    </div>
+                </div>
+                <div class="form-group-profile">
+                    <label>Request ID</label>
+                    <div class="field-value" id="approveRequestId">-</div>
+                </div>
+                <div class="form-group-profile">
+                    <label>User Email</label>
+                    <div class="field-value" id="approveEmail">-</div>
+                </div>
+                <div class="form-group-profile">
+                    <label>Admin Notes (Optional)</label>
+                    <textarea class="form-input" id="approveNotes" placeholder="Add any notes about this approval..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('approveModal')">Cancel</button>
+                <button class="btn btn-success" onclick="confirmApprove()">
+                    <i class="fas fa-check"></i> Confirm Approval
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Request Confirmation Modal -->
+    <div id="rejectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Rejection</h2>
+                <button class="modal-close" onclick="closeModal('rejectModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-box" style="margin-bottom: 1.5rem;">
+                    <div class="info-title"><i class="fas fa-warning"></i> Rejection Confirmation</div>
+                    <div class="info-text">
+                        Are you sure you want to reject this account closure request? The user will be notified about the rejection.
+                    </div>
+                </div>
+                <div class="form-group-profile">
+                    <label>Request ID</label>
+                    <div class="field-value" id="rejectRequestId">-</div>
+                </div>
+                <div class="form-group-profile">
+                    <label>User Email</label>
+                    <div class="field-value" id="rejectEmail">-</div>
+                </div>
+                <div class="form-group-profile">
+                    <label>Rejection Reason *</label>
+                    <select class="form-select" id="rejectReason">
+                        <option value="">Select a reason</option>
+                        <option value="pending_transaction">Pending Transactions</option>
+                        <option value="outstanding_balance">Outstanding Balance</option>
+                        <option value="active_subscriptions">Active Subscriptions</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group-profile">
+                    <label>Admin Notes (Optional)</label>
+                    <textarea class="form-input" id="rejectNotes" placeholder="Add any notes about this rejection..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('rejectModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmReject()">
+                    <i class="fas fa-times"></i> Confirm Rejection
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        initTheme();
+
+        // Sample request data
+        const requestsData = {
+            '#REQ-001524': {
+                requestId: '#REQ-001524',
+                userId: '#USR-45821',
+                fullName: 'Ahmed Hassan',
+                email: 'ahmed.hassan@email.com',
+                mobile: '+966-541234567',
+                balance: 'SAR 2,450.50',
+                reason: 'Security Concerns - Suspicious activity detected on account',
+                comments: 'User reported unauthorized access attempts. Taking closure as security measure.',
+                date: 'Feb 28, 2026',
+                status: 'Pending'
+            },
+            '#REQ-001523': {
+                requestId: '#REQ-001523',
+                userId: '#USR-45820',
+                fullName: 'Fatima Al-Rashid',
+                email: 'fatima.rashid@email.com',
+                mobile: '+966-556789012',
+                balance: 'SAR 890.25',
+                reason: 'Account Unused - No activity for 6+ months',
+                comments: 'User requested to close inactive account. Approved on Feb 27, 2026',
+                date: 'Feb 27, 2026',
+                status: 'Approved'
+            },
+            '#REQ-001522': {
+                requestId: '#REQ-001522',
+                userId: '#USR-45819',
+                fullName: 'Mohammed Al-Otaibi',
+                email: 'm.otaibi@email.com',
+                mobile: '+966-507654321',
+                balance: 'SAR 5,120.00',
+                reason: 'Personal Reasons - Transferring to different platform',
+                comments: 'Rejected due to active pending transactions.',
+                date: 'Feb 26, 2026',
+                status: 'Rejected'
+            }
+        };
+
+        function viewDetails(requestId) {
+            const data = requestsData[requestId];
+            if (data) {
+                document.getElementById('modalRequestId').textContent = data.requestId;
+                document.getElementById('modalUserId').textContent = data.userId;
+                document.getElementById('modalUserName').textContent = data.fullName;
+                document.getElementById('modalEmail').textContent = data.email;
+                document.getElementById('modalMobile').textContent = data.mobile;
+                document.getElementById('modalBalance').textContent = data.balance;
+                document.getElementById('modalDate').textContent = data.date;
+                document.getElementById('modalStatus').innerHTML = `<span class="status-badge status-${data.status.toLowerCase()}">${data.status}</span>`;
+                document.getElementById('modalReason').textContent = data.reason;
+                document.getElementById('modalComments').textContent = data.comments;
+                openModal('viewDetailsModal');
+            }
+        }
+
+        function approveRequest(requestId) {
+            const data = requestsData[requestId];
+            if (data) {
+                document.getElementById('approveRequestId').textContent = data.requestId;
+                document.getElementById('approveEmail').textContent = data.email;
+                openModal('approveModal');
+            }
+        }
+
+        function rejectRequest(requestId) {
+            const data = requestsData[requestId];
+            if (data) {
+                document.getElementById('rejectRequestId').textContent = data.requestId;
+                document.getElementById('rejectEmail').textContent = data.email;
+                openModal('rejectModal');
+            }
+        }
+
+        function confirmApprove() {
+            showNotification('Account closure request approved successfully!', 'success');
+            closeModal('approveModal');
+        }
+
+        function confirmReject() {
+            const reason = document.getElementById('rejectReason').value;
+            if (!reason) {
+                showNotification('Please select a rejection reason', 'error');
+                return;
+            }
+            showNotification('Account closure request rejected successfully!', 'success');
+            closeModal('rejectModal');
+        }
+
+        function applyFilters() {
+            showNotification('Filters applied successfully!', 'success');
+        }
+
+        function resetFilters() {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('reasonFilter').value = '';
+            document.getElementById('searchInput').value = '';
+            showNotification('Filters reset!', 'info');
+        }
+
+        function exportClosureData() {
+            showNotification('Exporting data as CSV...', 'info');
+        }
+
+        function previousPage() {
+            showNotification('Going to previous page...', 'info');
+        }
+
+        function nextPage() {
+            showNotification('Going to next page...', 'info');
+        }
+
+        function goToProfile() {
+            window.location.href = 'profile.html';
+        }
+    </script>
+</body>
+</html>
