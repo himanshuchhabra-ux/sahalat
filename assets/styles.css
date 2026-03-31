@@ -436,11 +436,11 @@ html[data-theme="dark"] .logo i {
   position: fixed;
   left: 0;
   top: 70px;
-  width: 280px;
+  width: 250px;
   height: calc(100vh - 70px);
   background-color: var(--bg-surface);
   border-right: 1px solid var(--border-color);
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-md) 0;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 90;
@@ -560,11 +560,11 @@ html[data-theme="dark"] .logo i {
 .main-container {
   display: flex;
   margin-top: 70px;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 60px);
 }
 
 .content {
-  margin-left: 280px;
+  margin-left: 220px;
   flex: 1;
   padding: var(--spacing-2xl);
   transition: margin-left var(--transition-base);
@@ -3353,7 +3353,7 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   padding: 1rem;
   background-color: var(--bg-tertiary);
   border-radius: 8px;
-  border-left: 4px solid #6366f1;
+  border-left: 4px solid #bd1d4d;
 }
 
 .kyc-status-item.approved {
@@ -3373,6 +3373,12 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
+}
+.content-count{
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.1rem;
 }
 
 .kyc-label {
