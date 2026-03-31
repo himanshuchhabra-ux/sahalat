@@ -132,8 +132,8 @@
                 <div class="profile-header">
                     <div class="profile-avatar-large">AD</div>
                     <div class="profile-header-info">
-                        <div class="profile-name">Admin User</div>
-                        <div class="profile-role">Super Administrator</div>
+                        <!-- <div class="profile-name">Admin User</div>
+                        <div class="profile-role">Super Administrator</div> -->
                         <div class="profile-meta">
                             <div class="meta-item">
                                 <div class="meta-label">Email</div>
@@ -221,11 +221,18 @@
                             <div class="field-label">Last Password Change</div>
                             <div class="field-value">February 10, 2026</div>
                         </div>
+                        <div class="profile-field">
+                            <div class="field-label">Language</div>
+                            <div class="field-value">English (US)</div>
+                        </div>
                     </div>
 
                     <div style="margin-top: 1.5rem;">
                         <button class="btn btn-secondary" onclick="openModal('changePasswordModal')">
                             <i class="fas fa-lock"></i> Change Password
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('changeLanguageModal')" style="margin-left: 0.5rem;">
+                            <i class="fas fa-globe"></i> Change Language
                         </button>
                     </div>
                 </div>
@@ -348,7 +355,23 @@
 
                 <div class="form-group-profile">
                     <label>Email Address</label>
-                    <input type="email" value="admin@sahalat.com" readonly style="opacity: 0.7;">
+                    <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
+                        <input type="email" value="admin@sahalat.com" readonly style="opacity: 0.7; flex: 1;">
+                        <button class="btn btn-secondary btn-small" onclick="sendVerificationEmail()" style="white-space: nowrap; height: fit-content;">
+                            <i class="fas fa-envelope"></i> Send Verification
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group-profile" id="verificationCodeSection" style="display: none;">
+                    <label>Verification Code *</label>
+                    <input type="text" id="verificationCodeInput" placeholder="Enter the 6-digit code sent to your email" maxlength="6">
+                    <small style="color: var(--text-tertiary); margin-top: 0.25rem; display: block;">Check your email for the verification code</small>
+                </div>
+
+                <div id="verificationStatus" style="padding: 0.75rem; border-radius: 6px; background-color: var(--bg-tertiary); border: 1px solid var(--border-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-check-circle" style="color: #059669;"></i>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Email verified on Feb 10, 2026</span>
                 </div>
 
                 <div class="form-group-profile">
@@ -363,6 +386,9 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('editProfileModal')">Cancel</button>
+                <button class="btn btn-secondary" id="verifyBtn" onclick="verifyEmailCode(event)" style="display: none;">
+                    <i class="fas fa-check"></i> Verify Email
+                </button>
                 <button class="btn btn-primary" onclick="saveProfile(event)">
                     <i class="fas fa-check"></i> Save Changes
                 </button>
@@ -409,6 +435,32 @@
         </div>
     </div>
 
+    <!-- Change Language Modal -->
+    <div id="changeLanguageModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Change Language</h2>
+                <button class="modal-close" onclick="closeModal('changeLanguageModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group-profile">
+                    <label>Language *</label>
+                    <select id="languageSelect" onchange="updateLanguagePreference()">
+                        <option value="en-us" selected>English (US)</option>
+                        <option value="ar">العربية (Arabic)</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('changeLanguageModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveLanguageSettings(event)">
+                    <i class="fas fa-globe"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/script.js"></script>
     <script>
         initTheme();
@@ -428,6 +480,55 @@
             showNotification('Password changed successfully!', 'success');
             closeModal('changePasswordModal');
         }
+
+        function sendVerificationEmail() {
+            // Show verification code input
+            document.getElementById('verificationCodeSection').style.display = 'block';
+            document.getElementById('verifyBtn').style.display = 'block';
+            document.getElementById('verificationStatus').style.display = 'none';
+            
+            showNotification('Verification code sent to your email!', 'success');
+        }
+
+        function verifyEmailCode(event) {
+            event.preventDefault();
+            const code = document.getElementById('verificationCodeInput').value;
+            
+            if (!code || code.length < 6) {
+                showNotification('Please enter the 6-digit code', 'error');
+                return;
+            }
+            
+            // Simulate verification
+            document.getElementById('verificationCodeSection').style.display = 'none';
+            document.getElementById('verifyBtn').style.display = 'none';
+            document.getElementById('verificationStatus').style.display = 'flex';
+            document.getElementById('verificationCodeInput').value = '';
+            
+            showNotification('Email verified successfully!', 'success');
+        }
+
+        function updateLanguagePreference() {
+            const language = document.getElementById('languageSelect').value;
+            localStorage.setItem('preferredLanguage', language);
+        }
+
+        function saveLanguageSettings(event) {
+            event.preventDefault();
+            const language = document.getElementById('languageSelect').value;
+            
+            // Save to localStorage
+            localStorage.setItem('preferredLanguage', language);
+            
+            showNotification('Language updated successfully!', 'success');
+            closeModal('changeLanguageModal');
+        }
+
+        // Load language preference on page load
+        window.addEventListener('load', function() {
+            const language = localStorage.getItem('preferredLanguage') || 'en-us';
+            document.getElementById('languageSelect').value = language;
+        });
     </script>
 </body>
 </html>

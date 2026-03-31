@@ -3917,6 +3917,19 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   border-bottom-color: var(--main);
 }
 
+body.dark-mode .tab-button.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+body.dark-mode .tab-button.active i {
+  color: var(--color-accent);
+}
+
+body.dark-mode .tab-button i {
+  color: var(--text-secondary);
+}
+
 .tab-content {
   display: none;
 }
@@ -3950,6 +3963,10 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   font-size: 1.25rem;
   flex-shrink: 0;
   margin-top: 0.25rem;
+}
+
+body.dark-mode .content-info-icon {
+  color: var(--color-accent);
 }
 
 .content-info-text {
@@ -4060,7 +4077,12 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   background-color: var(--bg-secondary);
   color: var(--main);
 }
-
+.faq-actions-bar{
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
 .faq-item {
   padding: 1.25rem;
   background-color: var(--bg-secondary);
@@ -6336,6 +6358,22 @@ html[data-theme="dark"] .role-badge {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 6px;
+}
+.sub-admin-filter{
+  max-height: 10px;
+  max-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-md);
+  
+  gap: 1rem;
+  
+  
 }
 
 .search-box i {

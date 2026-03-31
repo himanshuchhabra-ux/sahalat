@@ -213,7 +213,6 @@
                                 <th class="col-15">Full Name</th>
                                 <th class="col-15">Email</th>
                                 <th class="col-12">Mobile</th>
-                                <th class="col-12">Wallet Balance</th>
                                 <th class="col-12">Reason</th>
                                 <th class="col-10">Date</th>
                                 <th class="col-12">Status</th>
@@ -228,7 +227,6 @@
                                 <td>Ahmed Hassan</td>
                                 <td>ahmed.hassan@email.com</td>
                                 <td>+966-541234567</td>
-                                <td><span class="status-badge status-verified">SAR 2,450.50</span></td>
                                 <td><span class="badge-light">Security Concerns</span></td>
                                 <td>Feb 28, 2026</td>
                                 <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
@@ -254,7 +252,6 @@
                                 <td>Fatima Al-Rashid</td>
                                 <td>fatima.rashid@email.com</td>
                                 <td>+966-556789012</td>
-                                <td><span class="status-badge status-verified">SAR 890.25</span></td>
                                 <td><span class="badge-light">Account Unused</span></td>
                                 <td>Feb 27, 2026</td>
                                 <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
@@ -277,7 +274,6 @@
                                 <td>Mohammed Al-Otaibi</td>
                                 <td>m.otaibi@email.com</td>
                                 <td>+966-507654321</td>
-                                <td><span class="status-badge status-verified">SAR 5,120.00</span></td>
                                 <td><span class="badge-light">Personal Reasons</span></td>
                                 <td>Feb 26, 2026</td>
                                 <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
@@ -300,7 +296,6 @@
                                 <td>Noor Al-Qurashi</td>
                                 <td>noor.qurashi@email.com</td>
                                 <td>+966-533445566</td>
-                                <td><span class="status-badge status-verified">SAR 1,750.75</span></td>
                                 <td><span class="badge-light">Other</span></td>
                                 <td>Feb 25, 2026</td>
                                 <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
@@ -326,7 +321,6 @@
                                 <td>Karim Al-Sabah</td>
                                 <td>karim.sabah@email.com</td>
                                 <td>+966-515667788</td>
-                                <td><span class="status-badge status-verified">SAR 3,300.00</span></td>
                                 <td><span class="badge-light">Security Concerns</span></td>
                                 <td>Feb 24, 2026</td>
                                 <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
@@ -349,7 +343,6 @@
                                 <td>Layla Al-Marsadi</td>
                                 <td>layla.marsadi@email.com</td>
                                 <td>+966-541112233</td>
-                                <td><span class="status-badge status-verified">SAR 650.00</span></td>
                                 <td><span class="badge-light">Account Unused</span></td>
                                 <td>Feb 23, 2026</td>
                                 <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
@@ -375,7 +368,6 @@
                                 <td>Samir Al-Harthi</td>
                                 <td>samir.harthi@email.com</td>
                                 <td>+966-533778899</td>
-                                <td><span class="status-badge status-verified">SAR 4,200.50</span></td>
                                 <td><span class="badge-light">Other</span></td>
                                 <td>Feb 22, 2026</td>
                                 <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
@@ -398,7 +390,6 @@
                                 <td>Hana Al-Qarni</td>
                                 <td>hana.qarni@email.com</td>
                                 <td>+966-552334455</td>
-                                <td><span class="status-badge status-verified">SAR 1,999.99</span></td>
                                 <td><span class="badge-light">Personal Reasons</span></td>
                                 <td>Feb 21, 2026</td>
                                 <td><span class="status-badge status-success"><i class="fas fa-check-circle"></i> Approved</span></td>
@@ -421,7 +412,6 @@
                                 <td>Majed Al-Fahad</td>
                                 <td>majed.fahad@email.com</td>
                                 <td>+966-546789000</td>
-                                <td><span class="status-badge status-verified">SAR 2,875.25</span></td>
                                 <td><span class="badge-light">Security Concerns</span></td>
                                 <td>Feb 20, 2026</td>
                                 <td><span class="status-badge status-warning"><i class="fas fa-hourglass-half"></i> Pending</span></td>
@@ -447,7 +437,6 @@
                                 <td>Rania Al-Shehri</td>
                                 <td>rania.shehri@email.com</td>
                                 <td>+966-509876543</td>
-                                <td><span class="status-badge status-verified">SAR 1,100.00</span></td>
                                 <td><span class="badge-light">Account Unused</span></td>
                                 <td>Feb 19, 2026</td>
                                 <td><span class="status-badge status-danger"><i class="fas fa-times-circle"></i> Rejected</span></td>
@@ -467,16 +456,23 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="pagination">
-                    <button class="pagination-btn" onclick="previousPage()">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="pagination-info">
-                        Page <span id="currentPage">1</span> of <span id="totalPages">255</span>
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-10 of 12,458 users
                     </div>
-                    <button class="pagination-btn" onclick="nextPage()">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="btn btn-secondary btn-small">1245</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>

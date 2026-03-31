@@ -214,28 +214,27 @@
                     <table class="table" id="ticketsTable">
                         <thead class="table-header">
                             <tr>
-                                <th class="col-10">Ticket ID</th>
-                                <th class="col-20">Subject</th>
-                                <th class="col-15">User</th>
-                                <th class="col-12">Category</th>
-                                <th class="col-10">Priority</th>
+                                <th class="col-8">Ticket ID</th>
+                                <th class="col-12">Username</th>
+                                <th class="col-10">Title</th>
+                                <th class="col-20">Description of Query</th>
+                                <th class="col-12">Type of Query</th>
                                 <th class="col-10">Status</th>
-                                <th class="col-10">Created</th>
-                                <th class="col-13">Actions</th>
+                                <th class="col-8">Date</th>
+                                <th class="col-8">Time</th>
+                                <th class="col-12">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><strong>#TKT001</strong></td>
+                                <td>John Doe</td>
                                 <td>Unable to withdraw funds</td>
-                                <td>
-                                    <div class="user-name">John Doe</div>
-                                    <div class="user-email">john.doe@email.com</div>
-                                </td>
+                                <td>User is unable to withdraw funds from their account</td>
                                 <td>Transaction Problem</td>
-                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
                                 <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
-                                <td>Today, 9:30 AM</td>
+                                <td>Today</td>
+                                <td>9:30 AM</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -249,15 +248,13 @@
                             </tr>
                             <tr>
                                 <td><strong>#TKT002</strong></td>
-                                <td>KYC verification rejected without reason</td>
-                                <td>
-                                    <div class="user-name">Sarah Smith</div>
-                                    <div class="user-email">sarah.smith@email.com</div>
-                                </td>
+                                <td>Sarah Smith</td>
+                                <td>KYC verification rejected</td>
+                                <td>KYC verification was rejected without providing any reason</td>
                                 <td>Account Issue</td>
-                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
                                 <td><span class="ticket-status-badge ticket-status-pending">Pending</span></td>
-                                <td>Yesterday, 2:15 PM</td>
+                                <td>Yesterday</td>
+                                <td>2:15 PM</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -271,15 +268,13 @@
                             </tr>
                             <tr>
                                 <td><strong>#TKT003</strong></td>
+                                <td>Mike Johnson</td>
                                 <td>Password reset not working</td>
-                                <td>
-                                    <div class="user-name">Mike Johnson</div>
-                                    <div class="user-email">mike.j@email.com</div>
-                                </td>
+                                <td>Password reset functionality is not working for the user</td>
                                 <td>Technical Issue</td>
-                                <td><span class="ticket-priority-badge ticket-priority-medium">Medium</span></td>
                                 <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
                                 <td>2 days ago</td>
+                                <td>—</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -293,15 +288,13 @@
                             </tr>
                             <tr>
                                 <td><strong>#TKT004</strong></td>
-                                <td>2FA authentication codes not received</td>
-                                <td>
-                                    <div class="user-name">Emma Wilson</div>
-                                    <div class="user-email">emma.w@email.com</div>
-                                </td>
+                                <td>Emma Wilson</td>
+                                <td>2FA codes not received</td>
+                                <td>User is not receiving 2FA authentication codes</td>
                                 <td>Account Issue</td>
-                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
                                 <td><span class="ticket-status-badge ticket-status-pending">Pending</span></td>
                                 <td>2 days ago</td>
+                                <td>—</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -315,15 +308,13 @@
                             </tr>
                             <tr>
                                 <td><strong>#TKT005</strong></td>
-                                <td>Request new feature: Recurring transfers</td>
-                                <td>
-                                    <div class="user-name">David Brown</div>
-                                    <div class="user-email">david.b@email.com</div>
-                                </td>
+                                <td>David Brown</td>
+                                <td>Recurring transfers feature</td>
+                                <td>Request for new feature to enable recurring transfers</td>
                                 <td>Feature Request</td>
-                                <td><span class="ticket-priority-badge ticket-priority-low">Low</span></td>
                                 <td><span class="ticket-status-badge ticket-status-resolved">Resolved</span></td>
                                 <td>3 days ago</td>
+                                <td>—</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -337,15 +328,13 @@
                             </tr>
                             <tr>
                                 <td><strong>#TKT006</strong></td>
-                                <td>Charges appearing on my account I didn't make</td>
-                                <td>
-                                    <div class="user-name">Lisa Anderson</div>
-                                    <div class="user-email">lisa.a@email.com</div>
-                                </td>
+                                <td>Lisa Anderson</td>
+                                <td>Unauthorized charges</td>
+                                <td>Unauthorized charges appearing on the account</td>
                                 <td>Billing</td>
-                                <td><span class="ticket-priority-badge ticket-priority-high">High</span></td>
                                 <td><span class="ticket-status-badge ticket-status-open">Open</span></td>
                                 <td>1 day ago</td>
+                                <td>—</td>
                                 <td>
                                     <div class="action-buttons">
                                         <button class="btn btn-primary btn-icon" onclick="openModal('viewTicketModal')" title="View">
@@ -426,6 +415,8 @@
                         <span class="info-value">Feb 27, 2024 at 10:15 AM</span>
                     </div>
                 </div>
+
+               
 
                 <h4 style="color: var(--text-primary); margin-bottom: 1rem; font-weight: 600;">Ticket Description:</h4>
                 <div style="padding: 1rem; background-color: var(--bg-tertiary); border-radius: 8px; margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">
