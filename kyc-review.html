@@ -123,6 +123,41 @@
                 <h1 class="page-title">KYC Review & Verification</h1>
                 <p class="page-subtitle">Minimal KYC queue view. Open Full Review to see complete user details.</p>
             </div>
+            <!-- KYC Status Overview -->
+            <div class="kyc-status-card">
+                <div class="kyc-status-item">
+                    <div class="kyc-count">2,224</div>
+                    <div class="kyc-label">Pending Review</div>
+                </div>
+                <div class="kyc-status-item approved">
+                    <div class="kyc-count">10,234</div>
+                    <div class="kyc-label">Approved</div>
+                </div>
+                <div class="kyc-status-item rejected">
+                    <div class="kyc-count">287</div>
+                    <div class="kyc-label">Rejected</div>
+                </div>
+                <div class="kyc-status-item pending">
+                    <div class="kyc-count">1,845</div>
+                    <div class="kyc-label">Under Review</div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-filter"></i> All Applications (14,590)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-clock"></i> Pending (2,224)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-check"></i> Approved (10,234)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-times"></i> Rejected (287)
+                </button>
+            </div>
 
             <div class="card qa-tools-card">
                 <h3 class="section-heading"><i class="fas fa-shield-check"></i> Quality Control Tools</h3>
