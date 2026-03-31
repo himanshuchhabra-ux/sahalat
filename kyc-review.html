@@ -130,12 +130,12 @@
                     <div class="qa-tool-block">
                         <h4 class="qa-tool-title"><i class="fas fa-shuffle"></i> Random QA Sampling</h4>
                         <div class="qa-tool-inline">
-                            <select class="form-control" style="min-width: 170px;">
+                            <select class="form-control" style="min-width: 140px; font-size: 0.75rem; padding: 0.3rem 0.5rem;">
                                 <option>Sample 5% of today cases</option>
                                 <option>Sample 10% of today cases</option>
                                 <option>Sample 20% of high-risk cases</option>
                             </select>
-                            <button class="doc-btn"><i class="fas fa-play"></i> Run Sample</button>
+                            <button class="doc-btn" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;"><i class="fas fa-play"></i> Run Sample</button>
                         </div>
                     </div>
 
@@ -231,11 +231,11 @@
                                 <th>Employer</th>
                                 <th>Wallet</th>
                                 <th>Signup</th>
-                                <th>Prior Submissions</th>
-                                <th>Rejection History</th>
+                                <th class="text-center">Prior Submissions</th>
+                                <th class="text-center">Rejection History</th>
                                 <th>Device/IP Risk</th>
                                 <th>Risk Tier</th>
-                                <th>Overall Score</th>
+                                <th class="text-center">Overall Score</th>
                                 <th>Status</th>
                                 <th>Workflow State</th>
                                 <th>Updated</th>
@@ -254,11 +254,11 @@
                                 <td>Tech Corp</td>
                                 <td><span class="badge badge-success">Active</span></td>
                                 <td>2023-08-12</td>
-                                <td>3</td>
-                                <td>1</td>
+                                <td class="text-center">3</td>
+                                <td class="text-center">1</td>
                                 <td><span class="device-risk-indicator medium">Medium</span></td>
                                 <td><span class="risk-badge risk-high"><i class="fas fa-exclamation-circle"></i> HIGH</span></td>
-                                <td>7.5</td>
+                                <td class="text-center">7.5</td>
                                 <td><span class="approval-badge pending-maker">Pending Maker</span></td>
                                 <td><span class="approval-badge awaiting-resubmission"><i class="fas fa-rotate-right"></i> Awaiting Resubmission</span></td>
                                 <td>2 days ago</td>
@@ -269,31 +269,25 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="kyc-table-actions">
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="openModal('docModal')">
-                                                <i class="fas fa-passport"></i> View ID
-                                            </button>
-                                            <button class="doc-btn" onclick="openModal('selfieModal')">
-                                                <i class="fas fa-camera"></i> View Selfie
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=John%20Doe'">
-                                                <i class="fas fa-folder-open"></i> Full Review
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="action-btn-small action-btn-approve" onclick="openDecisionModal('John Doe', 'approve')">
-                                                <i class="fas fa-check"></i> Maker
-                                            </button>
-                                            <button class="action-btn-small action-btn-reject" onclick="openDecisionModal('John Doe', 'reject')">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
-                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('John Doe')">
-                                                <i class="fas fa-history"></i> Audit
-                                            </button>
-                                        </div>
+                                    <div class="kyc-table-actions-inline">
+                                        <button class="icon-action-btn doc-btn" title="View ID" onclick="openModal('docModal')">
+                                            <i class="fas fa-passport"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="View Selfie" onclick="openModal('selfieModal')">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="Full Review" onclick="window.location.href='kyc-user-review.html?user=John%20Doe'">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-approve" title="Maker Approve" onclick="openDecisionModal('John Doe', 'approve')">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-reject" title="Reject" onclick="openDecisionModal('John Doe', 'reject')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="icon-action-btn btn-audit" title="Audit Trail" onclick="openAuditTrailModal('John Doe')">
+                                            <i class="fas fa-history"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -307,11 +301,11 @@
                                 <td>Finance Ltd</td>
                                 <td><span class="badge badge-success">Active</span></td>
                                 <td>2024-01-19</td>
-                                <td>2</td>
-                                <td>0</td>
+                                <td class="text-center">2</td>
+                                <td class="text-center">0</td>
                                 <td><span class="device-risk-indicator low">Low</span></td>
                                 <td><span class="risk-badge risk-medium"><i class="fas fa-info-circle"></i> MEDIUM</span></td>
-                                <td>5.2</td>
+                                <td class="text-center">5.2</td>
                                 <td><span class="approval-badge pending-checker"><i class="fas fa-hourglass-half"></i> Pending Checker</span></td>
                                 <td><span class="approval-badge qa-review"><i class="fas fa-magnifying-glass"></i> QA Review</span></td>
                                 <td>1 day ago</td>
@@ -322,31 +316,25 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="kyc-table-actions">
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="openModal('docModal')">
-                                                <i class="fas fa-passport"></i> View ID
-                                            </button>
-                                            <button class="doc-btn" onclick="openModal('selfieModal')">
-                                                <i class="fas fa-camera"></i> View Selfie
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Sarah%20Smith'">
-                                                <i class="fas fa-folder-open"></i> Full Review
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="action-btn-small action-btn-approve" onclick="openCheckerReviewModal('Sarah Smith', 'approve')">
-                                                <i class="fas fa-eye"></i> Checker Review
-                                            </button>
-                                            <button class="action-btn-small action-btn-reject" onclick="openCheckerReviewModal('Sarah Smith', 'reject')">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
-                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Sarah Smith')">
-                                                <i class="fas fa-history"></i> Audit
-                                            </button>
-                                        </div>
+                                    <div class="kyc-table-actions-inline">
+                                        <button class="icon-action-btn doc-btn" title="View ID" onclick="openModal('docModal')">
+                                            <i class="fas fa-passport"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="View Selfie" onclick="openModal('selfieModal')">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="Full Review" onclick="window.location.href='kyc-user-review.html?user=Sarah%20Smith'">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-approve" title="Checker Review" onclick="openCheckerReviewModal('Sarah Smith', 'approve')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-reject" title="Reject" onclick="openCheckerReviewModal('Sarah Smith', 'reject')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="icon-action-btn btn-audit" title="Audit Trail" onclick="openAuditTrailModal('Sarah Smith')">
+                                            <i class="fas fa-history"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -360,11 +348,11 @@
                                 <td>Retail Store</td>
                                 <td><span class="badge badge-warning">Limited</span></td>
                                 <td>2022-11-04</td>
-                                <td>4</td>
-                                <td>1</td>
+                                <td class="text-center">4</td>
+                                <td class="text-center">1</td>
                                 <td><span class="device-risk-indicator low">Low</span></td>
                                 <td><span class="risk-badge risk-low"><i class="fas fa-check-circle"></i> LOW</span></td>
-                                <td>2.8</td>
+                                <td class="text-center">2.8</td>
                                 <td><span class="approval-badge pending-checker"><i class="fas fa-hourglass-half"></i> Pending Checker</span></td>
                                 <td><span class="approval-badge more-info-required"><i class="fas fa-circle-info"></i> More Info Required</span></td>
                                 <td>3 days ago</td>
@@ -375,31 +363,25 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="kyc-table-actions">
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="openModal('docModal')">
-                                                <i class="fas fa-passport"></i> View ID
-                                            </button>
-                                            <button class="doc-btn" onclick="openModal('selfieModal')">
-                                                <i class="fas fa-camera"></i> View Selfie
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Mike%20Johnson'">
-                                                <i class="fas fa-folder-open"></i> Full Review
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="action-btn-small action-btn-approve" onclick="openCheckerReviewModal('Mike Johnson', 'approve')">
-                                                <i class="fas fa-eye"></i> Checker Review
-                                            </button>
-                                            <button class="action-btn-small action-btn-reject" onclick="openCheckerReviewModal('Mike Johnson', 'reject')">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
-                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Mike Johnson')">
-                                                <i class="fas fa-history"></i> Audit
-                                            </button>
-                                        </div>
+                                    <div class="kyc-table-actions-inline">
+                                        <button class="icon-action-btn doc-btn" title="View ID" onclick="openModal('docModal')">
+                                            <i class="fas fa-passport"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="View Selfie" onclick="openModal('selfieModal')">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="Full Review" onclick="window.location.href='kyc-user-review.html?user=Mike%20Johnson'">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-approve" title="Checker Review" onclick="openCheckerReviewModal('Mike Johnson', 'approve')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-reject" title="Reject" onclick="openCheckerReviewModal('Mike Johnson', 'reject')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="icon-action-btn btn-audit" title="Audit Trail" onclick="openAuditTrailModal('Mike Johnson')">
+                                            <i class="fas fa-history"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -413,11 +395,11 @@
                                 <td>Trading Co.</td>
                                 <td><span class="badge badge-danger">On Hold</span></td>
                                 <td>2025-02-27</td>
-                                <td>6</td>
-                                <td>2</td>
+                                <td class="text-center">6</td>
+                                <td class="text-center">2</td>
                                 <td><span class="device-risk-indicator high">High</span></td>
                                 <td><span class="risk-badge risk-high sla-breach"><i class="fas fa-exclamation-triangle"></i> CRITICAL</span></td>
-                                <td>8.7</td>
+                                <td class="text-center">8.7</td>
                                 <td><span class="approval-badge pending-maker urgent">Urgent - Pending Maker</span></td>
                                 <td><span class="approval-badge failed-screening"><i class="fas fa-triangle-exclamation"></i> Failed Screening</span></td>
                                 <td>6 hours ago</td>
@@ -428,31 +410,25 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="kyc-table-actions">
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="openModal('docModal')">
-                                                <i class="fas fa-passport"></i> View ID
-                                            </button>
-                                            <button class="doc-btn" onclick="openModal('selfieModal')">
-                                                <i class="fas fa-camera"></i> View Selfie
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="doc-btn" onclick="window.location.href='kyc-user-review.html?user=Emma%20Wilson'">
-                                                <i class="fas fa-folder-open"></i> Full Review
-                                            </button>
-                                        </div>
-                                        <div class="action-row">
-                                            <button class="action-btn-small action-btn-approve" onclick="openDecisionModal('Emma Wilson', 'approve')">
-                                                <i class="fas fa-check"></i> Maker
-                                            </button>
-                                            <button class="action-btn-small action-btn-reject" onclick="openDecisionModal('Emma Wilson', 'reject')">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
-                                            <button class="action-btn-small" style="background-color: var(--main); color: white;" onclick="openAuditTrailModal('Emma Wilson')">
-                                                <i class="fas fa-history"></i> Audit
-                                            </button>
-                                        </div>
+                                    <div class="kyc-table-actions-inline">
+                                        <button class="icon-action-btn doc-btn" title="View ID" onclick="openModal('docModal')">
+                                            <i class="fas fa-passport"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="View Selfie" onclick="openModal('selfieModal')">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                        <button class="icon-action-btn doc-btn" title="Full Review" onclick="window.location.href='kyc-user-review.html?user=Emma%20Wilson'">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-approve" title="Maker Approve" onclick="openDecisionModal('Emma Wilson', 'approve')">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="icon-action-btn action-btn-reject" title="Reject" onclick="openDecisionModal('Emma Wilson', 'reject')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <button class="icon-action-btn btn-audit" title="Audit Trail" onclick="openAuditTrailModal('Emma Wilson')">
+                                            <i class="fas fa-history"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
