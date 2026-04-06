@@ -6204,6 +6204,19 @@ html[data-theme="dark"] .section-title i {
   color: var(--text-secondary);
 }
 
+.subadmin-table th:last-child,
+.subadmin-table td:last-child {
+  text-align: center;
+}
+
+.subadmin-table .action-buttons {
+  justify-content: center;
+}
+.table th:last-child,
+.table td:last-child {
+  text-align: center;
+}
+
 .subadmin-table tr:hover {
   background-color: var(--bg-tertiary);
 }
