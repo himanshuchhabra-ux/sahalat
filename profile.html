@@ -86,7 +86,7 @@
                 </a>
                 <a href="notifications.html" class="nav-item">
                     <i class="fas fa-bell"></i>
-                    <span class="nav-item-label">Notifications</span>
+                    <span class="nav-item-label">Push Notifications</span>
                 </a>
             </div>
 
@@ -356,22 +356,27 @@
                 <div class="form-group-profile">
                     <label>Email Address</label>
                     <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
-                        <input type="email" value="admin@sahalat.com" readonly style="opacity: 0.7; flex: 1;">
-                        <button class="btn btn-secondary btn-small" onclick="sendVerificationEmail()" style="white-space: nowrap; height: fit-content;">
-                            <i class="fas fa-envelope"></i> Send Verification
+                        <input type="email" id="emailInput" value="admin@sahalat.com" style="flex: 1;" oninput="handleEmailChange()">
+                        <button class="btn btn-secondary btn-small" id="sendVerificationBtn" onclick="sendVerificationEmail()" style="white-space: nowrap; height: fit-content; display: none;">
+                            <i class="fas fa-envelope"></i> Verify New Email
                         </button>
                     </div>
                 </div>
 
                 <div class="form-group-profile" id="verificationCodeSection" style="display: none;">
                     <label>Verification Code *</label>
-                    <input type="text" id="verificationCodeInput" placeholder="Enter the 6-digit code sent to your email" maxlength="6">
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="verificationCodeInput" placeholder="Enter the 6-digit code sent to your email" maxlength="6" style="flex: 1;">
+                        <button class="btn btn-primary btn-small" id="verifyBtn" onclick="verifyEmailCode(event)" style="white-space: nowrap; height: fit-content;">
+                            <i class="fas fa-check"></i> Verify
+                        </button>
+                    </div>
                     <small style="color: var(--text-tertiary); margin-top: 0.25rem; display: block;">Check your email for the verification code</small>
                 </div>
 
                 <div id="verificationStatus" style="padding: 0.75rem; border-radius: 6px; background-color: var(--bg-tertiary); border: 1px solid var(--border-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
                     <i class="fas fa-check-circle" style="color: #059669;"></i>
-                    <span style="font-size: 0.9rem; color: var(--text-secondary);">Email verified on Feb 10, 2026</span>
+                    <span id="verificationStatusText" style="font-size: 0.9rem; color: var(--text-secondary);">Email verified on Feb 10, 2026</span>
                 </div>
 
                 <div class="form-group-profile">
@@ -386,10 +391,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('editProfileModal')">Cancel</button>
-                <button class="btn btn-secondary" id="verifyBtn" onclick="verifyEmailCode(event)" style="display: none;">
-                    <i class="fas fa-check"></i> Verify Email
-                </button>
-                <button class="btn btn-primary" onclick="saveProfile(event)">
+                <button class="btn btn-primary" onclick="saveProfile(event)" id="saveProfileBtn">
                     <i class="fas fa-check"></i> Save Changes
                 </button>
             </div>
@@ -481,13 +483,35 @@
             closeModal('changePasswordModal');
         }
 
+        function handleEmailChange() {
+            const emailInput = document.getElementById('emailInput').value;
+            const originalEmail = 'admin@sahalat.com';
+            const sendBtn = document.getElementById('sendVerificationBtn');
+            const verifyStatus = document.getElementById('verificationStatus');
+            const verifyStatusText = document.getElementById('verificationStatusText');
+            
+            if (emailInput !== originalEmail && emailInput.includes('@')) {
+                sendBtn.style.display = 'block';
+                verifyStatus.style.display = 'flex';
+                verifyStatus.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #d97706;"></i><span style="font-size: 0.9rem; color: var(--text-secondary);">New email requires verification</span>';
+                document.getElementById('saveProfileBtn').disabled = true;
+                document.getElementById('saveProfileBtn').style.opacity = '0.5';
+            } else if (emailInput === originalEmail) {
+                sendBtn.style.display = 'none';
+                document.getElementById('verificationCodeSection').style.display = 'none';
+                verifyStatus.style.display = 'flex';
+                verifyStatus.innerHTML = '<i class="fas fa-check-circle" style="color: #059669;"></i><span style="font-size: 0.9rem; color: var(--text-secondary);">Email verified on Feb 10, 2026</span>';
+                document.getElementById('saveProfileBtn').disabled = false;
+                document.getElementById('saveProfileBtn').style.opacity = '1';
+            }
+        }
+
         function sendVerificationEmail() {
             // Show verification code input
             document.getElementById('verificationCodeSection').style.display = 'block';
-            document.getElementById('verifyBtn').style.display = 'block';
-            document.getElementById('verificationStatus').style.display = 'none';
+            document.getElementById('sendVerificationBtn').innerText = 'Resend Code';
             
-            showNotification('Verification code sent to your email!', 'success');
+            showNotification('Verification code sent to your new email!', 'success');
         }
 
         function verifyEmailCode(event) {
@@ -501,9 +525,17 @@
             
             // Simulate verification
             document.getElementById('verificationCodeSection').style.display = 'none';
-            document.getElementById('verifyBtn').style.display = 'none';
-            document.getElementById('verificationStatus').style.display = 'flex';
+            document.getElementById('sendVerificationBtn').style.display = 'none';
+            
+            const verifyStatus = document.getElementById('verificationStatus');
+            verifyStatus.style.display = 'flex';
+            verifyStatus.innerHTML = '<i class="fas fa-check-circle" style="color: #059669;"></i><span style="font-size: 0.9rem; color: var(--text-secondary);">New email verified successfully!</span>';
+            
             document.getElementById('verificationCodeInput').value = '';
+            
+            // Enable save button
+            document.getElementById('saveProfileBtn').disabled = false;
+            document.getElementById('saveProfileBtn').style.opacity = '1';
             
             showNotification('Email verified successfully!', 'success');
         }

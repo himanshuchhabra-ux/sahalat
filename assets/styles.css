@@ -4094,22 +4094,23 @@ body.dark-mode .content-info-icon {
 .faq-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   cursor: pointer;
+  gap: 1rem;
 }
 
 .faq-question {
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
   flex: 1;
-  padding-right: 1rem;
+  cursor: pointer;
 }
 
 .faq-toggle-icon {
   color: var(--text-secondary);
   transition: transform var(--transition);
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .faq-item.expanded .faq-toggle-icon {
@@ -4132,14 +4133,19 @@ body.dark-mode .content-info-icon {
 .faq-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .btn-icon-small {
-  padding: 0.4rem 0.6rem;
-  font-size: 0.8rem;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  border-radius: 50%;
 }
 
 .publish-status {
@@ -7476,4 +7482,116 @@ html[data-theme="dark"] .role-badge {
   .approval-flow-title {
     font-size: 1rem;
   }
+}
+
+
+/* Dark Mode Overrides for Type Badges */
+html[data-theme="dark"] .banner-type-promotion, 
+html[data-theme="dark"] .notification-type-promo {
+  background-color: rgba(72, 195, 167, 0.2);
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .banner-type-announcement {
+  background-color: rgba(229, 175, 140, 0.2);
+  color: #fbbf24;
+}
+
+html[data-theme="dark"] .banner-type-alert,
+html[data-theme="dark"] .notification-type-alert {
+  background-color: rgba(251, 191, 36, 0.2);
+  color: #fcd34d;
+}
+
+html[data-theme="dark"] .notification-type-info {
+  background-color: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+}
+
+/* Transactions Type Badges Dark Mode */
+html[data-theme="dark"] .type-send {
+  background-color: rgba(248, 113, 113, 0.2);
+  color: #fca5a5;
+}
+
+html[data-theme="dark"] .type-receive {
+  background-color: rgba(52, 211, 153, 0.2);
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .type-topup {
+  background-color: rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
+}
+
+/* Dark Mode Overrides for Audit Trail Modal */
+html[data-theme="dark"] .audit-summary-section {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(72, 195, 167, 0.1) 100%);
+}
+
+html[data-theme="dark"] .audit-badge {
+  background-color: rgba(72, 195, 167, 0.2);
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-event-time {
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-event-role {
+  background-color: rgba(72, 195, 167, 0.25);
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-event-action {
+  background-color: rgba(72, 195, 167, 0.15);
+  border-color: rgba(72, 195, 167, 0.4);
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-timeline::before {
+  background: linear-gradient(180deg, #6ee7b7 0%, rgba(72, 195, 167, 0.1) 100%);
+}
+
+html[data-theme="dark"] .audit-event::before {
+  border-color: #6ee7b7;
+  background-color: var(--bg-surface);
+  box-shadow: 0 0 0 3px var(--bg-secondary);
+}
+
+html[data-theme="dark"] .audit-event.completed::before {
+  background-color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-change-item.override {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(239, 68, 68, 0.15) 100%);
+  border-left-color: #fca5a5;
+}
+
+html[data-theme="dark"] .audit-decision-item.approve {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(5, 150, 105, 0.15) 100%);
+  border-left-color: #6ee7b7;
+}
+
+html[data-theme="dark"] .audit-decision-item.reject {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(239, 68, 68, 0.15) 100%);
+  border-left-color: #fca5a5;
+}
+
+html[data-theme="dark"] .audit-decision-item.escalate {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(245, 158, 11, 0.15) 100%);
+  border-left-color: #fcd34d;
+}
+
+/* Dark Mode Overrides for Date Input */
+html[data-theme="dark"] .date-input {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] .date-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(72, 195, 167, 0.2);
 }
