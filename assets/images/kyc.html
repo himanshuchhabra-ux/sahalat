@@ -381,11 +381,11 @@
                     <div class="right-panel panel">
                         <div class="card" style="background: var(--bg-surface);">
                             <div class="card-title"><i class="fas fa-gavel"></i> Decision Panel</div>
-                            <button class="action-btn btn-approve"><i class="fas fa-check"></i> Approve KYC</button>
-                            <button class="action-btn btn-reject"><i class="fas fa-times"></i> Reject Case</button>
+                            <button class="action-btn btn-approve" onclick="openActionModal('approve')"><i class="fas fa-check"></i> Approve KYC</button>
+                            <button class="action-btn btn-reject" onclick="openActionModal('reject')"><i class="fas fa-times"></i> Reject Case</button>
                             <div style="display:flex; gap:10px;">
-                                <button class="action-btn btn-escalate" style="flex:1;"><i class="fas fa-arrow-up"></i> Escalate</button>
-                                <button class="action-btn btn-info" style="flex:1; background: transparent; color: var(--main); border: 1px solid var(--border-color);"><i class="fas fa-comment-dots"></i> Req. Info</button>
+                                <button class="action-btn btn-escalate" onclick="openActionModal('escalate')" style="flex:1;"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                <button class="action-btn btn-info" onclick="openActionModal('reqinfo')" style="flex:1; background: transparent; color: var(--main); border: 1px solid var(--border-color);"><i class="fas fa-comment-dots"></i> Req. Info</button>
                             </div>
 
                             <hr style="border:0; border-top:1px solid var(--border-color); margin: 15px 0;">
@@ -515,7 +515,126 @@
                 </div>
             </div>
 
+            <!-- Decision Rationale Modal -->
+            <div id="actionModal" class="modal">
+                <div class="modal-content modal-large">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="actionModalTitle">Decision Rationale</h2>
+                        <button class="modal-close" onclick="closeActionModal()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="structured-rationale">
+                            <div class="structured-rationale-title" id="rationaleTitleLabel">Structured Rationale</div>
+
+                            <label class="reason-code-label">Decision Reason *</label>
+                            <select class="decision-select" id="decisionReason">
+                                <option value="">Select reason...</option>
+                                <option value="fully-compliant">Fully compliant KYC</option>
+                                <option value="minor-issue">Minor documentation issue</option>
+                                <option value="high-aml">High AML risk</option>
+                                <option value="insufficient">Insufficient evidence</option>
+                                <option value="external-need">Awaiting external information</option>
+                                <option value="escalation-needed">Escalation needed for review</option>
+                            </select>
+
+                            <label class="notes-label">Reviewer Notes</label>
+                            <textarea rows="3" class="notes-textarea" id="reviewerNotes" placeholder="Add detailed reviewer notes..."></textarea>
+
+                            <label class="notes-label">Escalation Comments</label>
+                            <textarea rows="3" class="notes-textarea" id="escalationComments" placeholder="Add escalation comments if needed..."></textarea>
+
+                            <label class="notes-label">Conditions / Follow-up</label>
+                            <textarea rows="3" class="notes-textarea" id="followupConditions" placeholder="Add approval or rejection conditions, or follow-up actions..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeActionModal()">Cancel</button>
+                        <button class="btn btn-primary" id="actionModalSubmitBtn" onclick="submitAction(event)">
+                            <i class="fas fa-check"></i> Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <script>
+                let currentAction = null;
+
+                function openActionModal(action) {
+                    currentAction = action;
+                    const modal = document.getElementById('actionModal');
+                    const titleEl = document.getElementById('actionModalTitle');
+                    const ratioTitleEl = document.getElementById('rationaleTitleLabel');
+                    const submitBtn = document.getElementById('actionModalSubmitBtn');
+
+                    // Clear form
+                    document.getElementById('decisionReason').value = '';
+                    document.getElementById('reviewerNotes').value = '';
+                    document.getElementById('escalationComments').value = '';
+                    document.getElementById('followupConditions').value = '';
+
+                    // Set title and label based on action
+                    if (action === 'approve') {
+                        titleEl.textContent = 'Approve KYC';
+                        ratioTitleEl.textContent = 'Approval Rationale';
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Approve';
+                        submitBtn.className = 'btn btn-primary';
+                    } else if (action === 'reject') {
+                        titleEl.textContent = 'Reject Case';
+                        ratioTitleEl.textContent = 'Rejection Rationale';
+                        submitBtn.innerHTML = '<i class="fas fa-times"></i> Reject';
+                        submitBtn.className = 'btn btn-danger';
+                    } else if (action === 'escalate') {
+                        titleEl.textContent = 'Escalate Case';
+                        ratioTitleEl.textContent = 'Escalation Details';
+                        submitBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Escalate';
+                        submitBtn.className = 'btn btn-info';
+                    } else if (action === 'reqinfo') {
+                        titleEl.textContent = 'Request Information';
+                        ratioTitleEl.textContent = 'Information Request';
+                        submitBtn.innerHTML = '<i class="fas fa-comment-dots"></i> Send Request';
+                        submitBtn.className = 'btn btn-info';
+                    }
+
+                    // Show modal
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeActionModal() {
+                    const modal = document.getElementById('actionModal');
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                    currentAction = null;
+                }
+
+                function submitAction(event) {
+                    event.preventDefault();
+                    const reason = document.getElementById('decisionReason').value;
+                    const notes = document.getElementById('reviewerNotes').value;
+                    const escalation = document.getElementById('escalationComments').value;
+                    const conditions = document.getElementById('followupConditions').value;
+
+                    if (!reason) {
+                        alert('Please select a decision reason.');
+                        return;
+                    }
+
+                    let message = '';
+                    if (currentAction === 'approve') {
+                        message = 'Case approved successfully with structured rationale.';
+                    } else if (currentAction === 'reject') {
+                        message = 'Case rejected with structured rationale and rejection reason.';
+                    } else if (currentAction === 'escalate') {
+                        message = 'Case escalated for further review.';
+                    } else if (currentAction === 'reqinfo') {
+                        message = 'Information request sent to applicant.';
+                    }
+
+                    // Show notification
+                    showNotification(message, currentAction === 'reject' ? 'warning' : 'success');
+                    closeActionModal();
+                }
+
                 function switchTab(btn, tabId) {
                     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
                     document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));

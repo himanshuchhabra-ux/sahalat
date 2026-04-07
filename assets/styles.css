@@ -4149,6 +4149,20 @@ body.dark-mode .content-info-icon {
   border-radius: 50%;
 }
 
+.faq-actions .btn-icon-small {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
+  flex: 0 0 34px;
+  padding: 0;
+  line-height: 1;
+}
+
+.faq-actions .btn-icon-small i {
+  line-height: 1;
+}
+
 .publish-status {
   display: inline-flex;
   align-items: center;
@@ -9125,5 +9139,222 @@ body.dark-mode .kyc-dashboard-container .qa-stat h2.accuracy-rate {
   .kyc-dashboard-container .risk-score-grid {
     grid-template-columns: 1fr;
     display: grid;
+  }
+}
+
+/* ============================================
+   STRUCTURED RATIONALE FORM - DECISION MODAL
+   ============================================ */
+
+.structured-rationale {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 0;
+}
+
+.structured-rationale-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.3px;
+}
+
+.structured-rationale-title i {
+  color: var(--main);
+  font-size: 1.1rem;
+}
+
+body.dark-mode .structured-rationale-title i,
+html[data-theme="dark"] .structured-rationale-title i {
+  color: var(--color-accent);
+}
+
+/* Labels for form fields - create visual separation */
+.reason-code-label,
+.notes-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 1.25rem 0 0.65rem 0;
+  padding: 0;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+  text-shadow: none;
+}
+
+/* First label doesn't need extra top margin */
+.structured-rationale > .reason-code-label:first-of-type {
+  margin-top: 0;
+}
+
+.reason-code-label::before,
+.notes-label::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--main);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+body.dark-mode .reason-code-label::before,
+body.dark-mode .notes-label::before,
+html[data-theme="dark"] .reason-code-label::before,
+html[data-theme="dark"] .notes-label::before {
+  background-color: var(--color-accent);
+}
+
+/* Select dropdown styling */
+.decision-select {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: "Sora", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23001D3B' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 11px;
+  padding-right: 2.5rem;
+}
+
+body.dark-mode .decision-select,
+html[data-theme="dark"] .decision-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFFFFF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+.decision-select:hover {
+  border-color: var(--main);
+  box-shadow: 0 2px 8px rgba(0, 29, 59, 0.1);
+}
+
+.decision-select:focus {
+  outline: none;
+  border-color: var(--main);
+  box-shadow: 0 0 0 3px rgba(72, 195, 167, 0.18), 0 2px 8px rgba(0, 29, 59, 0.12);
+}
+
+.decision-select option {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  padding: 0.6rem;
+  font-size: 0.95rem;
+}
+
+/* Textarea styling */
+.notes-textarea {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: "Sora", "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 90px;
+  max-height: 200px;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.notes-textarea:hover {
+  border-color: var(--main);
+  box-shadow: 0 2px 8px rgba(0, 29, 59, 0.1);
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: var(--main);
+  box-shadow: 0 0 0 3px rgba(72, 195, 167, 0.18), 0 2px 8px rgba(0, 29, 59, 0.12);
+}
+
+.notes-textarea::placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.75;
+}
+
+/* Modal-specific styling */
+#actionModal .modal-body {
+  padding: 1.5rem;
+}
+
+#actionModal .structured-rationale {
+  margin: 0;
+  padding: 0;
+}
+
+#actionModal .modal-footer {
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}
+
+/* Modal content adjustments */
+#actionModal .modal-content {
+  max-width: 600px;
+}
+
+#actionModal .modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+/* Responsive styling for mobile */
+@media (max-width: 768px) {
+  .structured-rationale {
+    gap: 1.25rem;
+  }
+
+  .reason-code-label,
+  .notes-label {
+    font-size: 0.8rem;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .structured-rationale > .reason-code-label:first-of-type {
+    margin-top: 0;
+  }
+
+  .decision-select,
+  .notes-textarea {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.8rem;
+  }
+
+  .notes-textarea {
+    min-height: 75px;
+  }
+
+  #actionModal .modal-content {
+    max-width: 95vw;
+    padding: 1.25rem;
+  }
+
+  #actionModal .modal-body {
+    padding: 1rem;
   }
 }
