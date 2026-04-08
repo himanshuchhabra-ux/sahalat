@@ -7835,6 +7835,11 @@ html[data-theme="dark"] .date-input:focus {
   text-align: center;
   border: 1px solid transparent;
 }
+.kyc-dashboard-container .chip-approved {
+  color: #388E3C;
+  background: #fff8e1;
+  border-color: #ffe0b2;
+}
 
 .kyc-dashboard-container .chip-pending {
   color: #f57c00;
@@ -8775,12 +8780,7 @@ body.dark-mode .kyc-dashboard-container .inner-tab-btn:first-child > div {
   display: inline-block;
 }
 
-/* Badge Style Adjustments */
-.kyc-dashboard-container .badge.badge-high {
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
+
 
 .kyc-dashboard-container .qa-header {
   margin-bottom: 4px;

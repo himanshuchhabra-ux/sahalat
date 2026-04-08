@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KYC Review - Wallet Admin</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/reviewer-management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -123,6 +124,9 @@
                 <button class="tab-button" onclick="switchTab(this, 'details')"><i class="fas fa-search"></i> Case Details</button>
                 <button class="tab-button" onclick="switchTab(this, 'maker')"><i class="fas fa-check-double"></i> Maker-Checker</button>
                 <button class="tab-button" onclick="switchTab(this, 'qa')"><i class="fas fa-chart-pie"></i> QA Management</button>
+                <button class="tab-button" onclick="switchTab(this, 'reviewers')"><i class="fas fa-user-shield"></i> Reviewer Management</button>
+                <button class="tab-button" onclick="switchTab(this, 'exceptions')"><i class="fas fa-triangle-exclamation"></i> Exception Management</button>
+                <button class="tab-button" onclick="switchTab(this, 'duplicates')"><i class="fas fa-copy"></i> Duplicate Detection</button>
             </div>
 
             <!-- SCREEN 1: Dashboard -->
@@ -183,7 +187,7 @@
                             <tr onclick="switchTab(document.querySelectorAll('.tab-button')[1], 'details')">
                                 <td><div class="user-row"><img src="https://ui-avatars.com/api/?name=Sara+M"> <div><b>Sara M.</b><br><small>sara@test.com</small></div></div></td>
                                 <td><span class="chip chip-review">Under Review</span></td>
-                                <td><span class="badge badge-medium">MEDIUM</span></td>
+                                <td><span class="badge badge-medium"><i class="fas fa-exclamation-circle"></i> MEDIUM</span></td>
                                 <td>KSA</td>
                                 <td>Oct 12, 15:45</td>
                                 <td class="sla-safe">+4h 20m</td>
@@ -440,39 +444,541 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <div class="panel card table-card">
-                    <div class="card-title"><i class="fas fa-clipboard-check"></i> Reviewer QA Impact Scorecard</div>
-                    <table class="case-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Cases Handled</th>
-                                <th>QA Checked</th>
-                                <th>Incorrect</th>
-                                <th>Needs Rework</th>
-                                <th>Current Accuracy</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>John D.</td>
-                                <td>1,432</td>
-                                <td>86</td>
-                                <td>3</td>
-                                <td>7</td>
-                                <td><span class="badge badge-medium">96.9%</span></td>
-                            </tr>
-                            <tr>
-                                <td>Sara M.</td>
-                                <td>984</td>
-                                <td>62</td>
-                                <td>5</td>
-                                <td>4</td>
-                                <td><span class="badge badge-medium">95.4%</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Reviewer Management -->
+            <div id="tab-reviewers" class="tab-content">
+                <div class="reviewer-management-container">
+                    <div class="panel card reviewer-management-header">
+                        <div class="reviewer-header-content">
+                            <h2>KYC Team Management</h2>
+                            <p>Monitor reviewer performance, detect abnormal behavior, suspend reviewers, and assign operational roles.</p>
+                        </div>
+                    </div>
+
+                    <div class="kyc-status-card reviewer-kpis">
+                        <div class="kyc-status-item approved">
+                            <div class="kyc-count">18</div>
+                            <div class="kyc-label">Total Reviewers</div>
+                        </div>
+                        <div class="kyc-status-item pending">
+                            <div class="kyc-count">9,851</div>
+                            <div class="kyc-label">Cases Handled </div>
+                        </div>
+                        <div class="kyc-status-item approved">
+                            <div class="kyc-count">93.7%</div>
+                            <div class="kyc-label">Average QA Accuracy</div>
+                        </div>
+                        <div class="kyc-status-item rejected">
+                            <div class="kyc-count">11.8m</div>
+                            <div class="kyc-label">Avg Processing Time</div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="panel card reviewer-scorecard-card">
+                        <div class="card-title"><i class="fas fa-id-card"></i> Reviewer Performance Scorecards</div>
+                        <div class="reviewer-table-wrap">
+                        <table class="case-table reviewer-scorecard-table">
+                            <thead>
+                                <tr>
+                                    <th>Reviewer</th>
+                                    <th>Total Cases</th>
+                                    <th>Approval Rate</th>
+                                    <th>Rejection Rate</th>
+                                    <th>QA Accuracy</th>
+                                    <th>Avg Processing Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="reviewer-profile-cell">
+                                            <span class="reviewer-avatar">JD</span>
+                                            <div>
+                                                <p class="reviewer-name">John D.</p>
+                                                <p class="reviewer-role">Maker</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>1,532</td>
+                                    <td class="metric-good">87.2%</td>
+                                    <td class="metric-warning">12.8%</td>
+                                    <td class="metric-good">96.9%</td>
+                                    <td>7.2m</td>
+                                    <td><span class="chip chip-review">Active</span></td>
+                                    <td>
+                                        <div class="reviewer-table-actions">
+                                            <button class="btn btn-secondary" onclick="openAssignRoleModal('John D.')">Assign Role</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="reviewer-profile-cell">
+                                            <span class="reviewer-avatar danger">SM</span>
+                                            <div>
+                                                <p class="reviewer-name">Sara M.</p>
+                                                <p class="reviewer-role">Checker</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>984</td>
+                                    <td class="metric-warning">57.0%</td>
+                                    <td class="metric-danger">43.0%</td>
+                                    <td class="metric-warning">89.3%</td>
+                                    <td>8.6m</td>
+                                    <td><span class="chip chip-review">Active</span></td>
+                                    <td>
+                                        <div class="reviewer-table-actions">
+                                            <button class="btn btn-secondary" onclick="openAssignRoleModal('Sara M.')">Assign Role</button>
+                                            <button class="btn btn-danger" onclick="openSuspendReviewerModal('Sara M.')">Suspend</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="reviewer-profile-cell">
+                                            <span class="reviewer-avatar warn">AT</span>
+                                            <div>
+                                                <p class="reviewer-name">Ahmed T.</p>
+                                                <p class="reviewer-role">Reviewer</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>1,120</td>
+                                    <td class="metric-good">85.2%</td>
+                                    <td class="metric-warning">14.8%</td>
+                                    <td class="metric-good">92.1%</td>
+                                    <td class="metric-danger">22.4m</td>
+                                    <td><span class="chip chip-pending">Suspended</span></td>
+                                    <td>
+                                        <div class="reviewer-table-actions">
+                                            <button class="btn btn-secondary" onclick="openAssignRoleModal('Ahmed T.')">Assign Role</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exception Management -->
+            <div id="tab-exceptions" class="tab-content">
+                <div class="exception-management-container">
+                    <div class="panel card exception-management-header">
+                        <div class="exception-header-content">
+                            <h2>Exception Management</h2>
+                            <p>Automatically detected anomalies for risky approvals, abnormal rejections, and unusually fast case handling.</p>
+                        </div>
+                    </div>
+
+                    <div class="kyc-status-card exception-kpis">
+                        <div class="kyc-status-item rejected">
+                            <div class="kyc-count">07</div>
+                            <div class="kyc-label">Critical Alerts</div>
+                        </div>
+                        <div class="kyc-status-item pending">
+                            <div class="kyc-count">13</div>
+                            <div class="kyc-label">Warning Alerts</div>
+                        </div>
+                        <div class="kyc-status-item approved">
+                            <div class="kyc-count">09</div>
+                            <div class="kyc-label">Escalated Today</div>
+                        </div>
+                        <div class="kyc-status-item pending">
+                            <div class="kyc-count">29</div>
+                            <div class="kyc-label">Open Exceptions</div>
+                        </div>
+                    </div>
+
+                    <div class="panel card exception-alert-feed">
+                        <div class="card-title"><i class="fas fa-bell"></i> Auto-Detected Exceptions</div>
+                        <div class="exception-alert-list">
+                            <article class="exception-alert-item critical">
+                                <div class="exception-alert-top">
+                                    <h4>ALRT-4491 | Reviewer Approving Too Many High-Risk Cases</h4>
+                                    <span class="badge badge-high">Critical</span>
+                                </div>
+                                <p class="exception-alert-desc">Reviewer <strong>Sara M.</strong> approved <strong>11 high-risk cases</strong> in the last 24 hours. Team average is 2.1.</p>
+                                <div class="exception-alert-actions">
+                                    <button class="btn btn-secondary" onclick="openExceptionActionModal('Investigate','Reviewer','Sara M.','ALRT-4491')"><i class="fas fa-search"></i> Investigate</button>
+                                    <button class="btn btn-info" onclick="openExceptionActionModal('Escalate','Reviewer','Sara M.','ALRT-4491')"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                    <button class="btn btn-danger" onclick="openExceptionActionModal('Take Action','Reviewer','Sara M.','ALRT-4491')"><i class="fas fa-gavel"></i> Take Action</button>
+                                </div>
+                            </article>
+
+                            <article class="exception-alert-item warning">
+                                <div class="exception-alert-top">
+                                    <h4>ALRT-4492 | Abnormal Rejection Pattern</h4>
+                                    <span class="badge badge-medium">Warning</span>
+                                </div>
+                                <p class="exception-alert-desc">Reviewer <strong>Ahmed T.</strong> rejected <strong>48%</strong> of applications in 48 hours versus a 14% team baseline.</p>
+                                <div class="exception-alert-actions">
+                                    <button class="btn btn-secondary" onclick="openExceptionActionModal('Investigate','Reviewer','Ahmed T.','ALRT-4492')"><i class="fas fa-search"></i> Investigate</button>
+                                    <button class="btn btn-info" onclick="openExceptionActionModal('Escalate','Reviewer','Ahmed T.','ALRT-4492')"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                    <button class="btn btn-danger" onclick="openExceptionActionModal('Take Action','Reviewer','Ahmed T.','ALRT-4492')"><i class="fas fa-gavel"></i> Take Action</button>
+                                </div>
+                            </article>
+
+                            <article class="exception-alert-item info">
+                                <div class="exception-alert-top">
+                                    <h4>ALRT-4493 | User Cases Processed Unusually Fast</h4>
+                                    <span class="badge badge-low">Monitoring</span>
+                                </div>
+                                <p class="exception-alert-desc">User <strong>Mohamed A.</strong> had 5 linked applications approved in under <strong>45 seconds</strong> each.</p>
+                                <div class="exception-alert-actions">
+                                    <button class="btn btn-secondary" onclick="openExceptionActionModal('Investigate','User','Mohamed A.','ALRT-4493')"><i class="fas fa-search"></i> Investigate</button>
+                                    <button class="btn btn-info" onclick="openExceptionActionModal('Escalate','User','Mohamed A.','ALRT-4493')"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                    <button class="btn btn-danger" onclick="openExceptionActionModal('Take Action','User','Mohamed A.','ALRT-4493')"><i class="fas fa-gavel"></i> Take Action</button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="panel card exception-history-card">
+                        <div class="card-title"><i class="fas fa-clock-rotate-left"></i> Exception Investigation Queue</div>
+                        <div class="exception-table-wrap">
+                            <table class="case-table exception-table">
+                                <thead>
+                                    <tr>
+                                        <th>Alert ID</th>
+                                        <th>Entity Type</th>
+                                        <th>Entity</th>
+                                        <th>Pattern</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ALRT-4491</td>
+                                        <td>Reviewer</td>
+                                        <td>Sara M.</td>
+                                        <td>Risky approvals</td>
+                                        <td class="metric-danger">Critical</td>
+                                        <td><span class="chip chip-review">Investigating</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ALRT-4492</td>
+                                        <td>Reviewer</td>
+                                        <td>Ahmed T.</td>
+                                        <td>Excessive rejections</td>
+                                        <td class="metric-warning">Low</td>
+                                        <td><span class="chip chip-pending">Closed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ALRT-4493</td>
+                                        <td>User</td>
+                                        <td>Mohamed A.</td>
+                                        <td>Fast processing anomaly</td>
+                                        <td class="metric-good">Medium</td>
+                                        <td><span class="chip chip-approved">Open</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate Account Detection -->
+            <div id="tab-duplicates" class="tab-content">
+                <div class="duplicate-management-container">
+                    <div class="panel card duplicate-management-header">
+                        <div class="duplicate-header-content">
+                            <h2>Duplicate Account Detection</h2>
+                            <p>Auto-detected users with similar identity signals: ID number, face match, device fingerprint, and contact information.</p>
+                        </div>
+                    </div>
+
+                    <div class="panel card duplicate-cases-card">
+                        <div class="card-title"><i class="fas fa-user-secret"></i> Potential Duplicate Cases</div>
+                        <div class="duplicate-table-wrap">
+                            <table class="case-table duplicate-cases-table">
+                                <thead>
+                                    <tr>
+                                        <th>Case ID</th>
+                                        <th>Primary Account</th>
+                                        <th>Matched Account</th>
+                                        <th>Identity Signals</th>
+                                        <th>Risk Score</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="duplicate-row-DUP-2201">
+                                        <td>DUP-2201</td>
+                                        <td>Ali Ahmed</td>
+                                        <td>Ali A.</td>
+                                        <td>
+                                            <div class="duplicate-signals">
+                                                <span class="duplicate-signal-chip">Same ID Number</span>
+                                                <span class="duplicate-signal-chip">Face Match 93%</span>
+                                                <span class="duplicate-signal-chip">Same Device</span>
+                                            </div>
+                                        </td>
+                                        <td class="metric-danger">Critical</td>
+                                        <td class="duplicate-status-cell"><span class="chip chip-review">Pending Review</span></td>
+                                        <td>
+                                            <div class="duplicate-actions">
+                                                <button class="btn btn-primary" onclick="openDuplicateActionModal('DUP-2201', 'Ali Ahmed (U-10021)', 'Ali A. (U-10891)', 'merge')">Merge</button>
+                                                <button class="btn btn-danger" onclick="openDuplicateActionModal('DUP-2201', 'Ali Ahmed (U-10021)', 'Ali A. (U-10891)', 'block')">Block One</button>
+                                                <button class="btn btn-secondary" onclick="openDuplicateActionModal('DUP-2201', 'Ali Ahmed (U-10021)', 'Ali A. (U-10891)', 'clear')">Non-Duplicate</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="duplicate-row-DUP-2202">
+                                        <td>DUP-2202</td>
+                                        <td>Sara Mohamed</td>
+                                        <td>Sara M.</td>
+                                        <td>
+                                            <div class="duplicate-signals">
+                                                <span class="duplicate-signal-chip">Same Phone</span>
+                                                <span class="duplicate-signal-chip">Same Address</span>
+                                                <span class="duplicate-signal-chip">Face Match 78%</span>
+                                            </div>
+                                        </td>
+                                        <td class="metric-warning">High</td>
+                                        <td class="duplicate-status-cell"><span class="chip chip-pending">Investigating</span></td>
+                                        <td>
+                                            <div class="duplicate-actions">
+                                                <button class="btn btn-primary" onclick="openDuplicateActionModal('DUP-2202', 'Sara Mohamed (U-11664)', 'Sara M. (U-10311)', 'merge')">Merge</button>
+                                                <button class="btn btn-danger" onclick="openDuplicateActionModal('DUP-2202', 'Sara Mohamed (U-11664)', 'Sara M. (U-10311)', 'block')">Block One</button>
+                                                <button class="btn btn-secondary" onclick="openDuplicateActionModal('DUP-2202', 'Sara Mohamed (U-11664)', 'Sara M. (U-10311)', 'clear')">Non-Duplicate</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="duplicate-row-DUP-2203">
+                                        <td>DUP-2203</td>
+                                        <td>Mohamed Ali</td>
+                                        <td>M. Ali</td>
+                                        <td>
+                                            <div class="duplicate-signals">
+                                                <span class="duplicate-signal-chip">Shared Device</span>
+                                                <span class="duplicate-signal-chip">Same Email Domain</span>
+                                            </div>
+                                        </td>
+                                        <td class="metric-good">Medium</td>
+                                        <td class="duplicate-status-cell"><span class="chip chip-approved">Open</span></td>
+                                        <td>
+                                            <div class="duplicate-actions">
+                                                <button class="btn btn-primary" onclick="openDuplicateActionModal('DUP-2203', 'Mohamed Ali (U-12109)', 'M. Ali (U-12250)', 'merge')">Merge</button>
+                                                <button class="btn btn-danger" onclick="openDuplicateActionModal('DUP-2203', 'Mohamed Ali (U-12109)', 'M. Ali (U-12250)', 'block')">Block One</button>
+                                                <button class="btn btn-secondary" onclick="openDuplicateActionModal('DUP-2203', 'Mohamed Ali (U-12109)', 'M. Ali (U-12250)', 'clear')">Non-Duplicate</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel card duplicate-history-card">
+                        <div class="card-title"><i class="fas fa-history"></i> Duplicate Action History</div>
+                        <div class="duplicate-table-wrap">
+                            <table class="case-table duplicate-history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Case ID</th>
+                                        <th>Action</th>
+                                        <th>Decision</th>
+                                        <th>Admin Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="duplicateHistoryBody">
+                                    <tr>
+                                        <td>08 Apr 2026, 09:41</td>
+                                        <td>DUP-2198</td>
+                                        <td>Merge Accounts</td>
+                                        <td>Merged into U-9912</td>
+                                        <td>Same ID and face match above 95%.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>08 Apr 2026, 10:12</td>
+                                        <td>DUP-2200</td>
+                                        <td>Block One Account</td>
+                                        <td>Blocked U-11231</td>
+                                        <td>Shared KYC document used across two wallets.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate Action Modal -->
+            <div id="duplicateActionModal" class="modal">
+                <div class="modal-content reviewer-modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title"><i class="fas fa-copy"></i> Duplicate Case Decision</h2>
+                        <button class="modal-close" onclick="closeDuplicateActionModal()">&times;</button>
+                    </div>
+                    <div class="modal-body reviewer-modal-body">
+                        <p class="reviewer-modal-lead" id="duplicateActionLead">Review duplicate case decision.</p>
+
+                        <input type="hidden" id="duplicateCaseIdInput">
+                        <input type="hidden" id="duplicatePrimaryInput">
+                        <input type="hidden" id="duplicateMatchedInput">
+                        <input type="hidden" id="duplicateActionInput">
+
+                        <div class="modal-form-group">
+                            <label for="duplicateDecision">Decision</label>
+                            <select id="duplicateDecision">
+                                <option value="">Select decision</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="duplicateNotes">Admin Notes</label>
+                            <textarea id="duplicateNotes" rows="3" placeholder="Provide rationale for this duplicate-account decision..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeDuplicateActionModal()">Cancel</button>
+                        <button class="btn btn-primary" id="duplicateActionSubmitBtn" onclick="submitDuplicateAction(event)"><i class="fas fa-check"></i> Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exception Action Modal -->
+            <div id="exceptionActionModal" class="modal">
+                <div class="modal-content reviewer-modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title"><i class="fas fa-shield-alt"></i> Exception Action</h2>
+                        <button class="modal-close" onclick="closeExceptionActionModal()">&times;</button>
+                    </div>
+                    <div class="modal-body reviewer-modal-body">
+                        <p class="reviewer-modal-lead" id="exceptionActionLead">Resolve selected exception alert.</p>
+
+                        <input type="hidden" id="exceptionActionTypeInput">
+                        <input type="hidden" id="exceptionAlertIdInput">
+                        <input type="hidden" id="exceptionEntityTypeInput">
+                        <input type="hidden" id="exceptionEntityNameInput">
+
+                        <div class="exception-modal-grid">
+                            <div class="modal-form-group">
+                                <label for="exceptionOwner">Assign To</label>
+                                <select id="exceptionOwner">
+                                    <option value="">Select owner</option>
+                                    <option value="Risk Operations">Risk Operations</option>
+                                    <option value="Compliance Team">Compliance Team</option>
+                                    <option value="Fraud Team">Fraud Team</option>
+                                </select>
+                            </div>
+
+                            <div class="modal-form-group">
+                                <label for="exceptionPriority">Priority</label>
+                                <select id="exceptionPriority">
+                                    <option value="">Select priority</option>
+                                    <option value="Critical">Critical</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="exceptionActionNotes">Investigation / Action Notes</label>
+                            <textarea id="exceptionActionNotes" rows="3" placeholder="Add action details for audit and traceability..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeExceptionActionModal()">Cancel</button>
+                        <button class="btn btn-primary" id="exceptionActionSubmitBtn" onclick="submitExceptionAction(event)"><i class="fas fa-check"></i> Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assign Role Modal -->
+            <div id="assignRoleModal" class="modal">
+                <div class="modal-content reviewer-modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title"><i class="fas fa-user-tag"></i> Assign Reviewer Role</h2>
+                        <button class="modal-close" onclick="closeAssignRoleModal()">&times;</button>
+                    </div>
+                    <div class="modal-body reviewer-modal-body">
+                        <p class="reviewer-modal-lead">Update role and responsibility scope for <strong id="assignRoleReviewerName">Reviewer</strong>.</p>
+                        <input type="hidden" id="assignRoleReviewerInput">
+
+                        <div class="modal-form-group">
+                            <label for="reviewerRoleSelect">Role</label>
+                            <select id="reviewerRoleSelect">
+                                <option value="">Select role</option>
+                                <option value="Reviewer">Reviewer</option>
+                                <option value="Senior Reviewer">Senior Reviewer</option>
+                                <option value="Mentor">Mentor</option>
+                                <option value="Quality Coach">Quality Coach</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="reviewerRoleEffectiveDate">Effective Date</label>
+                            <input type="date" id="reviewerRoleEffectiveDate">
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="reviewerRoleNotes">Role Notes</label>
+                            <textarea id="reviewerRoleNotes" rows="3" placeholder="Optional notes for this role assignment..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeAssignRoleModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="submitAssignRole(event)"><i class="fas fa-check"></i> Confirm Assignment</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suspend Reviewer Modal -->
+            <div id="suspendReviewerModal" class="modal">
+                <div class="modal-content reviewer-modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title"><i class="fas fa-ban"></i> Suspend Reviewer</h2>
+                        <button class="modal-close" onclick="closeSuspendReviewerModal()">&times;</button>
+                    </div>
+                    <div class="modal-body reviewer-modal-body">
+                        <p class="reviewer-modal-lead">You are suspending <strong id="suspendReviewerName">Reviewer</strong> from KYC processing tasks.</p>
+                        <input type="hidden" id="suspendReviewerInput">
+
+                        <div class="modal-form-group">
+                            <label for="suspendReason">Suspension Reason</label>
+                            <select id="suspendReason">
+                                <option value="">Select reason</option>
+                                <option value="Abnormal rejection pattern">Abnormal rejection pattern</option>
+                                <option value="QA quality regression">QA quality regression</option>
+                                <option value="Policy violation">Policy violation</option>
+                                <option value="Operational review">Operational review</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="suspendDuration">Duration</label>
+                            <select id="suspendDuration">
+                                <option value="">Select duration</option>
+                                <option value="24 Hours">24 Hours</option>
+                                <option value="72 Hours">72 Hours</option>
+                                <option value="7 Days">7 Days</option>
+                                <option value="Until Manual Reinstatement">Until Manual Reinstatement</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-form-group">
+                            <label for="suspendNotes">Admin Notes</label>
+                            <textarea id="suspendNotes" rows="3" placeholder="Required notes explaining this suspension..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="closeSuspendReviewerModal()">Cancel</button>
+                        <button class="btn btn-danger" onclick="submitSuspendReviewer(event)"><i class="fas fa-ban"></i> Confirm Suspension</button>
+                    </div>
                 </div>
             </div>
 
@@ -627,6 +1133,221 @@
                         target.style.display = 'flex';
                         target.style.animation = 'fadeIn var(--transition)';
                     }
+                }
+
+                function openSuspendReviewerModal(reviewerName) {
+                    document.getElementById('suspendReviewerName').textContent = reviewerName;
+                    document.getElementById('suspendReviewerInput').value = reviewerName;
+                    document.getElementById('suspendReason').value = '';
+                    document.getElementById('suspendDuration').value = '';
+                    document.getElementById('suspendNotes').value = '';
+
+                    document.getElementById('suspendReviewerModal').classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeSuspendReviewerModal() {
+                    document.getElementById('suspendReviewerModal').classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                function submitSuspendReviewer(event) {
+                    event.preventDefault();
+
+                    const reviewer = document.getElementById('suspendReviewerInput').value;
+                    const reason = document.getElementById('suspendReason').value;
+                    const duration = document.getElementById('suspendDuration').value;
+                    const notes = document.getElementById('suspendNotes').value.trim();
+
+                    if (!reason || !duration || !notes) {
+                        showNotification('Please complete reason, duration, and admin notes before suspending.', 'warning');
+                        return;
+                    }
+
+                    closeSuspendReviewerModal();
+                    showNotification(reviewer + ' suspended for ' + duration + '.', 'warning');
+                }
+
+                function openAssignRoleModal(reviewerName) {
+                    document.getElementById('assignRoleReviewerName').textContent = reviewerName;
+                    document.getElementById('assignRoleReviewerInput').value = reviewerName;
+                    document.getElementById('reviewerRoleSelect').value = '';
+                    document.getElementById('reviewerRoleEffectiveDate').value = '';
+                    document.getElementById('reviewerRoleNotes').value = '';
+
+                    document.getElementById('assignRoleModal').classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeAssignRoleModal() {
+                    document.getElementById('assignRoleModal').classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                function submitAssignRole(event) {
+                    event.preventDefault();
+
+                    const reviewer = document.getElementById('assignRoleReviewerInput').value;
+                    const role = document.getElementById('reviewerRoleSelect').value;
+                    const effectiveDate = document.getElementById('reviewerRoleEffectiveDate').value;
+
+                    if (!role || !effectiveDate) {
+                        showNotification('Please select role and effective date.', 'warning');
+                        return;
+                    }
+
+                    closeAssignRoleModal();
+                    showNotification(role + ' assigned to ' + reviewer + ' successfully.', 'success');
+                }
+
+                function openExceptionActionModal(actionType, entityType, entityName, alertId) {
+                    document.getElementById('exceptionActionTypeInput').value = actionType;
+                    document.getElementById('exceptionAlertIdInput').value = alertId;
+                    document.getElementById('exceptionEntityTypeInput').value = entityType;
+                    document.getElementById('exceptionEntityNameInput').value = entityName;
+
+                    document.getElementById('exceptionOwner').value = '';
+                    document.getElementById('exceptionPriority').value = '';
+                    document.getElementById('exceptionActionNotes').value = '';
+
+                    const lead = actionType + ' alert ' + alertId + ' for ' + entityType + ' ' + entityName + '.';
+                    document.getElementById('exceptionActionLead').textContent = lead;
+
+                    const btn = document.getElementById('exceptionActionSubmitBtn');
+                    btn.innerHTML = '<i class="fas fa-check"></i> ' + actionType;
+                    btn.className = actionType === 'Take Action' ? 'btn btn-danger' : 'btn btn-primary';
+
+                    document.getElementById('exceptionActionModal').classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeExceptionActionModal() {
+                    document.getElementById('exceptionActionModal').classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                function submitExceptionAction(event) {
+                    event.preventDefault();
+
+                    const actionType = document.getElementById('exceptionActionTypeInput').value;
+                    const alertId = document.getElementById('exceptionAlertIdInput').value;
+                    const entityType = document.getElementById('exceptionEntityTypeInput').value;
+                    const entityName = document.getElementById('exceptionEntityNameInput').value;
+                    const owner = document.getElementById('exceptionOwner').value;
+                    const priority = document.getElementById('exceptionPriority').value;
+                    const notes = document.getElementById('exceptionActionNotes').value.trim();
+
+                    if (!owner || !priority || !notes) {
+                        showNotification('Please complete owner, priority, and notes before confirming.', 'warning');
+                        return;
+                    }
+
+                    closeExceptionActionModal();
+                    showNotification(actionType + ' submitted for ' + entityType + ' ' + entityName + ' (' + alertId + ').', actionType === 'Take Action' ? 'warning' : 'success');
+                }
+
+                function openDuplicateActionModal(caseId, primaryAccount, matchedAccount, actionType) {
+                    document.getElementById('duplicateCaseIdInput').value = caseId;
+                    document.getElementById('duplicatePrimaryInput').value = primaryAccount;
+                    document.getElementById('duplicateMatchedInput').value = matchedAccount;
+                    document.getElementById('duplicateActionInput').value = actionType;
+
+                    const lead = 'Review ' + caseId + ': ' + primaryAccount + ' vs ' + matchedAccount + '.';
+                    document.getElementById('duplicateActionLead').textContent = lead;
+
+                    const decisionSelect = document.getElementById('duplicateDecision');
+                    decisionSelect.innerHTML = '<option value="">Select decision</option>';
+
+                    if (actionType === 'merge') {
+                        decisionSelect.innerHTML += '<option value="Merge into primary">Merge into primary</option>';
+                        decisionSelect.innerHTML += '<option value="Merge into matched">Merge into matched</option>';
+                    } else if (actionType === 'block') {
+                        decisionSelect.innerHTML += '<option value="Block primary account">Block primary account</option>';
+                        decisionSelect.innerHTML += '<option value="Block matched account">Block matched account</option>';
+                    } else {
+                        decisionSelect.innerHTML += '<option value="Mark as non-duplicate">Mark as non-duplicate</option>';
+                        decisionSelect.innerHTML += '<option value="Keep under monitoring">Keep under monitoring</option>';
+                    }
+
+                    document.getElementById('duplicateNotes').value = '';
+
+                    const submitBtn = document.getElementById('duplicateActionSubmitBtn');
+                    let actionLabel = 'Confirm';
+                    if (actionType === 'merge') actionLabel = 'Merge Accounts';
+                    if (actionType === 'block') actionLabel = 'Block One';
+                    if (actionType === 'clear') actionLabel = 'Mark Non-Duplicate';
+
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> ' + actionLabel;
+                    submitBtn.className = actionType === 'block' ? 'btn btn-danger' : 'btn btn-primary';
+
+                    document.getElementById('duplicateActionModal').classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeDuplicateActionModal() {
+                    document.getElementById('duplicateActionModal').classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                function submitDuplicateAction(event) {
+                    event.preventDefault();
+
+                    const caseId = document.getElementById('duplicateCaseIdInput').value;
+                    const actionType = document.getElementById('duplicateActionInput').value;
+                    const decision = document.getElementById('duplicateDecision').value;
+                    const notes = document.getElementById('duplicateNotes').value.trim();
+
+                    if (!decision || !notes) {
+                        showNotification('Please select a decision and enter admin notes.', 'warning');
+                        return;
+                    }
+
+                    const row = document.getElementById('duplicate-row-' + caseId);
+                    if (row) {
+                        const statusCell = row.querySelector('.duplicate-status-cell');
+                        if (statusCell) {
+                            if (actionType === 'merge') {
+                                statusCell.innerHTML = '<span class="chip chip-approved">Merged</span>';
+                            } else if (actionType === 'block') {
+                                statusCell.innerHTML = '<span class="chip chip-rejected">Blocked</span>';
+                            } else {
+                                statusCell.innerHTML = '<span class="chip chip-review">Cleared</span>';
+                            }
+                        }
+                    }
+
+                    const historyBody = document.getElementById('duplicateHistoryBody');
+                    if (historyBody) {
+                        const now = new Date();
+                        const stamp = now.toLocaleString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        }).replace(',', '');
+
+                        let actionLabel = 'Review';
+                        if (actionType === 'merge') actionLabel = 'Merge Accounts';
+                        if (actionType === 'block') actionLabel = 'Block One Account';
+                        if (actionType === 'clear') actionLabel = 'Mark Non-Duplicate';
+
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = '<td>' + stamp + '</td>' +
+                            '<td>' + caseId + '</td>' +
+                            '<td>' + actionLabel + '</td>' +
+                            '<td>' + decision + '</td>' +
+                            '<td>' + notes + '</td>';
+                        historyBody.prepend(tr);
+                    }
+
+                    closeDuplicateActionModal();
+                    showNotification('Duplicate case ' + caseId + ' updated successfully.', actionType === 'block' ? 'warning' : 'success');
+                }
+
+                function openReviewerDetails(reviewerName) {
+                    showNotification('Opening performance details for ' + reviewerName + '.', 'success');
                 }
             </script>
         </main>
