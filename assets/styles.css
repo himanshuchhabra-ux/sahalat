@@ -8367,6 +8367,14 @@ body.dark-mode .kyc-dashboard-container .inner-tab-btn:first-child > div {
   gap: 20px;
 }
 
+.kyc-dashboard-container .risk-score-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+.kyc-dashboard-container .risk-score-grid.full-width .risk-score-right {
+  width: 100%;
+}
+
 .kyc-dashboard-container .risk-score-left {
   display: flex;
   align-items: center;
