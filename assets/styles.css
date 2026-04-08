@@ -4288,6 +4288,13 @@ body.dark-mode .content-info-icon {
   font-size: 0.8rem;
 }
 
+#bannersTable .action-buttons .btn-icon {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex: 0 0 38px;
+}
+
 .modal-large {
   max-width: 700px;
 }
