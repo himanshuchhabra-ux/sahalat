@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Monitoring Report - Sahalat Admin</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/account-monitoring-report.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <img src="/assets/images/s_logo.png" alt="Sahalat logo" />
+        <span class="logo">Sahalat Admin Panel</span>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" title="Toggle Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="user-menu" onclick="goToProfile()">
+          <div class="user-avatar">AD</div>
+          <div class="user-info-small">
+            <div class="user-name">Admin User</div>
+            <div class="user-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Main</div>
+          <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-chart-line"></i>
+            <span class="nav-item-label">Dashboard</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">User Management</div>
+          <a href="users.html" class="nav-item">
+            <i class="fas fa-users"></i>
+            <span class="nav-item-label">Users</span>
+          </a>
+          <a href="kyc.html" class="nav-item">
+            <i class="fas fa-id-card"></i>
+            <span class="nav-item-label">KYC Review</span>
+          </a>
+          <a href="account-closure.html" class="nav-item">
+            <i class="fas fa-times-circle"></i>
+            <span class="nav-item-label">Account Closure</span>
+          </a>
+          <a href="account-monitoring-report.html" class="nav-item active">
+            <i class="fas fa-shield-alt"></i>
+            <span class="nav-item-label">Monitoring Report</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Admin Management</div>
+          <a href="subadmin-management.html" class="nav-item">
+            <i class="fas fa-user-shield"></i>
+            <span class="nav-item-label">Sub Admins</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Transactions</div>
+          <a href="transactions.html" class="nav-item">
+            <i class="fas fa-exchange-alt"></i>
+            <span class="nav-item-label">Transactions</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Marketing</div>
+          <a href="banners.html" class="nav-item">
+            <i class="fas fa-image"></i>
+            <span class="nav-item-label">Banners</span>
+          </a>
+          <a href="notifications.html" class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span class="nav-item-label">Push Notifications</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Support</div>
+          <a href="tickets.html" class="nav-item">
+            <i class="fas fa-ticket"></i>
+            <span class="nav-item-label">Tickets</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Content</div>
+          <a href="content.html" class="nav-item">
+            <i class="fas fa-file-alt"></i>
+            <span class="nav-item-label">Content Management</span>
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Account</div>
+          <a href="profile.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span class="nav-item-label">Profile</span>
+          </a>
+          <a
+            href="dashboard.html"
+            class="nav-item"
+            onclick="localStorage.removeItem('isLoggedIn')"
+          >
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item-label">Logout</span>
+          </a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Account Monitoring Report</h1>
+          <p class="page-subtitle">
+            Unified monitoring across account lifecycle, compliance checks, and
+            risk reporting.
+          </p>
+        </div>
+
+        <section class="card monitoring-control-bar">
+          <div class="search-bar report-search">
+            <label>Search Report Data</label>
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="monitoringSearch"
+                placeholder="Search by user, account ID, reason"
+              />
+            </div>
+          </div>
+          <div class="monitoring-control-actions">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-filter"></i> Filter
+            </button>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              id="resetMonitoringSearch"
+            >
+              <i class="fas fa-rotate-right"></i> Reset
+            </button>
+          </div>
+        </section>
+
+        <section class="card monitoring-tabs-card">
+          <div
+            class="monitoring-tabs"
+            role="tablist"
+            aria-label="Account monitoring report tabs"
+          >
+            <button
+              class="monitoring-tab active"
+              type="button"
+              data-tab="active-accounts"
+              role="tab"
+              aria-selected="true"
+            >
+              Active accounts
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="locked-accounts"
+              role="tab"
+              aria-selected="false"
+            >
+              Locked accounts
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="dormant-accounts"
+              role="tab"
+              aria-selected="false"
+            >
+              Dormant accounts
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="rekyc-status"
+              role="tab"
+              aria-selected="false"
+            >
+              Re-KYC status
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="aml-report"
+              role="tab"
+              aria-selected="false"
+            >
+              Aml report
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="str-report"
+              role="tab"
+              aria-selected="false"
+            >
+              Str report
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="closed-account"
+              role="tab"
+              aria-selected="false"
+            >
+              Closed account
+            </button>
+          </div>
+
+          <div class="monitoring-panels">
+            <article
+              class="monitoring-panel active"
+              data-panel="active-accounts"
+              role="tabpanel"
+            >
+              <div class="panel-header">
+                <h3>Active accounts overview</h3>
+                <span class="badge badge-success">48,264 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="activeAccountsTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Account ID</th>
+                      <th>User Name</th>
+                      <th>Region</th>
+                      <th>Last Activity</th>
+                      <th>KYC</th>
+                      <th>Risk</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ACC-10452</td>
+                      <td>Layla Hasan</td>
+                      <td>Riyadh</td>
+                      <td>Apr 8, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-22109</td>
+                      <td>Omar Kareem</td>
+                      <td>Jeddah</td>
+                      <td>Apr 9, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-33081</td>
+                      <td>Sarah Malik</td>
+                      <td>Dammam</td>
+                      <td>Apr 7, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="locked-accounts"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>Locked accounts log</h3>
+                <span class="badge badge-danger">1,129 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="lockedAccountsTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Account ID</th>
+                      <th>User Name</th>
+                      <th>Lock Reason</th>
+                      <th>Locked On</th>
+                      <th>Auto/Manual</th>
+                      <!-- <th>Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ACC-99013</td>
+                      <td>Nora Ahmed</td>
+                      <td>5 failed login attempts</td>
+                      <td>Apr 9, 2026</td>
+                      <td>Auto</td>
+                   
+                    </tr>
+                    <tr>
+                      <td>ACC-55280</td>
+                      <td>Majid Noor</td>
+                      <td>Suspicious transfer pattern</td>
+                      <td>Apr 8, 2026</td>
+                      <td>Manual</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="dormant-accounts"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>Dormant accounts aging</h3>
+                <span class="badge badge-warning">3,782 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="dormantAccountsTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Account ID</th>
+                      <th>User Name</th>
+                      <th>Last Login</th>
+                      <th>Days Inactive</th>
+                      <th>Wallet Balance</th>
+                      <th>Reminder</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ACC-72014</td>
+                      <td>Ali Rahman</td>
+                      <td>Jan 5, 2026</td>
+                      <td>95</td>
+                      <td>SAR 214.00</td>
+                      <td><span class="badge badge-warning">Sent</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-84129</td>
+                      <td>Huda Salman</td>
+                      <td>Dec 17, 2025</td>
+                      <td>114</td>
+                      <td>SAR 0.00</td>
+                      <td><span class="badge badge-danger">Pending</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="rekyc-status"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>Re-KYC status queue</h3>
+                <span class="badge badge-warning">2,407 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="reKycStatusTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Case ID</th>
+                      <th>User Name</th>
+                      <th>Trigger</th>
+                      <th>Submitted</th>
+                      <th>Status</th>
+                      <th>Reviewer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>RKYC-8832</td>
+                      <td>Yousef Adel</td>
+                      <td>ID expired</td>
+                      <td>Apr 9, 2026</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td>Nadia H.</td>
+                    </tr>
+                    <tr>
+                      <td>RKYC-8801</td>
+                      <td>Amani Tariq</td>
+                      <td>High-risk corridor use</td>
+                      <td>Apr 7, 2026</td>
+                      <td><span class="badge badge-success">Approved</span></td>
+                      <td>Bilal M.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="aml-report"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>AML monitoring report</h3>
+                <span class="badge badge-danger">298 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="amlReportTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Alert ID</th>
+                      <th>Account ID</th>
+                      <th>Scenario</th>
+                      <th>Risk Score</th>
+                      <th>Created</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AML-6112</td>
+                      <td>ACC-92110</td>
+                      <td>Structuring pattern</td>
+                      <td>9.2</td>
+                      <td>Apr 9, 2026</td>
+                      <td><span class="badge badge-danger">Open</span></td>
+                    </tr>
+                    <tr>
+                      <td>AML-6108</td>
+                      <td>ACC-67773</td>
+                      <td>High-velocity transfers</td>
+                      <td>8.4</td>
+                      <td>Apr 8, 2026</td>
+                      <td>
+                        <span class="badge badge-warning">Investigating</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="str-report"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>STR filing report</h3>
+                <span class="badge badge-warning">87 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="strReportTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>STR ID</th>
+                      <th>Account ID</th>
+                      <th>Filed By</th>
+                      <th>Filed Date</th>
+                      <th>Authority Ref</th>
+                      <th>Current State</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>STR-5003</td>
+                      <td>ACC-23190</td>
+                      <td>Compliance Unit</td>
+                      <td>Apr 6, 2026</td>
+                      <td>FIU-44218</td>
+                      <td>
+                        <span class="badge badge-warning">Submitted</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>STR-4991</td>
+                      <td>ACC-98172</td>
+                      <td>AML Team</td>
+                      <td>Apr 2, 2026</td>
+                      <td>FIU-43906</td>
+                      <td>
+                        <span class="badge badge-success">Acknowledged</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="closed-account"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>Closed account register</h3>
+                <span class="badge badge-danger">4,652 records</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="closedAccountTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Account ID</th>
+                      <th>User Name</th>
+                      <th>Closure Date</th>
+                      <th>Closure Type</th>
+                      <th>Reason</th>
+                      <th>Handled By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ACC-11400</td>
+                      <td>Rana Khalid</td>
+                      <td>Apr 9, 2026</td>
+                      <td>User Initiated</td>
+                      <td>No longer needed</td>
+                      <td>Support Ops</td>
+                    </tr>
+                    <tr>
+                      <td>ACC-10982</td>
+                      <td>Faisal Hamad</td>
+                      <td>Apr 8, 2026</td>
+                      <td>Compliance Closure</td>
+                      <td>Sanctions list match</td>
+                      <td>Compliance Unit</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+      (function () {
+        const tabs = Array.from(document.querySelectorAll(".monitoring-tab"));
+        const panels = Array.from(
+          document.querySelectorAll(".monitoring-panel"),
+        );
+        const searchInput = document.getElementById("monitoringSearch");
+        const resetButton = document.getElementById("resetMonitoringSearch");
+
+        function getActivePanel() {
+          return document.querySelector(".monitoring-panel.active");
+        }
+
+        function switchTab(tab) {
+          const target = tab.dataset.tab;
+
+          tabs.forEach((item) => {
+            const isActive = item === tab;
+            item.classList.toggle("active", isActive);
+            item.setAttribute("aria-selected", String(isActive));
+          });
+
+          panels.forEach((panel) => {
+            const isActive = panel.dataset.panel === target;
+            panel.classList.toggle("active", isActive);
+            panel.hidden = !isActive;
+          });
+
+          if (searchInput) {
+            filterActiveTable(searchInput.value.trim().toLowerCase());
+          }
+        }
+
+        function filterActiveTable(term) {
+          const activePanel = getActivePanel();
+          if (!activePanel) return;
+
+          const rows = activePanel.querySelectorAll("tbody tr");
+          rows.forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(term) ? "" : "none";
+          });
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            switchTab(tab);
+          });
+        });
+
+        if (searchInput) {
+          searchInput.addEventListener("input", function () {
+            filterActiveTable(searchInput.value.trim().toLowerCase());
+          });
+        }
+
+        if (resetButton && searchInput) {
+          resetButton.addEventListener("click", function () {
+            searchInput.value = "";
+            filterActiveTable("");
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
