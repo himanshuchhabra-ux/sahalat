@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Management - Sahalat Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .wallet-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .wallet-stat-card {
+            background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .wallet-stat-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(0, 29, 59, 0.3);
+        }
+        .wallet-stat-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .wallet-stat-icon.success {
+            background: rgba(5, 150, 105, 0.12);
+            color: var(--color-success);
+        }
+        .wallet-stat-icon.warning {
+            background: rgba(217, 119, 6, 0.12);
+            color: var(--color-warning);
+        }
+        .wallet-stat-icon.danger {
+            background: rgba(220, 38, 38, 0.12);
+            color: var(--color-danger);
+        }
+        .wallet-stat-icon.info {
+            background: rgba(14, 116, 144, 0.12);
+            color: var(--color-info);
+        }
+        .wallet-stat-info .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.15rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+        .wallet-stat-info .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .wallet-balance-col {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .wallet-id-col {
+            font-family: 'Sora', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        @media (max-width: 1100px) {
+            .wallet-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .wallet-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="/assets/images/s_logo.png" alt="Sahalat logo" />
+            <span class="logo">Sahalat Admin Panel</span>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+                <a href="account-closure.html" class="nav-item">
+                    <i class="fas fa-times-circle"></i>
+                    <span class="nav-item-label">Account Closure</span>
+                </a>
+                <a href="account-monitoring-report.html" class="nav-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="nav-item-label">Monitoring Report</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Admin Management</div>
+                <a href="subadmin-management.html" class="nav-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-item-label">Sub Admins</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+                <a href="wallet-management.html" class="nav-item active">
+                    <i class="fas fa-wallet"></i>
+                    <span class="nav-item-label">Wallet Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Push Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="dashboard.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Wallet Management</h1>
+                <p class="page-subtitle">Manage and monitor all user wallets, balances, limits, and wallet operations across the platform.</p>
+            </div>
+
+            <!-- Wallet Statistics -->
+            <div class="wallet-stats">
+                <div class="wallet-stat-card">
+                    <div class="wallet-stat-icon success">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="wallet-stat-info">
+                        <div class="stat-label">Total Wallets</div>
+                        <div class="stat-value">12,458</div>
+                    </div>
+                </div>
+                <div class="wallet-stat-card">
+                    <div class="wallet-stat-icon info">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="wallet-stat-info">
+                        <div class="stat-label">Total Balance</div>
+                        <div class="stat-value">SAR 8.4M</div>
+                    </div>
+                </div>
+                <div class="wallet-stat-card">
+                    <div class="wallet-stat-icon warning">
+                        <i class="fas fa-pause-circle"></i>
+                    </div>
+                    <div class="wallet-stat-info">
+                        <div class="stat-label">Suspended Wallets</div>
+                        <div class="stat-value">87</div>
+                    </div>
+                </div>
+                <div class="wallet-stat-card">
+                    <div class="wallet-stat-icon danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="wallet-stat-info">
+                        <div class="stat-label">Limit Breaches</div>
+                        <div class="stat-value">23</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-bar">
+                    <label>Search</label>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search by user, wallet ID..."
+                            data-search-table="walletsTable"
+                        >
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select class="form-select">
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Suspended</option>
+                        <option>Frozen</option>
+                        <option>Closed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Wallet Tier</label>
+                    <select class="form-select">
+                        <option>All</option>
+                        <option>Basic</option>
+                        <option>Standard</option>
+                        <option>Premium</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Balance Range</label>
+                    <select class="form-select">
+                        <option>All</option>
+                        <option>SAR 0 - 1,000</option>
+                        <option>SAR 1,000 - 10,000</option>
+                        <option>SAR 10,000 - 50,000</option>
+                        <option>SAR 50,000+</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportTableToCSV('walletsTable', 'wallets.csv')">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wallets Table -->
+            <div class="card">
+                <div class="flex-between" style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.2rem; font-weight: 600;">All Wallets (12,458)</h3>
+                    <div style="color: var(--text-secondary);">
+                        Showing <strong>1-10</strong> of <strong>12,458</strong>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="walletsTable">
+                        <thead class="table-header">
+                            <tr>
+                                <th style="width: 12%;">Wallet ID</th>
+                                <th style="width: 16%;">User</th>
+                                <th style="width: 12%;">Balance</th>
+                                <th style="width: 10%;">Tier</th>
+                                <th style="width: 12%;">Daily Limit</th>
+                                <th style="width: 10%;">Status</th>
+                                <th style="width: 14%;">Last Activity</th>
+                                <th style="width: 14%;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10001</td>
+                                <td>
+                                    <div style="font-weight: 500;">John Doe</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">john.doe@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 12,450.00</td>
+                                <td><span class="badge badge-primary">Premium</span></td>
+                                <td>SAR 50,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 17, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10002</td>
+                                <td>
+                                    <div style="font-weight: 500;">Sarah Smith</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">sarah.smith@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 3,280.75</td>
+                                <td><span class="badge badge-info">Standard</span></td>
+                                <td>SAR 20,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 16, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10003</td>
+                                <td>
+                                    <div style="font-weight: 500;">Mike Johnson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">mike.j@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 0.00</td>
+                                <td><span class="badge badge-warning">Basic</span></td>
+                                <td>SAR 5,000</td>
+                                <td><span class="badge badge-warning">Suspended</span></td>
+                                <td>Apr 10, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" title="Reactivate Wallet">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10004</td>
+                                <td>
+                                    <div style="font-weight: 500;">Emma Wilson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">emma.w@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 45,780.50</td>
+                                <td><span class="badge badge-primary">Premium</span></td>
+                                <td>SAR 50,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 17, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10005</td>
+                                <td>
+                                    <div style="font-weight: 500;">David Brown</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">david.b@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 1,200.00</td>
+                                <td><span class="badge badge-info">Standard</span></td>
+                                <td>SAR 20,000</td>
+                                <td><span class="badge badge-danger">Frozen</span></td>
+                                <td>Apr 5, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-icon" title="Unfreeze Wallet">
+                                            <i class="fas fa-unlock"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10006</td>
+                                <td>
+                                    <div style="font-weight: 500;">Lisa Anderson</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">lisa.a@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 8,920.30</td>
+                                <td><span class="badge badge-info">Standard</span></td>
+                                <td>SAR 20,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 16, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10007</td>
+                                <td>
+                                    <div style="font-weight: 500;">James Miller</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">james.m@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 520.00</td>
+                                <td><span class="badge badge-warning">Basic</span></td>
+                                <td>SAR 5,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 15, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10008</td>
+                                <td>
+                                    <div style="font-weight: 500;">Rachel Taylor</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">rachel.t@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 22,100.00</td>
+                                <td><span class="badge badge-primary">Premium</span></td>
+                                <td>SAR 50,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 17, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10009</td>
+                                <td>
+                                    <div style="font-weight: 500;">Kevin Davis</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">kevin.d@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 150.25</td>
+                                <td><span class="badge badge-warning">Basic</span></td>
+                                <td>SAR 5,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 14, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="wallet-id-col">WLT-10010</td>
+                                <td>
+                                    <div style="font-weight: 500;">Amanda Martinez</div>
+                                    <div style="color: var(--text-secondary); font-size: 0.85rem;">amanda.m@email.com</div>
+                                </td>
+                                <td class="wallet-balance-col">SAR 6,340.80</td>
+                                <td><span class="badge badge-info">Standard</span></td>
+                                <td>SAR 20,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>Apr 16, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('walletDetailModal')" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" onclick="openModal('adjustBalanceModal')" title="Adjust Balance">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Suspend Wallet">
+                                            <i class="fas fa-pause"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex-between pagination-container">
+                    <div class="content-info">
+                        Showing 1-10 of 12,458 wallets
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary btn-small">1</button>
+                        <button class="btn btn-secondary btn-small">2</button>
+                        <button class="btn btn-secondary btn-small">3</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button class="btn btn-secondary btn-small">1246</button>
+                        <button class="btn btn-secondary btn-small">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Wallet Detail Modal -->
+    <div id="walletDetailModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">Wallet Details</h2>
+                <button class="modal-close" onclick="closeModal('walletDetailModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="background-color: var(--bg-tertiary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.25rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Wallet ID</div>
+                            <div style="font-weight: 700; font-family: 'Sora', monospace;">WLT-10001</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Status</div>
+                            <div><span class="badge badge-success">Active</span></div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Owner</div>
+                            <div style="font-weight: 500;">John Doe</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Email</div>
+                            <div style="font-weight: 500;">john.doe@email.com</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Current Balance</div>
+                            <div style="font-weight: 700; font-size: 1.3rem; color: var(--color-success);">SAR 12,450.00</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Wallet Tier</div>
+                            <div><span class="badge badge-primary">Premium</span></div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Daily Limit</div>
+                            <div style="font-weight: 500;">SAR 50,000</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Monthly Limit</div>
+                            <div style="font-weight: 500;">SAR 200,000</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Created On</div>
+                            <div style="font-weight: 500;">Mar 10, 2023</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600;">Last Activity</div>
+                            <div style="font-weight: 500;">Apr 17, 2026 — 10:30 AM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Wallet Transactions -->
+                <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-primary);">Recent Transactions</h4>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apr 17, 2026</td>
+                                <td><span class="badge badge-info">Receive</span></td>
+                                <td style="font-weight: 600; color: var(--color-success);">+SAR 2,500.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 16, 2026</td>
+                                <td><span class="badge badge-warning">Send</span></td>
+                                <td style="font-weight: 600; color: var(--color-danger);">-SAR 750.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 15, 2026</td>
+                                <td><span class="badge badge-primary">Top Up</span></td>
+                                <td style="font-weight: 600; color: var(--color-success);">+SAR 5,000.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 14, 2026</td>
+                                <td><span class="badge badge-warning">Send</span></td>
+                                <td style="font-weight: 600; color: var(--color-danger);">-SAR 320.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 12, 2026</td>
+                                <td><span class="badge badge-danger">Withdrawal</span></td>
+                                <td style="font-weight: 600; color: var(--color-danger);">-SAR 1,000.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('walletDetailModal')">Close</button>
+                <button class="btn btn-danger"><i class="fas fa-pause"></i> Suspend Wallet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adjust Balance Modal -->
+    <div id="adjustBalanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Adjust Wallet Balance</h2>
+                <button class="modal-close" onclick="closeModal('adjustBalanceModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="background-color: var(--bg-tertiary); padding: 1rem; border-radius: 8px; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Current Balance</div>
+                        <div style="font-weight: 700; font-size: 1.3rem; color: var(--text-primary); margin-top: 0.25rem;">SAR 12,450.00</div>
+                    </div>
+                    <div style="font-family: 'Sora', monospace; font-weight: 600; color: var(--text-secondary);">WLT-10001</div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text-secondary); letter-spacing: 0.04em;">Adjustment Type</label>
+                    <select class="form-select" style="width: 100%;">
+                        <option>Credit (Add Funds)</option>
+                        <option>Debit (Deduct Funds)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text-secondary); letter-spacing: 0.04em;">Amount (SAR)</label>
+                    <input type="number" class="form-input" placeholder="Enter amount" min="0" step="0.01" style="width: 100%;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text-secondary); letter-spacing: 0.04em;">Reason</label>
+                    <select class="form-select" style="width: 100%;">
+                        <option>Promotional Credit</option>
+                        <option>Refund</option>
+                        <option>Correction</option>
+                        <option>Penalty Deduction</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text-secondary); letter-spacing: 0.04em;">Notes</label>
+                    <textarea class="form-textarea" rows="3" placeholder="Add a note for this adjustment..." style="width: 100%; resize: vertical;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('adjustBalanceModal')">Cancel</button>
+                <button class="btn btn-primary"><i class="fas fa-check"></i> Apply Adjustment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        initTheme();
+    </script>
+</body>
+</html>

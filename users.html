@@ -84,6 +84,10 @@
                     <i class="fas fa-exchange-alt"></i>
                     <span class="nav-item-label">Transactions</span>
                 </a>
+                <a href="wallet-management.html" class="nav-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="nav-item-label">Wallet Management</span>
+                </a>
             </div>
 
             <div class="sidebar-section">
@@ -316,11 +320,11 @@
                                 <td><span class="badge badge-success">Verified</span></td>
                                 <td>
                                     <div class="action-buttons">
-                                        <button class="btn btn-primary btn-icon" onclick="openModal('userModal')" title="View Profile">
+                                        <button class="btn btn-primary btn-icon" onclick="openModal('blockedUserModal')" title="View Profile">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <button class="btn btn-success btn-icon" title="Unblock User">
-                                            <i class="fas fa-check"></i>
+                                            <i class="fas fa-unlock"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -543,10 +547,272 @@
                         <span class="info-value">192.168.1.105 / San Francisco, CA, USA</span>
                     </div>
                 </div>
+
+                <!-- User QR Code -->
+                <div class="user-qr-section">
+                    <h4 class="user-qr-title"><i class="fas fa-qrcode"></i> User QR Code</h4>
+                    <div class="user-qr-content">
+                        <div class="user-qr-box">
+                            <svg class="qr-code-svg" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="70" height="70" fill="currentColor"/>
+                                <rect x="10" y="10" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="20" y="20" width="30" height="30" fill="currentColor"/>
+                                <rect x="140" y="0" width="70" height="70" fill="currentColor"/>
+                                <rect x="150" y="10" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="160" y="20" width="30" height="30" fill="currentColor"/>
+                                <rect x="0" y="140" width="70" height="70" fill="currentColor"/>
+                                <rect x="10" y="150" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="20" y="160" width="30" height="30" fill="currentColor"/>
+                                <rect x="80" y="0" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="0" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="10" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="20" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="30" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="40" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="50" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="60" width="10" height="10" fill="currentColor"/>
+                                <rect x="0" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="20" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="40" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="60" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="180" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="10" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="50" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="0" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="30" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="60" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="180" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="20" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="50" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="0" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="40" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="70" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="200" width="10" height="10" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="user-qr-details">
+                            <div class="user-qr-id">ID: USR-001-SAHALAT</div>
+                            <p class="user-qr-desc">Unique QR code linked to this user account for quick identification and verification.</p>
+                            <button class="btn btn-secondary btn-small">
+                                <i class="fas fa-download"></i> Download QR
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('userModal')">Close</button>
                 <button class="btn btn-danger">Block User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blocked User Profile Modal -->
+    <div id="blockedUserModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">User Profile</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="blocked-user-banner">
+                    <i class="fas fa-ban"></i>
+                    <div>
+                        <strong>This user is currently blocked</strong>
+                        <p>Blocked on Apr 5, 2026 — Reason: Suspicious activity detected</p>
+                    </div>
+                </div>
+                <div class="user-profile-info">
+                    <div class="info-row">
+                        <span class="info-label">Full Name:</span>
+                        <span class="info-value">David Brown</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">david.b@email.com</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">+1 (555) 222-8899</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Date of Birth:</span>
+                        <span class="info-value">July 22, 1974</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Gender:</span>
+                        <span class="info-value">Male</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Account Status:</span>
+                        <span class="info-value"><span class="badge badge-danger">Blocked</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">KYC Status:</span>
+                        <span class="info-value"><span class="badge badge-success">Verified</span></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Joined Date:</span>
+                        <span class="info-value">June 3, 2023</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Login:</span>
+                        <span class="info-value">Apr 5, 2026 at 11:20 AM</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Device Used:</span>
+                        <span class="info-value">Safari on macOS</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">IP Address / Location:</span>
+                        <span class="info-value">10.0.0.42 / Houston, TX, USA</span>
+                    </div>
+                </div>
+
+                <!-- User QR Code -->
+                <div class="user-qr-section">
+                    <h4 class="user-qr-title"><i class="fas fa-qrcode"></i> User QR Code</h4>
+                    <div class="user-qr-content">
+                        <div class="user-qr-box">
+                            <svg class="qr-code-svg" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="70" height="70" fill="currentColor"/>
+                                <rect x="10" y="10" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="20" y="20" width="30" height="30" fill="currentColor"/>
+                                <rect x="140" y="0" width="70" height="70" fill="currentColor"/>
+                                <rect x="150" y="10" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="160" y="20" width="30" height="30" fill="currentColor"/>
+                                <rect x="0" y="140" width="70" height="70" fill="currentColor"/>
+                                <rect x="10" y="150" width="50" height="50" fill="var(--bg-surface)"/>
+                                <rect x="20" y="160" width="30" height="30" fill="currentColor"/>
+                                <rect x="90" y="0" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="10" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="20" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="30" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="40" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="50" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="60" width="10" height="10" fill="currentColor"/>
+                                <rect x="0" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="20" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="40" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="60" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="180" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="80" width="10" height="10" fill="currentColor"/>
+                                <rect x="30" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="70" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="90" width="10" height="10" fill="currentColor"/>
+                                <rect x="10" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="40" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="100" width="10" height="10" fill="currentColor"/>
+                                <rect x="20" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="60" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="110" width="10" height="10" fill="currentColor"/>
+                                <rect x="0" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="30" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="50" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="180" y="120" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="140" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="150" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="160" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="180" y="170" width="10" height="10" fill="currentColor"/>
+                                <rect x="80" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="100" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="130" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="160" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="200" y="180" width="10" height="10" fill="currentColor"/>
+                                <rect x="110" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="140" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="170" y="190" width="10" height="10" fill="currentColor"/>
+                                <rect x="90" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="120" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="150" y="200" width="10" height="10" fill="currentColor"/>
+                                <rect x="190" y="200" width="10" height="10" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div class="user-qr-details">
+                            <div class="user-qr-id">ID: USR-005-SAHALAT</div>
+                            <p class="user-qr-desc">Unique QR code linked to this user account for quick identification and verification.</p>
+                            <button class="btn btn-secondary btn-small">
+                                <i class="fas fa-download"></i> Download QR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('blockedUserModal')">Close</button>
+                <button class="btn btn-success"><i class="fas fa-unlock"></i> Unblock User</button>
             </div>
         </div>
     </div>

@@ -78,6 +78,10 @@
             <i class="fas fa-exchange-alt"></i>
             <span class="nav-item-label">Transactions</span>
           </a>
+          <a href="wallet-management.html" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span class="nav-item-label">Wallet Management</span>
+          </a>
         </div>
 
         <div class="sidebar-section">
@@ -146,8 +150,16 @@
               />
             </div>
           </div>
+          <div class="filter-group">
+            <label>Date From</label>
+            <input type="date" class="form-input" id="reportDateFrom" />
+          </div>
+          <div class="filter-group">
+            <label>Date To</label>
+            <input type="date" class="form-input" id="reportDateTo" />
+          </div>
           <div class="monitoring-control-actions">
-            <button class="btn btn-primary" type="button">
+            <button class="btn btn-primary" type="button" id="fetchReportBtn">
               <i class="fas fa-filter"></i> Filter
             </button>
             <button
@@ -156,6 +168,13 @@
               id="resetMonitoringSearch"
             >
               <i class="fas fa-rotate-right"></i> Reset
+            </button>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              id="downloadReportBtn"
+            >
+              <i class="fas fa-download"></i> Export
             </button>
           </div>
         </section>
@@ -278,8 +297,188 @@
                       <td><span class="badge badge-success">Verified</span></td>
                       <td><span class="badge badge-success">Low</span></td>
                     </tr>
+                    <tr>
+                      <td>ACC-10501</td>
+                      <td>Khalid Nasser</td>
+                      <td>Riyadh</td>
+                      <td>Apr 10, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-10623</td>
+                      <td>Fatima Al-Harbi</td>
+                      <td>Makkah</td>
+                      <td>Apr 10, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-10744</td>
+                      <td>Mohammed Saeed</td>
+                      <td>Medina</td>
+                      <td>Apr 9, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-10856</td>
+                      <td>Aisha Qasim</td>
+                      <td>Jeddah</td>
+                      <td>Apr 9, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-10912</td>
+                      <td>Youssef Barakat</td>
+                      <td>Dammam</td>
+                      <td>Apr 8, 2026</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11034</td>
+                      <td>Noura Saleh</td>
+                      <td>Riyadh</td>
+                      <td>Apr 8, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11158</td>
+                      <td>Tariq Mansour</td>
+                      <td>Tabuk</td>
+                      <td>Apr 7, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-danger">High</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11267</td>
+                      <td>Reem Al-Dosari</td>
+                      <td>Jeddah</td>
+                      <td>Apr 7, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11389</td>
+                      <td>Sultan Faisal</td>
+                      <td>Riyadh</td>
+                      <td>Apr 6, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11412</td>
+                      <td>Maha Othman</td>
+                      <td>Dammam</td>
+                      <td>Apr 6, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11534</td>
+                      <td>Waleed Hamdi</td>
+                      <td>Abha</td>
+                      <td>Apr 5, 2026</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11645</td>
+                      <td>Dalal Rashid</td>
+                      <td>Riyadh</td>
+                      <td>Apr 5, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11756</td>
+                      <td>Hassan Jubran</td>
+                      <td>Jeddah</td>
+                      <td>Apr 4, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11878</td>
+                      <td>Lina Al-Qahtani</td>
+                      <td>Makkah</td>
+                      <td>Apr 4, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-11990</td>
+                      <td>Badr Al-Mutairi</td>
+                      <td>Riyadh</td>
+                      <td>Apr 3, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-danger">High</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12045</td>
+                      <td>Salwa Hamdan</td>
+                      <td>Dammam</td>
+                      <td>Apr 3, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12167</td>
+                      <td>Abdulrahman Fahad</td>
+                      <td>Tabuk</td>
+                      <td>Apr 2, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12289</td>
+                      <td>Ghada Turki</td>
+                      <td>Jeddah</td>
+                      <td>Apr 2, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12390</td>
+                      <td>Nawaf Salem</td>
+                      <td>Riyadh</td>
+                      <td>Apr 1, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12412</td>
+                      <td>Hanan Zayed</td>
+                      <td>Abha</td>
+                      <td>Apr 1, 2026</td>
+                      <td><span class="badge badge-warning">Pending</span></td>
+                      <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12534</td>
+                      <td>Ibrahim Saad</td>
+                      <td>Medina</td>
+                      <td>Mar 31, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
+                    <tr>
+                      <td>ACC-12645</td>
+                      <td>Sana Khaled</td>
+                      <td>Riyadh</td>
+                      <td>Mar 31, 2026</td>
+                      <td><span class="badge badge-success">Verified</span></td>
+                      <td><span class="badge badge-success">Low</span></td>
+                    </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="flex-between pagination-container" data-pagination="activeAccountsTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
               </div>
             </article>
 
@@ -325,6 +524,10 @@
                   </tbody>
                 </table>
               </div>
+              <div class="flex-between pagination-container" data-pagination="lockedAccountsTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
+              </div>
             </article>
 
             <article
@@ -369,6 +572,10 @@
                   </tbody>
                 </table>
               </div>
+              <div class="flex-between pagination-container" data-pagination="dormantAccountsTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
+              </div>
             </article>
 
             <article
@@ -412,6 +619,10 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="flex-between pagination-container" data-pagination="reKycStatusTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
               </div>
             </article>
 
@@ -458,6 +669,10 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="flex-between pagination-container" data-pagination="amlReportTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
               </div>
             </article>
 
@@ -507,6 +722,10 @@
                   </tbody>
                 </table>
               </div>
+              <div class="flex-between pagination-container" data-pagination="strReportTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
+              </div>
             </article>
 
             <article
@@ -551,6 +770,10 @@
                   </tbody>
                 </table>
               </div>
+              <div class="flex-between pagination-container" data-pagination="closedAccountTable">
+                <div class="content-info"></div>
+                <div class="pagination-controls"></div>
+              </div>
             </article>
           </div>
         </section>
@@ -560,49 +783,232 @@
     <script src="assets/script.js"></script>
     <script>
       (function () {
+        const ROWS_PER_PAGE = 20;
         const tabs = Array.from(document.querySelectorAll(".monitoring-tab"));
         const panels = Array.from(
           document.querySelectorAll(".monitoring-panel"),
         );
         const searchInput = document.getElementById("monitoringSearch");
         const resetButton = document.getElementById("resetMonitoringSearch");
+        const dateFrom = document.getElementById("reportDateFrom");
+        const dateTo = document.getElementById("reportDateTo");
+        const fetchBtn = document.getElementById("fetchReportBtn");
+        const downloadBtn = document.getElementById("downloadReportBtn");
+
+        // Track current page per table
+        const currentPages = {};
 
         function getActivePanel() {
           return document.querySelector(".monitoring-panel.active");
         }
 
-        function switchTab(tab) {
-          const target = tab.dataset.tab;
+        function getVisibleRows(panel) {
+          if (!panel) return [];
+          return Array.from(panel.querySelectorAll("tbody tr")).filter(
+            (r) => !r.classList.contains("date-filtered-out") && !r.classList.contains("search-filtered-out")
+          );
+        }
 
-          tabs.forEach((item) => {
-            const isActive = item === tab;
+        function applySearchFilter(term) {
+          const activePanel = getActivePanel();
+          if (!activePanel) return;
+          const rows = activePanel.querySelectorAll("tbody tr");
+          rows.forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(term)) {
+              row.classList.remove("search-filtered-out");
+            } else {
+              row.classList.add("search-filtered-out");
+            }
+          });
+        }
+
+        function applyDateFilter() {
+          const from = dateFrom.value ? new Date(dateFrom.value) : null;
+          const to = dateTo.value ? new Date(dateTo.value) : null;
+
+          panels.forEach((panel) => {
+            const rows = panel.querySelectorAll("tbody tr");
+            rows.forEach((row) => {
+              const cells = row.querySelectorAll("td");
+              let dateCell = null;
+              // Find the cell that looks like a date
+              cells.forEach((cell) => {
+                const text = cell.textContent.trim();
+                const parsed = Date.parse(text);
+                if (!isNaN(parsed) && text.match(/[A-Za-z]{3}\s+\d{1,2},\s+\d{4}/)) {
+                  dateCell = parsed;
+                }
+              });
+
+              if (dateCell !== null) {
+                const rowDate = new Date(dateCell);
+                rowDate.setHours(0, 0, 0, 0);
+                let show = true;
+                if (from) {
+                  const f = new Date(from);
+                  f.setHours(0, 0, 0, 0);
+                  if (rowDate < f) show = false;
+                }
+                if (to) {
+                  const t = new Date(to);
+                  t.setHours(0, 0, 0, 0);
+                  if (rowDate > t) show = false;
+                }
+                if (show) {
+                  row.classList.remove("date-filtered-out");
+                } else {
+                  row.classList.add("date-filtered-out");
+                }
+              }
+            });
+          });
+        }
+
+        function renderPagination(panel) {
+          if (!panel) return;
+          const table = panel.querySelector("table");
+          if (!table) return;
+
+          const tableId = table.id;
+          const paginationContainer = panel.querySelector(".pagination-container");
+          if (!paginationContainer) return;
+
+          const visibleRows = getVisibleRows(panel);
+          const totalRows = visibleRows.length;
+          const totalPages = Math.max(1, Math.ceil(totalRows / ROWS_PER_PAGE));
+
+          if (!currentPages[tableId] || currentPages[tableId] > totalPages) {
+            currentPages[tableId] = 1;
+          }
+          const currentPage = currentPages[tableId];
+          const startIdx = (currentPage - 1) * ROWS_PER_PAGE;
+          const endIdx = startIdx + ROWS_PER_PAGE;
+
+          // Hide/show rows based on pagination
+          const allRows = panel.querySelectorAll("tbody tr");
+          let visibleIdx = 0;
+          allRows.forEach((row) => {
+            if (row.classList.contains("date-filtered-out") || row.classList.contains("search-filtered-out")) {
+              row.style.display = "none";
+              return;
+            }
+            if (visibleIdx >= startIdx && visibleIdx < endIdx) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+            visibleIdx++;
+          });
+
+          // Update info text
+          const infoEl = paginationContainer.querySelector(".content-info");
+          if (totalRows === 0) {
+            infoEl.textContent = "No records found";
+          } else {
+            const showStart = startIdx + 1;
+            const showEnd = Math.min(endIdx, totalRows);
+            infoEl.textContent = "Showing " + showStart + "-" + showEnd + " of " + totalRows + " records";
+          }
+
+          // Build pagination buttons
+          const controlsEl = paginationContainer.querySelector(".pagination-controls");
+          controlsEl.innerHTML = "";
+
+          if (totalPages <= 1) return;
+
+          // Prev button
+          const prevBtn = document.createElement("button");
+          prevBtn.className = "btn btn-secondary btn-small";
+          prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          prevBtn.disabled = currentPage === 1;
+          prevBtn.addEventListener("click", function () {
+            if (currentPages[tableId] > 1) {
+              currentPages[tableId]--;
+              renderPagination(panel);
+            }
+          });
+          controlsEl.appendChild(prevBtn);
+
+          // Page number buttons
+          var pagesToShow = [];
+          if (totalPages <= 5) {
+            for (var i = 1; i <= totalPages; i++) pagesToShow.push(i);
+          } else {
+            pagesToShow.push(1);
+            if (currentPage > 3) pagesToShow.push("...");
+            for (var i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+              pagesToShow.push(i);
+            }
+            if (currentPage < totalPages - 2) pagesToShow.push("...");
+            pagesToShow.push(totalPages);
+          }
+
+          pagesToShow.forEach(function (p) {
+            if (p === "...") {
+              var ellipsis = document.createElement("span");
+              ellipsis.className = "pagination-ellipsis";
+              ellipsis.textContent = "...";
+              controlsEl.appendChild(ellipsis);
+            } else {
+              var pageBtn = document.createElement("button");
+              pageBtn.className = "btn btn-small " + (p === currentPage ? "btn-primary" : "btn-secondary");
+              pageBtn.textContent = p;
+              pageBtn.addEventListener("click", (function (pageNum) {
+                return function () {
+                  currentPages[tableId] = pageNum;
+                  renderPagination(panel);
+                };
+              })(p));
+              controlsEl.appendChild(pageBtn);
+            }
+          });
+
+          // Next button
+          var nextBtn = document.createElement("button");
+          nextBtn.className = "btn btn-secondary btn-small";
+          nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          nextBtn.disabled = currentPage === totalPages;
+          nextBtn.addEventListener("click", function () {
+            if (currentPages[tableId] < totalPages) {
+              currentPages[tableId]++;
+              renderPagination(panel);
+            }
+          });
+          controlsEl.appendChild(nextBtn);
+        }
+
+        function refreshActivePanel() {
+          var activePanel = getActivePanel();
+          if (!activePanel) return;
+          var table = activePanel.querySelector("table");
+          if (table) currentPages[table.id] = 1;
+          renderPagination(activePanel);
+        }
+
+        function switchTab(tab) {
+          var target = tab.dataset.tab;
+
+          tabs.forEach(function (item) {
+            var isActive = item === tab;
             item.classList.toggle("active", isActive);
             item.setAttribute("aria-selected", String(isActive));
           });
 
-          panels.forEach((panel) => {
-            const isActive = panel.dataset.panel === target;
+          panels.forEach(function (panel) {
+            var isActive = panel.dataset.panel === target;
             panel.classList.toggle("active", isActive);
             panel.hidden = !isActive;
           });
 
+          // Re-apply search filter and render pagination
           if (searchInput) {
-            filterActiveTable(searchInput.value.trim().toLowerCase());
+            applySearchFilter(searchInput.value.trim().toLowerCase());
           }
+          refreshActivePanel();
         }
 
-        function filterActiveTable(term) {
-          const activePanel = getActivePanel();
-          if (!activePanel) return;
-
-          const rows = activePanel.querySelectorAll("tbody tr");
-          rows.forEach((row) => {
-            const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(term) ? "" : "none";
-          });
-        }
-
-        tabs.forEach((tab) => {
+        tabs.forEach(function (tab) {
           tab.addEventListener("click", function () {
             switchTab(tab);
           });
@@ -610,16 +1016,85 @@
 
         if (searchInput) {
           searchInput.addEventListener("input", function () {
-            filterActiveTable(searchInput.value.trim().toLowerCase());
+            applySearchFilter(searchInput.value.trim().toLowerCase());
+            refreshActivePanel();
           });
         }
 
-        if (resetButton && searchInput) {
-          resetButton.addEventListener("click", function () {
-            searchInput.value = "";
-            filterActiveTable("");
+        if (fetchBtn) {
+          fetchBtn.addEventListener("click", function () {
+            applyDateFilter();
+            applySearchFilter(searchInput ? searchInput.value.trim().toLowerCase() : "");
+            // Reset all pages and re-render active
+            Object.keys(currentPages).forEach(function (k) { currentPages[k] = 1; });
+            refreshActivePanel();
           });
         }
+
+        if (resetButton) {
+          resetButton.addEventListener("click", function () {
+            if (searchInput) searchInput.value = "";
+            if (dateFrom) dateFrom.value = "";
+            if (dateTo) dateTo.value = "";
+            // Clear all filter classes
+            document.querySelectorAll(".monitoring-panel tbody tr").forEach(function (row) {
+              row.classList.remove("date-filtered-out", "search-filtered-out");
+              row.style.display = "";
+            });
+            Object.keys(currentPages).forEach(function (k) { currentPages[k] = 1; });
+            refreshActivePanel();
+          });
+        }
+
+        if (downloadBtn) {
+          downloadBtn.addEventListener("click", function () {
+            var activePanel = getActivePanel();
+            if (!activePanel) return;
+            var table = activePanel.querySelector("table");
+            if (!table) return;
+
+            var tabName = activePanel.dataset.panel || "report";
+            var rows = [];
+            // Header
+            var headers = [];
+            table.querySelectorAll("thead th").forEach(function (th) {
+              headers.push('"' + th.textContent.trim().replace(/"/g, '""') + '"');
+            });
+            rows.push(headers.join(","));
+
+            // Only visible (non-filtered) rows
+            var visibleRows = Array.from(table.querySelectorAll("tbody tr")).filter(function (r) {
+              return !r.classList.contains("date-filtered-out") && !r.classList.contains("search-filtered-out");
+            });
+
+            visibleRows.forEach(function (tr) {
+              var cols = [];
+              tr.querySelectorAll("td").forEach(function (td) {
+                cols.push('"' + td.textContent.trim().replace(/"/g, '""') + '"');
+              });
+              rows.push(cols.join(","));
+            });
+
+            var csvContent = rows.join("\n");
+            var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+
+            // Build filename with date range if selected
+            var filename = tabName;
+            if (dateFrom.value) filename += "_from-" + dateFrom.value;
+            if (dateTo.value) filename += "_to-" + dateTo.value;
+            filename += ".csv";
+            link.download = filename;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        }
+
+        // Initialize pagination for the active panel on load
+        refreshActivePanel();
       })();
     </script>
   </body>
