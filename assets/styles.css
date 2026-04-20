@@ -380,6 +380,70 @@ html[data-theme="dark"] .logo i {
   transform: scale(0.95);
 }
 
+/* ── Notification Bell ── */
+.notif-bell {
+  position: relative;
+  background: rgba(0, 29, 59, 0.08);
+  border: 1.5px solid rgba(0, 29, 59, 0.2);
+  border-radius: var(--radius-lg);
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.notif-bell:hover {
+  background: rgba(0, 29, 59, 0.15);
+  border-color: rgba(0, 29, 59, 0.35);
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0, 29, 59, 0.2);
+}
+
+.notif-bell:active {
+  transform: scale(0.95);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  background: var(--color-danger, #dc2626);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  padding: 0 4px;
+  border: 2px solid var(--bg-primary, #fff);
+  pointer-events: none;
+}
+
+.notif-badge.hidden {
+  display: none;
+}
+
+html[data-theme="dark"] .notif-bell,
+body.dark-mode .notif-bell {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+html[data-theme="dark"] .notif-bell:hover,
+body.dark-mode .notif-bell:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 .user-menu {
   display: flex;
   align-items: center;

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Notifications - Sahalat Admin</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Notification Inbox Styles ── */
+        .notif-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .notif-stat-card {
+            background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notif-stat-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .notif-stat-icon.primary { background: rgba(0, 29, 59, 0.1); color: var(--color-primary); }
+        .notif-stat-icon.danger  { background: rgba(220, 38, 38, 0.1); color: var(--color-danger); }
+        .notif-stat-icon.success { background: rgba(5, 150, 105, 0.1); color: var(--color-success); }
+        .notif-stat-icon.warning { background: rgba(217, 119, 6, 0.1); color: var(--color-warning); }
+
+        .notif-stat-info .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .notif-stat-info .stat-value {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ── List toolbar ── */
+        .notif-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .notif-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .notif-filter-btn {
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            border: 1.5px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .notif-filter-btn:hover,
+        .notif-filter-btn.active {
+            background: var(--color-primary, #001d3b);
+            color: #fff;
+            border-color: var(--color-primary, #001d3b);
+        }
+
+        /* ── Individual notification item ── */
+        .notif-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.12s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notif-item:last-child { border-bottom: none; }
+
+        .notif-item:hover { background: var(--bg-secondary); }
+
+        .notif-item.unread { background: rgba(0, 29, 59, 0.04); }
+        .notif-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--color-primary, #001d3b);
+            border-radius: 0 2px 2px 0;
+        }
+
+        html[data-theme="dark"] .notif-item.unread,
+        body.dark-mode .notif-item.unread {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .notif-item-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .notif-item-icon.alert   { background: rgba(220, 38, 38, 0.12); color: #dc2626; }
+        .notif-item-icon.info    { background: rgba(14, 116, 144, 0.12); color: #0e7490; }
+        .notif-item-icon.success { background: rgba(5, 150, 105, 0.12);  color: #059669; }
+        .notif-item-icon.warning { background: rgba(217, 119, 6, 0.12);  color: #d97706; }
+        .notif-item-icon.system  { background: rgba(0, 29, 59, 0.1);     color: var(--color-primary, #001d3b); }
+
+        .notif-item-body { flex: 1; min-width: 0; }
+
+        .notif-item-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notif-item-title .unread-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--color-primary, #001d3b);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .notif-item-msg {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .notif-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .notif-item-time {
+            font-size: 0.75rem;
+            color: var(--text-muted, #9ca3af);
+        }
+
+        .notif-type-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .tag-alert   { background: rgba(220,38,38,0.1);   color: #dc2626; }
+        .tag-info    { background: rgba(14,116,144,0.12);  color: #0e7490; }
+        .tag-success { background: rgba(5,150,105,0.12);   color: #059669; }
+        .tag-warning { background: rgba(217,119,6,0.12);   color: #d97706; }
+        .tag-system  { background: rgba(0,29,59,0.1);      color: var(--color-primary,#001d3b); }
+
+        .notif-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .notif-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.12s;
+        }
+
+        .notif-action-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
+        .notif-action-btn.mark-read:hover { color: var(--color-success); border-color: var(--color-success); }
+        .notif-action-btn.delete-btn:hover { color: var(--color-danger); border-color: var(--color-danger); }
+
+        /* Pagination */
+        .notif-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1.25rem;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .notif-pagination-info {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .notif-pagination-btns {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.12s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: var(--color-primary, #001d3b);
+            color: #fff;
+            border-color: var(--color-primary, #001d3b);
+        }
+
+        @media (max-width: 900px) {
+            .notif-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .notif-stats { grid-template-columns: 1fr; }
+            .notif-item-msg { white-space: normal; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <img src="/assets/images/s_logo.png" alt="Sahalat logo" />
+            <span class="logo">Sahalat Admin Panel</span>
+        </div>
+        <div class="header-right">
+            <a href="admin-notifications.html" class="notif-bell" title="Notifications" id="headerNotifBell">
+                <i class="fas fa-bell"></i>
+                <span class="notif-badge hidden" id="headerNotifCount">0</span>
+            </a>
+            <button class="theme-toggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-menu" onclick="goToProfile()">
+                <div class="user-avatar">AD</div>
+                <div class="user-info-small">
+                    <div class="user-name">Admin User</div>
+                    <div class="user-role">Super Admin</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-item-label">Dashboard</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">User Management</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-item-label">Users</span>
+                </a>
+                <a href="kyc.html" class="nav-item">
+                    <i class="fas fa-id-card"></i>
+                    <span class="nav-item-label">KYC Review</span>
+                </a>
+                <a href="account-closure.html" class="nav-item">
+                    <i class="fas fa-times-circle"></i>
+                    <span class="nav-item-label">Account Closure</span>
+                </a>
+                <a href="account-monitoring-report.html" class="nav-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="nav-item-label">Monitoring Report</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Admin Management</div>
+                <a href="subadmin-management.html" class="nav-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-item-label">Sub Admins</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Transactions</div>
+                <a href="transactions.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-item-label">Transactions</span>
+                </a>
+                <a href="wallet-management.html" class="nav-item">
+                    <i class="fas fa-wallet"></i>
+                    <span class="nav-item-label">Wallet Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Marketing</div>
+                <a href="banners.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span class="nav-item-label">Banners</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span class="nav-item-label">Push Notifications</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Support</div>
+                <a href="tickets.html" class="nav-item">
+                    <i class="fas fa-ticket"></i>
+                    <span class="nav-item-label">Tickets</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <a href="content.html" class="nav-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-item-label">Content Management</span>
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Account</div>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item-label">Profile</span>
+                </a>
+                <a href="login.html" class="nav-item" onclick="localStorage.removeItem('isLoggedIn');">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item-label">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Notifications</h1>
+                    <p class="page-subtitle">System alerts, activity updates, and admin messages.</p>
+                </div>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                    <button class="btn btn-secondary" onclick="markAllRead()">
+                        <i class="fas fa-check-double"></i> Mark All as Read
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAllRead()">
+                        <i class="fas fa-trash-alt"></i> Clear Read
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notification List Card -->
+            <div class="card" style="padding:0;overflow:hidden;">
+                <!-- Toolbar -->
+                <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--border-color);">
+                    <div class="notif-toolbar">
+                        <div class="notif-toolbar-left">
+                            <button class="notif-filter-btn active" data-filter="all" onclick="filterNotifs(this, 'all')">
+                                All <span id="countAll" style="opacity:0.7;">(18)</span>
+                            </button>
+                            <button class="notif-filter-btn" data-filter="unread" onclick="filterNotifs(this, 'unread')">
+                                Unread <span id="countUnread" style="opacity:0.7;">(3)</span>
+                            </button>
+                            <button class="notif-filter-btn" data-filter="alert" onclick="filterNotifs(this, 'alert')">
+                                Alerts
+                            </button>
+                            <button class="notif-filter-btn" data-filter="info" onclick="filterNotifs(this, 'info')">
+                                Info
+                            </button>
+                            <button class="notif-filter-btn" data-filter="system" onclick="filterNotifs(this, 'system')">
+                                System
+                            </button>
+                        </div>
+                        <div>
+                            <div class="search-box" style="min-width:200px;">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="notifSearch" placeholder="Search notifications…" oninput="searchNotifs(this.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div class="notif-list" id="notifList">
+
+                    <!-- UNREAD: Alert -->
+                    <div class="notif-item unread" data-type="alert" data-id="1">
+                        <div class="notif-item-icon alert"><i class="fas fa-shield-alt"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">
+                                <span class="unread-dot"></span>
+                                Suspicious Login Attempt Detected
+                            </div>
+                            <div class="notif-item-msg">A login attempt from an unrecognized IP (185.234.XX.XX) was blocked for user #USR-4821.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> 10 minutes ago</span>
+                                <span class="notif-type-tag tag-alert">Alert</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn mark-read" title="Mark as read" onclick="markRead(this, 1)"><i class="fas fa-check"></i></button>
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 1)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- UNREAD: Warning -->
+                    <div class="notif-item unread" data-type="warning" data-id="2">
+                        <div class="notif-item-icon warning"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">
+                                <span class="unread-dot"></span>
+                                High-Value Transaction Flagged
+                            </div>
+                            <div class="notif-item-msg">Transaction #TXN-9283 of $24,500 has been flagged for manual review by the compliance engine.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> 34 minutes ago</span>
+                                <span class="notif-type-tag tag-warning">Warning</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn mark-read" title="Mark as read" onclick="markRead(this, 2)"><i class="fas fa-check"></i></button>
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 2)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- UNREAD: Info -->
+                    <div class="notif-item unread" data-type="info" data-id="3">
+                        <div class="notif-item-icon info"><i class="fas fa-user-check"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">
+                                <span class="unread-dot"></span>
+                                KYC Review Queue Reached 50+
+                            </div>
+                            <div class="notif-item-msg">There are currently 52 KYC submissions pending review. Consider assigning additional reviewers.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> 1 hour ago</span>
+                                <span class="notif-type-tag tag-info">Info</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn mark-read" title="Mark as read" onclick="markRead(this, 3)"><i class="fas fa-check"></i></button>
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 3)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: System -->
+                    <div class="notif-item" data-type="system" data-id="4">
+                        <div class="notif-item-icon system"><i class="fas fa-server"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">System Maintenance Completed</div>
+                            <div class="notif-item-msg">Scheduled maintenance window ended successfully. All services are running normally.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> 3 hours ago</span>
+                                <span class="notif-type-tag tag-system">System</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 4)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: Success -->
+                    <div class="notif-item" data-type="success" data-id="5">
+                        <div class="notif-item-icon success"><i class="fas fa-user-shield"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">Sub-Admin Account Created</div>
+                            <div class="notif-item-msg">New sub-admin "Sara Al-Haddad" (KYC Reviewer) was successfully created by Super Admin.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> 5 hours ago</span>
+                                <span class="notif-type-tag tag-success">Success</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 5)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: Alert -->
+                    <div class="notif-item" data-type="alert" data-id="6">
+                        <div class="notif-item-icon alert"><i class="fas fa-ban"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">User Account Suspended</div>
+                            <div class="notif-item-msg">Account #USR-3374 was automatically suspended due to repeated failed KYC submissions (5 attempts).</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> Yesterday, 4:12 PM</span>
+                                <span class="notif-type-tag tag-alert">Alert</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 6)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: Info -->
+                    <div class="notif-item" data-type="info" data-id="7">
+                        <div class="notif-item-icon info"><i class="fas fa-chart-line"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">Monthly Report Ready</div>
+                            <div class="notif-item-msg">The March 2025 transaction and compliance report has been generated and is ready to download.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> Yesterday, 9:00 AM</span>
+                                <span class="notif-type-tag tag-info">Info</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 7)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: System -->
+                    <div class="notif-item" data-type="system" data-id="8">
+                        <div class="notif-item-icon system"><i class="fas fa-database"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">Database Backup Successful</div>
+                            <div class="notif-item-msg">Nightly database backup completed at 02:00 AM. Backup size: 4.7 GB. Stored to secure cloud storage.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> Apr 19, 2:01 AM</span>
+                                <span class="notif-type-tag tag-system">System</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 8)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: Warning -->
+                    <div class="notif-item" data-type="warning" data-id="9">
+                        <div class="notif-item-icon warning"><i class="fas fa-wallet"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">Low Wallet Balance Threshold</div>
+                            <div class="notif-item-msg">System wallet reserve balance has dropped below the $10,000 threshold. Please top up to maintain operations.</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> Apr 18, 11:45 AM</span>
+                                <span class="notif-type-tag tag-warning">Warning</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 9)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- READ: Success -->
+                    <div class="notif-item" data-type="success" data-id="10">
+                        <div class="notif-item-icon success"><i class="fas fa-id-card"></i></div>
+                        <div class="notif-item-body">
+                            <div class="notif-item-title">Bulk KYC Approval Completed</div>
+                            <div class="notif-item-msg">124 KYC submissions were reviewed and approved in the bulk action performed by reviewer "Ahmad Saleh".</div>
+                            <div class="notif-item-meta">
+                                <span class="notif-item-time"><i class="fas fa-clock"></i> Apr 17, 3:22 PM</span>
+                                <span class="notif-type-tag tag-success">Success</span>
+                            </div>
+                        </div>
+                        <div class="notif-item-actions">
+                            <button class="notif-action-btn delete-btn" title="Delete" onclick="deleteNotif(this, 10)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="notif-pagination">
+                    <span class="notif-pagination-info">Showing 1–10 of 18 notifications</span>
+                    <div class="notif-pagination-btns">
+                        <button class="page-btn" title="Previous"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn" title="Next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/script.js"></script>
+    <script>
+        /* ── Filter notifications by type ── */
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function filterNotifs(btn, type) {
+            currentFilter = type;
+            document.querySelectorAll('.notif-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        function searchNotifs(val) {
+            currentSearch = val.toLowerCase();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const items = document.querySelectorAll('#notifList .notif-item');
+            items.forEach(item => {
+                const type     = item.dataset.type;
+                const isUnread = item.classList.contains('unread');
+                const text     = item.textContent.toLowerCase();
+
+                const typeMatch   = currentFilter === 'all' || currentFilter === type || (currentFilter === 'unread' && isUnread);
+                const searchMatch = currentSearch === '' || text.includes(currentSearch);
+
+                item.style.display = (typeMatch && searchMatch) ? '' : 'none';
+            });
+        }
+
+        /* ── Mark single notification as read ── */
+        function markRead(btn, id) {
+            const item = document.querySelector(`.notif-item[data-id="${id}"]`);
+            if (!item) return;
+            item.classList.remove('unread');
+            const dot = item.querySelector('.unread-dot');
+            if (dot) dot.remove();
+            btn.remove();
+            updateCounts();
+        }
+
+        /* ── Delete notification ── */
+        function deleteNotif(btn, id) {
+            const item = document.querySelector(`.notif-item[data-id="${id}"]`);
+            if (!item) return;
+            item.style.transition = 'opacity 0.2s, transform 0.2s';
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(20px)';
+            setTimeout(() => { item.remove(); updateCounts(); }, 200);
+        }
+
+        /* ── Mark all as read ── */
+        function markAllRead() {
+            document.querySelectorAll('#notifList .notif-item.unread').forEach(item => {
+                item.classList.remove('unread');
+                const dot = item.querySelector('.unread-dot');
+                if (dot) dot.remove();
+                const markBtn = item.querySelector('.notif-action-btn.mark-read');
+                if (markBtn) markBtn.remove();
+            });
+            updateCounts();
+        }
+
+        /* ── Clear read notifications ── */
+        function clearAllRead() {
+            document.querySelectorAll('#notifList .notif-item:not(.unread)').forEach(item => {
+                item.remove();
+            });
+            updateCounts();
+        }
+
+        /* ── Update stat counters ── */
+        function updateCounts() {
+            const all    = document.querySelectorAll('#notifList .notif-item');
+            const unread = document.querySelectorAll('#notifList .notif-item.unread');
+            const alerts = document.querySelectorAll('#notifList .notif-item[data-type="alert"]');
+
+            document.getElementById('statTotal').textContent  = all.length;
+            document.getElementById('statUnread').textContent = unread.length;
+            document.getElementById('statAlerts').textContent = alerts.length;
+
+            document.getElementById('countAll').textContent    = `(${all.length})`;
+            document.getElementById('countUnread').textContent = `(${unread.length})`;
+
+            // Hide bell badge when no unread
+            const badge = document.getElementById('headerNotifCount');
+            if (badge) {
+                if (unread.length > 0) {
+                    badge.textContent = unread.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        }
+
+        // Initialize counts on page load
+        updateCounts();
+    </script>
+</body>
+</html>
