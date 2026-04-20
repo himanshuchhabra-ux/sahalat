@@ -416,42 +416,13 @@
                                 <label class="permission-label">View Users</label>
                             </li>
                             <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" checked data-module="users" data-permission="create">
-                                <label class="permission-label">Create Users</label>
-                            </li>
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" checked data-module="users" data-permission="edit">
-                                <label class="permission-label">Edit Users</label>
-                            </li>
-                            <li class="permission-item">
                                 <input type="checkbox" class="permission-checkbox" data-module="users" data-permission="delete">
                                 <label class="permission-label">Delete Users</label>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- KYC Review Module -->
-                    <div class="module-card">
-                        <div class="module-title"><i class="fas fa-id-card"></i> KYC Review</div>
-                        <ul class="permission-list">
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="view">
-                                <label class="permission-label">View KYC</label>
-                            </li>
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="approve">
-                                <label class="permission-label">Approve KYC</label>
-                            </li>
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="reject">
-                                <label class="permission-label">Reject KYC</label>
-                            </li>
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="export">
-                                <label class="permission-label">Export KYC</label>
-                            </li>
-                        </ul>
-                    </div>
+                    
 
                     <!-- Transactions Module -->
                     <div class="module-card">
@@ -462,20 +433,13 @@
                                 <label class="permission-label">View Transactions</label>
                             </li>
                             <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="approve">
-                                <label class="permission-label">Approve Transactions</label>
-                            </li>
-                            <li class="permission-item">
-                                <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="reject">
-                                <label class="permission-label">Reject Transactions</label>
-                            </li>
-                            <li class="permission-item">
                                 <input type="checkbox" class="permission-checkbox" data-module="transactions" data-permission="export">
                                 <label class="permission-label">Export Report</label>
                             </li>
                         </ul>
                     </div>
 
+                   
                     <!-- Banners Module -->
                     <div class="module-card">
                         <div class="module-title"><i class="fas fa-image"></i> Banners</div>
@@ -606,6 +570,75 @@
                         </ul>
                     </div>
 
+                    <!-- Account Monitoring Report Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-chart-bar"></i> Monitoring Report</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="monitoring" data-permission="view">
+                                <label class="permission-label">View Reports</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="monitoring" data-permission="export">
+                                <label class="permission-label">Export Reports</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="monitoring" data-permission="flag">
+                                <label class="permission-label">Flag Accounts</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="monitoring" data-permission="schedule">
+                                <label class="permission-label">Schedule Reports</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Wallet Management Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-wallet"></i> Wallet Management</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="wallet" data-permission="view">
+                                <label class="permission-label">View Wallets</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="wallet" data-permission="freeze">
+                                <label class="permission-label">Freeze Wallet</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="wallet" data-permission="adjust">
+                                <label class="permission-label">Adjust Balance</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="wallet" data-permission="export">
+                                <label class="permission-label">Export Wallet Report</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Account Closure Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-user-times"></i> Account Closure</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="account-closure" data-permission="view">
+                                <label class="permission-label">View Closure Requests</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="account-closure" data-permission="approve">
+                                <label class="permission-label">Approve Closure</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="account-closure" data-permission="reject">
+                                <label class="permission-label">Reject Closure</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="account-closure" data-permission="export">
+                                <label class="permission-label">Export Closure Data</label>
+                            </li>
+                        </ul>
+                    </div>
+
                     <!-- Audit Module -->
                     <div class="module-card">
                         <div class="module-title"><i class="fas fa-history"></i> Audit Logs</div>
@@ -624,6 +657,53 @@
                             </li>
                         </ul>
                     </div>
+                     <!-- KYC Review Module -->
+                    <div class="module-card">
+                        <div class="module-title"><i class="fas fa-id-card"></i> KYC Review</div>
+                        <ul class="permission-list">
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="view">
+                                <label class="permission-label">View KYC Cases</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="approve">
+                                <label class="permission-label">Approve KYC (Maker)</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" checked data-module="kyc" data-permission="reject">
+                                <label class="permission-label">Reject KYC</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="checker-review">
+                                <label class="permission-label">Checker Review (4-Eyes)</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="escalate">
+                                <label class="permission-label">Escalate Cases</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="exceptions">
+                                <label class="permission-label">Manage Exceptions</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="duplicate-detection">
+                                <label class="permission-label">Duplicate Detection</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="manage-reviewers">
+                                <label class="permission-label">Manage Reviewers</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="qa-management">
+                                <label class="permission-label">QA Management</label>
+                            </li>
+                            <li class="permission-item">
+                                <input type="checkbox" class="permission-checkbox" data-module="kyc" data-permission="export">
+                                <label class="permission-label">Export Audit Trail</label>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
             <div class="modal-footer">
