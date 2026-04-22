@@ -7924,6 +7924,12 @@ html[data-theme="dark"] .date-input:focus {
   border-color: #bbdefb;
 }
 
+.kyc-dashboard-container .chip-rejected {
+  color: #c62828;
+  background: #ffebee;
+  border-color: #ffcdd2;
+}
+
 .kyc-dashboard-container .details-layout {
   display: flex;
   gap: 20px;

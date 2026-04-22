@@ -403,6 +403,220 @@
   white-space: nowrap;
 }
 
+.kyc-dashboard-container .queue-tabs {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.9rem 0.9rem 1rem;
+  padding: 0.35rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--border-color) 76%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg-surface) 94%, #ffffff 6%) 0%,
+      var(--bg-surface) 100%
+    );
+  box-shadow: var(--shadow-xs);
+}
+
+.kyc-dashboard-container .queue-tab-button {
+  position: relative;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 10px;
+  padding: 0.48rem 1rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.kyc-dashboard-container .queue-tab-button:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--main) 8%, transparent);
+  border-color: color-mix(in srgb, var(--main) 20%, transparent);
+  transform: translateY(-1px);
+}
+
+.kyc-dashboard-container .queue-tab-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.kyc-dashboard-container .queue-tab-button.active {
+  background: linear-gradient(135deg, var(--main) 0%, var(--secondary) 100%);
+  border-color: color-mix(in srgb, var(--main) 80%, #ffffff 20%);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 18px rgba(0, 29, 59, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.kyc-dashboard-container .queue-tab-content {
+  display: none;
+}
+
+.kyc-dashboard-container .queue-tab-content.active {
+  display: block;
+}
+
+.kyc-dashboard-container .view-case-btn {
+  min-width: 72px;
+}
+
+.kyc-dashboard-container .case-details-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.kyc-dashboard-container .case-details-request {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+/* Case details layout polish for expanded KYC profile fields */
+.kyc-dashboard-container #tab-details .details-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.15fr) minmax(420px, 1.65fr) minmax(280px, 1fr);
+  gap: 1rem;
+}
+
+.kyc-dashboard-container #tab-details .left-panel {
+  max-width: none;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card:first-child {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg-surface) 95%, #ffffff 5%);
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card:first-child .info-row {
+  display: grid;
+  grid-template-columns: minmax(145px, max-content) minmax(0, 1fr);
+  align-items: center;
+  justify-items: start;
+  gap: 0.65rem;
+  margin-bottom: 0;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--border-color) 72%, transparent);
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card:first-child .info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card:first-child .info-label {
+  text-align: left;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card:first-child .info-value {
+  justify-self: start;
+  text-align: left;
+  font-size: 0.82rem;
+  line-height: 1.38;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card.risk-indicators {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card.risk-indicators ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card.risk-indicators li {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.kyc-dashboard-container #tab-details .left-panel .card.risk-indicators strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.kyc-dashboard-container #tab-details .doc-preview {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.kyc-dashboard-container #tab-details .doc-preview span {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.kyc-dashboard-container #tab-details .center-panel .card,
+.kyc-dashboard-container #tab-details .right-panel .card {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel {
+  background: color-mix(in srgb, var(--bg-surface) 96%, #ffffff 4%);
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel .card-title {
+  margin-bottom: 0.9rem;
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel .info-row {
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--border-color) 72%, transparent);
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel .info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel .info-label {
+  max-width: 58%;
+  line-height: 1.35;
+}
+
+.kyc-dashboard-container #tab-details .document-checklist-panel .info-value {
+  text-align: right;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.kyc-dashboard-container #tab-details .right-panel {
+  max-width: none;
+}
+
 #exceptionActionModal .reviewer-modal-content {
   max-width: 620px;
 }
@@ -460,6 +674,33 @@
 
   .kyc-dashboard-container .reviewer-scorecard-table {
     min-width: 860px;
+  }
+
+  .kyc-dashboard-container .case-details-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .kyc-dashboard-container .queue-tabs {
+    margin: 0.85rem 0.85rem 1rem;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kyc-dashboard-container .queue-tab-button {
+    text-align: center;
+    width: 100%;
+    padding: 0.52rem 0.45rem;
+  }
+
+  .kyc-dashboard-container #tab-details .details-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .kyc-dashboard-container #tab-details .left-panel .card:first-child .info-row {
+    grid-template-columns: minmax(126px, max-content) minmax(0, 1fr);
+    gap: 0.55rem;
   }
 
   #duplicateActionModal .reviewer-modal-content,
