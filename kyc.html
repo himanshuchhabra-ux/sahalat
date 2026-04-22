@@ -734,12 +734,55 @@
         </div>
 
         <!-- QA Management -->
-        <div id="tab-qa" class="tab-content">            
-              <div class="qa-monthly-report-controls">
-                
-            </div>
+        <div id="tab-qa" class="tab-content">
 
-                      <div class="panel card table-card">
+          <!-- Monthly QA Report -->
+          <div class="panel card" style="margin-bottom:1rem;">
+            <div class="card-title">
+              <i class="fas fa-file-chart-column"></i> Monthly QA Report — March 2026
+              <span style="display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;font-weight:600;background:#ede9fe;color:#6d28d9;padding:2px 8px;border-radius:99px;margin-left:0.6rem;vertical-align:middle;">
+                <i class="fas fa-robot"></i> Auto-Generated
+              </span>
+            </div>
+            <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);margin-bottom:0.6rem;"><i class="fas fa-users"></i> Reviewer Breakdown</div>
+            <div class="reviewer-table-wrap" style="margin-bottom:1.2rem;">
+              <table class="case-table" style="min-width:700px;">
+                <thead>
+                  <tr>
+                    <th>Reviewer</th><th>Cases</th><th>Sampled</th><th>Correct</th><th>Incorrect</th><th>Rework</th><th>Accuracy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><div class="reviewer-profile-cell"> John D.</div></td>
+                    <td>312</td><td>47</td><td>44</td><td>2</td><td>1</td>
+                    <td><span class="badge badge-low">97.1%</span></td>
+                  </tr>
+                  <tr>
+                    <td><div class="reviewer-profile-cell"> Sara M.</div></td>
+                    <td>278</td><td>42</td><td>37</td><td>4</td><td>1</td>
+                    <td><span class="badge badge-medium">88.1%</span></td>
+                  </tr>
+                  <tr>
+                    <td><div class="reviewer-profile-cell"> Ahmed T.</div></td>
+                    <td>295</td><td>44</td><td>41</td><td>2</td><td>1</td>
+                    <td><span class="badge badge-low">93.2%</span></td>
+                  </tr>
+                  <tr>
+                    <td><div class="reviewer-profile-cell"> Maha R.</div></td>
+                    <td>363</td><td>54</td><td>51</td><td>2</td><td>1</td>
+                    <td><span class="badge badge-low">94.4%</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <span style="font-size:0.78rem;color:var(--text-secondary);"><i class="fas fa-calendar-check"></i> Generated on 01 Apr 2026, 00:01 AM</span>
+              <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Download PDF</button>
+            </div>
+          </div>
+
+          <div class="panel card table-card">
             <div class="card-title">
               <i class="fas fa-random"></i> Randomly Sampled Completed Cases
             </div>
