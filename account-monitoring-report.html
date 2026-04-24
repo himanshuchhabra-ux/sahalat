@@ -142,6 +142,45 @@
           </p>
         </div>
 
+        <section class="monitoring-kpis" aria-label="Monitoring overview metrics">
+          <article class="monitoring-kpi-card">
+            <div class="kpi-icon">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <div>
+              <div class="kpi-label">Active accounts</div>
+              <div class="kpi-value">48,264</div>
+            </div>
+          </article>
+          <article class="monitoring-kpi-card">
+            <div class="kpi-icon warning">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>
+              <div class="kpi-label">Locked accounts</div>
+              <div class="kpi-value">1,129</div>
+            </div>
+          </article>
+          <article class="monitoring-kpi-card">
+            <div class="kpi-icon muted">
+              <i class="fas fa-moon"></i>
+            </div>
+            <div>
+              <div class="kpi-label">Dormant accounts</div>
+              <div class="kpi-value">3,782</div>
+            </div>
+          </article>
+          <article class="monitoring-kpi-card">
+            <div class="kpi-icon danger">
+              <i class="fas fa-triangle-exclamation"></i>
+            </div>
+            <div>
+              <div class="kpi-label">Escalations open</div>
+              <div class="kpi-value">11</div>
+            </div>
+          </article>
+        </section>
+
         <section class="card monitoring-control-bar">
           <div class="search-bar report-search">
             <label>Search Report Data</label>
@@ -233,6 +272,15 @@
               aria-selected="false"
             >
               Aml report
+            </button>
+            <button
+              class="monitoring-tab"
+              type="button"
+              data-tab="escalation-report"
+              role="tab"
+              aria-selected="false"
+            >
+              Escalation report
             </button>
             <button
               class="monitoring-tab"
@@ -715,6 +763,74 @@
               <div class="flex-between pagination-container" data-pagination="amlReportTable">
                 <div class="content-info"></div>
                 <div class="pagination-controls"></div>
+              </div>
+            </article>
+
+            <article
+              class="monitoring-panel"
+              data-panel="escalation-report"
+              role="tabpanel"
+              hidden
+            >
+              <div class="panel-header">
+                <h3>Escalation report register</h3>
+                <span class="badge badge-warning">11 fields</span>
+              </div>
+              <div class="table-container">
+                <table class="table monitoring-table" id="escalationReportTable">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Alert ID</td>
+                      <td>Unique identifier of the alert (e.g., ALRT-4491)</td>
+                    </tr>
+                    <tr>
+                      <td>User Name</td>
+                      <td>Name of the user linked to the alert</td>
+                    </tr>
+                    <tr>
+                      <td>Account Number</td>
+                      <td>Primary account number under review</td>
+                    </tr>
+                    <tr>
+                      <td>Escalated By</td>
+                      <td>Admin who initiated the escalation</td>
+                    </tr>
+                    <tr>
+                      <td>Assigned To</td>
+                      <td>Selected owner/reviewer handling the alert</td>
+                    </tr>
+                    <tr>
+                      <td>Priority</td>
+                      <td>Selected priority level</td>
+                    </tr>
+                    <tr>
+                      <td>Audit Notes</td>
+                      <td>Investigation details entered by admin</td>
+                    </tr>
+                    <tr>
+                      <td>Escalation Date &amp; Time</td>
+                      <td>Timestamp of escalation action</td>
+                    </tr>
+                    <tr>
+                      <td>Status</td>
+                      <td>Current progress status of the alert</td>
+                    </tr>
+                    <tr>
+                      <td>Previous Owner</td>
+                      <td>Reviewer assigned before escalation</td>
+                    </tr>
+                    <tr>
+                      <td>Last Updated</td>
+                      <td>Latest update timestamp on the alert</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </article>
 

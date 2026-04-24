@@ -679,20 +679,14 @@
                 >
                   <i class="fas fa-times"></i> Reject Case
                 </button>
-                <div class="action-buttons">
                   <button
                     class="action-btn btn-escalate"
+                    style="width: 100%;"
                     onclick="openActionModal('escalate')"
                   >
                     <i class="fas fa-arrow-up"></i> Escalate
                   </button>
-                  <button
-                    class="action-btn btn-info btn-info-secondary"
-                    onclick="openActionModal('reqinfo')"
-                  >
-                    <i class="fas fa-comment-dots"></i> Req. Info
-                  </button>
-                </div>
+              
               </div>
 
               <div class="card audit-timeline">
@@ -778,7 +772,16 @@
             </div>
             <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
               <span style="font-size:0.78rem;color:var(--text-secondary);"><i class="fas fa-calendar-check"></i> Generated on 01 Apr 2026, 00:01 AM</span>
-              <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Download PDF</button>
+              <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+                <label for="qaReportMonth" style="font-size:0.78rem;color:var(--text-secondary);font-weight:600;">Month-wise Report</label>
+                <select id="qaReportMonth" class="filter-select" style="min-width:170px;">
+                  <option value="2026-01">January 2026</option>
+                  <option value="2026-02">February 2026</option>
+                  <option value="2026-03" selected>March 2026</option>
+                  <option value="2026-04">April 2026</option>
+                </select>
+                <button id="downloadQaMonthlyBtn" class="btn btn-outline btn-sm" type="button"><i class="fas fa-download"></i> Download Month Report</button>
+              </div>
             </div>
           </div>
 
@@ -831,6 +834,48 @@
                     <span class="qa-action qa-back-queue">Sent for Rework</span>
                   </td>
                   <td><span class="badge badge-medium">-0.4%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel card table-card" style="margin-top:1rem;">
+            <div class="card-title">
+              <i class="fas fa-table"></i> QA Case Management Register
+            </div>
+            <table class="case-table" id="qaCaseManagementTable">
+              <thead>
+                <tr>
+                  <th>Case ID</th>
+                  <th>User Name</th>
+                  <th>Date of Account Open</th>
+                  <th>Reviewer Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>KYC-11021</td>
+                  <td>Ali Rahman</td>
+                  <td>Jan 12, 2021</td>
+                  <td>John D.</td>
+                </tr>
+                <tr>
+                  <td>KYC-11045</td>
+                  <td>Noura Saleh</td>
+                  <td>Feb 03, 2021</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td>KYC-11072</td>
+                  <td>Huda Salman</td>
+                  <td>Mar 22, 2021</td>
+                  <td>Ahmed T.</td>
+                </tr>
+                <tr>
+                  <td>KYC-11103</td>
+                  <td>Rana Khalid</td>
+                  <td>Apr 10, 2021</td>
+                  <td>Maha R.</td>
                 </tr>
               </tbody>
             </table>
@@ -1791,6 +1836,28 @@
                   </option>
                 </select>
 
+                <label class="notes-label" for="decisionAssignee">
+                  Assign To
+                </label>
+                <select class="decision-select" id="decisionAssignee">
+                  <option value="">Select subadmin...</option>
+                  <option value="John Manager (Sub Admin)">
+                    John Manager (Sub Admin)
+                  </option>
+                  <option value="Sarah Support (Sub Admin)">
+                    Sarah Support (Sub Admin)
+                  </option>
+                  <option value="Michael Finance (Sub Admin)">
+                    Michael Finance (Sub Admin)
+                  </option>
+                  <option value="Emma Marketing (Sub Admin)">
+                    Emma Marketing (Sub Admin)
+                  </option>
+                  <option value="Omar Compliance (Sub Admin)">
+                    Omar Compliance (Sub Admin)
+                  </option>
+                </select>
+
                 <label class="notes-label">Reviewer Notes</label>
                 <textarea
                   rows="3"
@@ -1835,6 +1902,7 @@
 
             // Clear form
             document.getElementById("decisionReason").value = "";
+            document.getElementById("decisionAssignee").value = "";
             document.getElementById("reviewerNotes").value = "";
             document.getElementById("followupConditions").value = "";
 
@@ -1853,12 +1921,6 @@
               titleEl.textContent = "Escalate Case";
               ratioTitleEl.textContent = "Escalation Details";
               submitBtn.innerHTML = '<i class="fas fa-arrow-up"></i> Escalate';
-              submitBtn.className = "btn btn-info";
-            } else if (action === "reqinfo") {
-              titleEl.textContent = "Request Information";
-              ratioTitleEl.textContent = "Information Request";
-              submitBtn.innerHTML =
-                '<i class="fas fa-comment-dots"></i> Send Request';
               submitBtn.className = "btn btn-info";
             }
 
@@ -1894,8 +1956,6 @@
                 "Case rejected with structured rationale and rejection reason.";
             } else if (currentAction === "escalate") {
               message = "Case escalated for further review.";
-            } else if (currentAction === "reqinfo") {
-              message = "Information request sent to applicant.";
             }
 
             // Show notification
