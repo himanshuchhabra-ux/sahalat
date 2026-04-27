@@ -163,6 +163,30 @@
         <!-- SCREEN 1: Dashboard -->
         <div id="tab-dashboard" class="tab-content active dashboard-layout">
           <div class="case-table-container">
+            
+            <!-- Filter Bar -->
+            <div class="filter-bar new-kyc-filter-btn kyc-review-filter-bar">
+              <div class="filter-group">
+                <label for="kycDateFrom">Date From</label>
+                <input type="date" id="kycDateFrom" name="kycDateFrom">
+              </div>
+              <div class="filter-group">
+                <label for="kycDateTo">Date To</label>
+                <input type="date" id="kycDateTo" name="kycDateTo">
+              </div>
+              <div class="filter-group">
+                <label for="kycStatusFilter">Status</label>
+                <select id="kycStatusFilter" name="kycStatusFilter" class="form-control">
+                  <option value="">-- All Status --</option>
+                  <option value="pending">Pending</option>
+                  <option value="under-review">Under Review</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="escalated">Escalated</option>
+                </select>
+              </div>
+            </div>
+
             <div class="queue-tabs">
               <button
                 class="queue-tab-button active"
@@ -437,7 +461,7 @@
                 </div>
                 <div class="info-row">
                   <span class="info-label">Account Type</span
-                  ><span class="info-value" id="detailAccountType">Personal</span>
+                  ><span class="info-value" id="detailAccountType">Basic</span>
                 </div>
                 <div class="info-row">
                   <span class="info-label">KYC Status</span
@@ -458,7 +482,7 @@
                 <div class="info-row">
                   <span class="info-label">PEP Declaration Details</span
                   ><span class="info-value" id="detailPepDetails"
-                    >Not declared</span
+                    >Declared</span
                   >
                 </div>
               </div>
@@ -681,7 +705,6 @@
                 </button>
                   <button
                     class="action-btn btn-escalate"
-                    style="width: 100%;"
                     onclick="openActionModal('escalate')"
                   >
                     <i class="fas fa-arrow-up"></i> Escalate
@@ -779,9 +802,18 @@
                   <option value="2026-02">February 2026</option>
                   <option value="2026-03" selected>March 2026</option>
                   <option value="2026-04">April 2026</option>
+                  <option value="2026-05">May 2026</option>
+                  <option value="2026-06">June 2026</option>
+                  <option value="2026-07">July 2026</option>
+                  <option value="2026-08">August 2026</option>
+                  <option value="2026-09">September 2026</option>
+                  <option value="2026-10">October 2026</option>
+                  <option value="2026-11">November 2026</option>
+                  <option value="2026-12">December 2026</option>
                 </select>
                 <button id="downloadQaMonthlyBtn" class="btn btn-outline btn-sm" type="button"><i class="fas fa-download"></i> Download Month Report</button>
               </div>
+              
             </div>
           </div>
 
@@ -837,6 +869,27 @@
                 </tr>
               </tbody>
             </table>
+              <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <span style="font-size:0.78rem;color:var(--text-secondary);"><i class="fas fa-calendar-check"></i> Generated on 01 Apr 2026, 00:01 AM</span>
+              <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+                <label for="qaReportMonth" style="font-size:0.78rem;color:var(--text-secondary);font-weight:600;">Month-wise Report</label>
+                <select id="qaReportMonth" class="filter-select" style="min-width:170px;">
+                  <option value="2026-01">January 2026</option>
+                  <option value="2026-02">February 2026</option>
+                  <option value="2026-03" selected>March 2026</option>
+                  <option value="2026-04">April 2026</option>
+                  <option value="2026-05">May 2026</option>
+                  <option value="2026-06">June 2026</option>
+                  <option value="2026-07">July 2026</option>
+                  <option value="2026-08">August 2026</option>
+                  <option value="2026-09">September 2026</option>
+                  <option value="2026-10">October 2026</option>
+                  <option value="2026-11">November 2026</option>
+                  <option value="2026-12">December 2026</option>
+                </select>
+                <button id="downloadQaMonthlyBtn" class="btn btn-outline btn-sm" type="button"><i class="fas fa-download"></i> Download Month Report</button>
+              </div>
+            </div>
           </div>
 
           <div class="panel card table-card" style="margin-top:1rem;">
@@ -879,6 +932,27 @@
                 </tr>
               </tbody>
             </table>
+              <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+              <span style="font-size:0.78rem;color:var(--text-secondary);"><i class="fas fa-calendar-check"></i> Generated on 01 Apr 2026, 00:01 AM</span>
+              <div style="display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap;">
+                <label for="qaReportMonth" style="font-size:0.78rem;color:var(--text-secondary);font-weight:600;">Month-wise Report</label>
+                <select id="qaReportMonth" class="filter-select" style="min-width:170px;">
+                  <option value="2026-01">January 2026</option>
+                  <option value="2026-02">February 2026</option>
+                  <option value="2026-03" selected>March 2026</option>
+                  <option value="2026-04">April 2026</option>
+                  <option value="2026-05">May 2026</option>
+                  <option value="2026-06">June 2026</option>
+                  <option value="2026-07">July 2026</option>
+                  <option value="2026-08">August 2026</option>
+                  <option value="2026-09">September 2026</option>
+                  <option value="2026-10">October 2026</option>
+                  <option value="2026-11">November 2026</option>
+                  <option value="2026-12">December 2026</option>
+                </select>
+                <button id="downloadQaMonthlyBtn" class="btn btn-outline btn-sm" type="button"><i class="fas fa-download"></i> Download Month Report</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -939,7 +1013,6 @@
                           <span class="reviewer-avatar">JD</span>
                           <div>
                             <p class="reviewer-name">John D.</p>
-                            <p class="reviewer-role">Maker</p>
                           </div>
                         </div>
                       </td>
@@ -957,6 +1030,12 @@
                           >
                             Assign Role
                           </button>
+                          <button
+                            class="btn btn-danger"
+                            onclick="openSuspendReviewerModal('Sara M.')"
+                          >
+                            Suspend
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -966,7 +1045,6 @@
                           <span class="reviewer-avatar danger">SM</span>
                           <div>
                             <p class="reviewer-name">Sara M.</p>
-                            <p class="reviewer-role">Checker</p>
                           </div>
                         </div>
                       </td>
@@ -999,7 +1077,6 @@
                           <span class="reviewer-avatar warn">AT</span>
                           <div>
                             <p class="reviewer-name">Ahmed T.</p>
-                            <p class="reviewer-role">Reviewer</p>
                           </div>
                         </div>
                       </td>
@@ -1016,6 +1093,12 @@
                             onclick="openAssignRoleModal('Ahmed T.')"
                           >
                             Assign Role
+                          </button>
+                          <button
+                            class="btn btn-success"
+                            onclick="openReactivateReviewerModal('Ahmed T.')"
+                          >
+                            <i class="fas fa-redo"></i> Reactivate
                           </button>
                         </div>
                       </td>
@@ -1246,7 +1329,7 @@
                   <tbody>
                     <tr>
                       <td>ALRT-4491</td>
-                      <td>Reviewer</td>
+                      <td>Maker</td>
                       <td>Sara M.</td>
                       <td>Risky approvals</td>
                       <td class="metric-danger">Critical</td>
@@ -1256,7 +1339,7 @@
                     </tr>
                     <tr>
                       <td>ALRT-4492</td>
-                      <td>Reviewer</td>
+                      <td>Checker</td>
                       <td>Ahmed T.</td>
                       <td>Excessive rejections</td>
                       <td class="metric-warning">Low</td>
@@ -1264,7 +1347,7 @@
                     </tr>
                     <tr>
                       <td>ALRT-4493</td>
-                      <td>User</td>
+                      <td>Maker</td>
                       <td>Mohamed A.</td>
                       <td>Fast processing anomaly</td>
                       <td class="metric-good">Medium</td>
@@ -1353,7 +1436,7 @@
                               )
                             "
                           >
-                            Block One
+                            Block Accounts
                           </button>
                           <button
                             class="btn btn-secondary"
@@ -1416,7 +1499,7 @@
                               )
                             "
                           >
-                            Block One
+                            Block Accounts
                           </button>
                           <button
                             class="btn btn-secondary"
@@ -1478,7 +1561,7 @@
                               )
                             "
                           >
-                            Block One
+                            Block Accounts
                           </button>
                           <button
                             class="btn btn-secondary"
@@ -1566,8 +1649,21 @@
                 </select>
               </div>
 
+              <div class="modal-form-group" id="blockReasonGroup" style="display: none;">
+                <label for="duplicateBlockReason">Blocking Reason</label>
+                <select id="duplicateBlockReason">
+                  <option value="">Select reason</option>
+                  <option value="Fraud detected">Fraud detected</option>
+                  <option value="Policy violation">Policy violation</option>
+                  <option value="Suspicious activity">Suspicious activity</option>
+                  <option value="Identity theft">Identity theft</option>
+                  <option value="Document forgery">Document forgery</option>
+                  <option value="High risk pattern">High risk pattern</option>
+                </select>
+              </div>
+
               <div class="modal-form-group">
-                <label for="duplicateNotes">Admin Notes</label>
+                <label for="duplicateNotes">Admin Notes (Audit Trail)</label>
                 <textarea
                   id="duplicateNotes"
                   rows="3"
@@ -1696,7 +1792,8 @@
                 <label for="reviewerRoleSelect">Role</label>
                 <select id="reviewerRoleSelect">
                   <option value="">Select role</option>
-                  <option value="Sub Admin">Sub Admin</option>
+                  <option value="Sub Admin">Maker</option>
+                  <option value="Sub Admin">Checker</option>
                 </select>
               </div>
 
@@ -1723,6 +1820,62 @@
               </button>
               <button class="btn btn-primary" onclick="submitAssignRole(event)">
                 <i class="fas fa-check"></i> Confirm Assignment
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reactivate Reviewer Modal -->
+        <div id="reactivateReviewerModal" class="modal">
+          <div class="modal-content reviewer-modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title">
+                <i class="fas fa-redo"></i> Reactivate Reviewer
+              </h2>
+              <button class="modal-close" onclick="closeReactivateReviewerModal()">
+                &times;
+              </button>
+            </div>
+            <div class="modal-body reviewer-modal-body">
+              <p class="reviewer-modal-lead">
+                You are reactivating
+                <strong id="reactivateReviewerName">Reviewer</strong> for KYC
+                processing tasks.
+              </p>
+              <input type="hidden" id="reactivateReviewerInput" />
+
+              <div class="modal-form-group">
+                <label for="reactivateReason">Reactivation Reason</label>
+                <select id="reactivateReason">
+                  <option value="">Select reason</option>
+                  <option value="Issue resolved">Issue resolved</option>
+                  <option value="Performance improved">Performance improved</option>
+                  <option value="Appeal approved">Appeal approved</option>
+                  <option value="Administrative review complete">Administrative review complete</option>
+                </select>
+              </div>
+
+              <div class="modal-form-group">
+                <label for="reactivateNotes">Admin Notes</label>
+                <textarea
+                  id="reactivateNotes"
+                  rows="3"
+                  placeholder="Required notes explaining this reactivation..."
+                ></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-secondary"
+                onclick="closeReactivateReviewerModal()"
+              >
+                Cancel
+              </button>
+              <button
+                class="btn btn-success"
+                onclick="submitReactivateReviewer(event)"
+              >
+                <i class="fas fa-redo"></i> Confirm Reactivation
               </button>
             </div>
           </div>
@@ -1836,27 +1989,29 @@
                   </option>
                 </select>
 
-                <label class="notes-label" for="decisionAssignee">
-                  Assign To
-                </label>
-                <select class="decision-select" id="decisionAssignee">
-                  <option value="">Select subadmin...</option>
-                  <option value="John Manager (Sub Admin)">
-                    John Manager (Sub Admin)
-                  </option>
-                  <option value="Sarah Support (Sub Admin)">
-                    Sarah Support (Sub Admin)
-                  </option>
-                  <option value="Michael Finance (Sub Admin)">
-                    Michael Finance (Sub Admin)
-                  </option>
-                  <option value="Emma Marketing (Sub Admin)">
-                    Emma Marketing (Sub Admin)
-                  </option>
-                  <option value="Omar Compliance (Sub Admin)">
-                    Omar Compliance (Sub Admin)
-                  </option>
-                </select>
+                <div id="assignToSection">
+                  <label class="notes-label" for="decisionAssignee">
+                    Assign To
+                  </label>
+                  <select class="decision-select" id="decisionAssignee">
+                    <option value="">Select subadmin...</option>
+                    <option value="John Manager (Sub Admin)">
+                      John Manager (Sub Admin)
+                    </option>
+                    <option value="Sarah Support (Sub Admin)">
+                      Sarah Support (Sub Admin)
+                    </option>
+                    <option value="Michael Finance (Sub Admin)">
+                      Michael Finance (Sub Admin)
+                    </option>
+                    <option value="Emma Marketing (Sub Admin)">
+                      Emma Marketing (Sub Admin)
+                    </option>
+                    <option value="Omar Compliance (Sub Admin)">
+                      Omar Compliance (Sub Admin)
+                    </option>
+                  </select>
+                </div>
 
                 <label class="notes-label">Reviewer Notes</label>
                 <textarea
@@ -1902,9 +2057,17 @@
 
             // Clear form
             document.getElementById("decisionReason").value = "";
-            document.getElementById("decisionAssignee").value = "";
             document.getElementById("reviewerNotes").value = "";
             document.getElementById("followupConditions").value = "";
+
+            // Show/hide Assign To section based on action
+            const assignToSection = document.getElementById("assignToSection");
+            if (action === "reject") {
+              assignToSection.style.display = "none";
+            } else {
+              assignToSection.style.display = "block";
+              document.getElementById("decisionAssignee").value = "";
+            }
 
             // Set title and label based on action
             if (action === "approve") {
@@ -2008,11 +2171,11 @@
               gender: "Male",
               residencyStatus: "Resident",
               dateOfBirth: "1991-05-17",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Pending",
               kycCaseType: "New Account KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-445902)",
               civilIdDocument: "Uploaded (CID-995412)",
               passportDocument: "Not Required",
@@ -2027,11 +2190,11 @@
               gender: "Female",
               residencyStatus: "Resident",
               dateOfBirth: "1995-09-02",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Verified",
               kycCaseType: "New Account KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-445978)",
               civilIdDocument: "Uploaded (CID-995443)",
               passportDocument: "Not Required",
@@ -2066,11 +2229,11 @@
               gender: "Female",
               residencyStatus: "Resident",
               dateOfBirth: "1993-11-21",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Pending",
               kycCaseType: "Re-KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-552190)",
               civilIdDocument: "Uploaded (CID-338019)",
               passportDocument: "Not Required",
@@ -2089,7 +2252,7 @@
               kycStatus: "Verified",
               kycCaseType: "Re-KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-552210)",
               civilIdDocument: "Uploaded (CID-338021)",
               passportDocument: "Not Required",
@@ -2104,7 +2267,7 @@
               gender: "Female",
               residencyStatus: "Non-Resident",
               dateOfBirth: "1990-08-13",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Rejected",
               kycCaseType: "Re-KYC",
               pepStatus: "Yes",
@@ -2124,11 +2287,11 @@
               gender: "Male",
               residencyStatus: "Resident",
               dateOfBirth: "1988-02-10",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Pending",
               kycCaseType: "Dormant Account KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-701290)",
               civilIdDocument: "Uploaded (CID-551099)",
               passportDocument: "Not Required",
@@ -2143,11 +2306,11 @@
               gender: "Female",
               residencyStatus: "Resident",
               dateOfBirth: "1994-06-06",
-              accountType: "Personal",
+              accountType: "Basic",
               kycStatus: "Verified",
               kycCaseType: "Dormant Account KYC",
               pepStatus: "No",
-              pepDeclarationDetails: "Not declared",
+              pepDeclarationDetails: "Declared",
               nationalIdDocument: "Uploaded (NID-701330)",
               civilIdDocument: "Uploaded (CID-551199)",
               passportDocument: "Not Required",
@@ -2296,6 +2459,51 @@
               target.style.display = "flex";
               target.style.animation = "fadeIn var(--transition)";
             }
+          }
+
+          function openReactivateReviewerModal(reviewerName) {
+            document.getElementById("reactivateReviewerName").textContent =
+              reviewerName;
+            document.getElementById("reactivateReviewerInput").value =
+              reviewerName;
+            document.getElementById("reactivateReason").value = "";
+            document.getElementById("reactivateNotes").value = "";
+
+            document
+              .getElementById("reactivateReviewerModal")
+              .classList.add("show");
+            document.body.style.overflow = "hidden";
+          }
+
+          function closeReactivateReviewerModal() {
+            document
+              .getElementById("reactivateReviewerModal")
+              .classList.remove("show");
+            document.body.style.overflow = "";
+          }
+
+          function submitReactivateReviewer(event) {
+            event.preventDefault();
+
+            const reviewer = document.getElementById(
+              "reactivateReviewerInput",
+            ).value;
+            const reason = document.getElementById("reactivateReason").value;
+            const notes = document.getElementById("reactivateNotes").value.trim();
+
+            if (!reason || !notes) {
+              showNotification(
+                "Please complete reason and admin notes before reactivating.",
+                "warning",
+              );
+              return;
+            }
+
+            closeReactivateReviewerModal();
+            showNotification(
+              reviewer + " has been reactivated successfully.",
+              "success",
+            );
           }
 
           function openSuspendReviewerModal(reviewerName) {
@@ -2505,20 +2713,29 @@
             document.getElementById("duplicateActionLead").textContent = lead;
 
             const decisionSelect = document.getElementById("duplicateDecision");
+            const blockReasonGroup = document.getElementById("blockReasonGroup");
             decisionSelect.innerHTML =
               '<option value="">Select decision</option>';
 
             if (actionType === "merge") {
+              blockReasonGroup.style.display = "none";
               decisionSelect.innerHTML +=
                 '<option value="Merge into primary">Merge into primary</option>';
               decisionSelect.innerHTML +=
                 '<option value="Merge into matched">Merge into matched</option>';
             } else if (actionType === "block") {
+              blockReasonGroup.style.display = "block";
               decisionSelect.innerHTML +=
-                '<option value="Block primary account">Block primary account</option>';
+                '<option value="Block primary account">Block primary account only</option>';
               decisionSelect.innerHTML +=
-                '<option value="Block matched account">Block matched account</option>';
+                '<option value="Block matched account">Block matched account only</option>';
+              decisionSelect.innerHTML +=
+                '<option value="Block both accounts">Block both accounts</option>';
+              decisionSelect.innerHTML +=
+                '<option value="Block all linked accounts">Block all linked duplicate accounts</option>';
+              document.getElementById("duplicateBlockReason").value = "";
             } else {
+              blockReasonGroup.style.display = "none";
               decisionSelect.innerHTML +=
                 '<option value="Mark as non-duplicate">Mark as non-duplicate</option>';
               decisionSelect.innerHTML +=
@@ -2532,7 +2749,7 @@
             );
             let actionLabel = "Confirm";
             if (actionType === "merge") actionLabel = "Merge Accounts";
-            if (actionType === "block") actionLabel = "Block One";
+            if (actionType === "block") actionLabel = "Apply Block";
             if (actionType === "clear") actionLabel = "Mark Non-Duplicate";
 
             submitBtn.innerHTML = '<i class="fas fa-check"></i> ' + actionLabel;
@@ -2574,6 +2791,19 @@
               return;
             }
 
+            // Validate block action requirements
+            if (actionType === "block") {
+              const blockReason = document.getElementById("duplicateBlockReason").value;
+              
+              if (!blockReason) {
+                showNotification(
+                  "Please select a blocking reason before proceeding.",
+                  "warning",
+                );
+                return;
+              }
+            }
+
             const row = document.getElementById("duplicate-row-" + caseId);
             if (row) {
               const statusCell = row.querySelector(".duplicate-status-cell");
@@ -2607,9 +2837,13 @@
 
               let actionLabel = "Review";
               if (actionType === "merge") actionLabel = "Merge Accounts";
-              if (actionType === "block") actionLabel = "Block One Account";
+              if (actionType === "block") {
+                const decision = document.getElementById("duplicateDecision").value;
+                actionLabel = "Block - " + decision;
+              }
               if (actionType === "clear") actionLabel = "Mark Non-Duplicate";
 
+              const blockReason = actionType === "block" ? " | Reason: " + document.getElementById("duplicateBlockReason").value : "";
               const tr = document.createElement("tr");
               tr.innerHTML =
                 "<td>" +
@@ -2623,6 +2857,7 @@
                 "</td>" +
                 "<td>" +
                 decision +
+                blockReason +
                 "</td>" +
                 "<td>" +
                 notes +

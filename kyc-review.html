@@ -80,11 +80,56 @@
                     <i class="fas fa-clock"></i> Pending (2,224)
                 </button>
                 <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
-                    <i class="fas fa-check"></i> Approved (10,234)
+                    <i class="fas fa-hourglass-half"></i> Under Review (1,558)
+                </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-check"></i> Accepted (10,234)
                 </button>
                 <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
                     <i class="fas fa-times"></i> Rejected (287)
                 </button>
+                <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); this.classList.add('active');">
+                    <i class="fas fa-arrow-up-right-dots"></i> Escalated (87)
+                </button>
+            </div>
+
+            <div class="filter-bar kyc-review-filter-bar">
+                <div class="filter-group">
+                    <label for="kycDateFrom">Date From</label>
+                    <input type="date" id="kycDateFrom" name="kycDateFrom">
+                </div>
+                <div class="filter-group">
+                    <label for="kycDateTo">Date To</label>
+                    <input type="date" id="kycDateTo" name="kycDateTo">
+                </div>
+                <div class="filter-group kyc-status-filter-group">
+                    <label>Status Filters</label>
+                    <div class="kyc-status-filter-chips">
+                        <label class="kyc-status-chip pending">
+                            <input type="checkbox" name="kycStatus" value="pending" checked>
+                            <span>Pending</span>
+                        </label>
+                        <label class="kyc-status-chip under-review">
+                            <input type="checkbox" name="kycStatus" value="under-review" checked>
+                            <span>Under Review</span>
+                        </label>
+                        <label class="kyc-status-chip accepted">
+                            <input type="checkbox" name="kycStatus" value="accepted" checked>
+                            <span>Accepted</span>
+                        </label>
+                        <label class="kyc-status-chip rejected">
+                            <input type="checkbox" name="kycStatus" value="rejected" checked>
+                            <span>Rejected</span>
+                        </label>
+                        <label class="kyc-status-chip escalated">
+                            <input type="checkbox" name="kycStatus" value="escalated" checked>
+                            <span>Escalated</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="kyc-filter-actions">
+                    
+                </div>
             </div>
 
             

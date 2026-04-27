@@ -3951,6 +3951,170 @@ html[data-theme="dark"] .stat-card-gradient-4 .stat-icon-box {
   border-color: #6366f1;
 }
 
+.kyc-review-filter-bar {
+  align-items: flex-end;
+  margin-top: -0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.kyc-review-filter-bar .filter-group {
+  min-width: 170px;
+}
+
+.kyc-status-filter-group {
+  flex: 2;
+  min-width: 320px;
+}
+
+.kyc-status-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.kyc-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.kyc-status-chip input {
+  accent-color: var(--main);
+}
+
+.kyc-status-chip.pending {
+  border-color: rgba(217, 119, 6, 0.45);
+  color: var(--color-warning);
+  background-color: rgba(217, 119, 6, 0.08);
+}
+
+.kyc-status-chip.under-review {
+  border-color: rgba(14, 116, 144, 0.45);
+  color: var(--color-info);
+  background-color: rgba(14, 116, 144, 0.08);
+}
+
+.kyc-status-chip.accepted {
+  border-color: rgba(5, 150, 105, 0.45);
+  color: var(--color-success);
+  background-color: rgba(5, 150, 105, 0.08);
+}
+
+.kyc-status-chip.rejected {
+  border-color: rgba(220, 38, 38, 0.45);
+  color: var(--color-danger);
+  background-color: rgba(220, 38, 38, 0.08);
+}
+
+.kyc-status-chip.escalated {
+  border-color: rgba(124, 58, 237, 0.45);
+  color: #6d28d9;
+  background-color: rgba(124, 58, 237, 0.08);
+}
+
+.kyc-status-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xs);
+}
+
+.kyc-filter-actions {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Custom Filter Components for Dashboard */
+.custom-filter-bar {
+  margin: 1rem 1rem 1rem;
+  align-items: flex-end;
+}
+
+.custom-filter-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #001D3B;
+  display: block;
+}
+
+.custom-filter-input {
+  border: 1px solid #B8E0DD;
+  border-radius: 4px;
+  padding: 0 0.75rem;
+  height: 44px;
+  color: #001D3B;
+  width: 100%;
+}
+
+.custom-status-group {
+  flex: 2;
+}
+
+.custom-filter-select {
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 0 2rem 0 0.75rem;
+  height: 44px;
+  font-weight: 500;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="%23000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 0.75rem center;
+  background-size: 10px;
+  width: 100%;
+}
+
+.custom-filter-actions {
+  margin-bottom: 0;
+}
+
+.custom-filter-btn {
+  background-color: #00142A;
+  color: white;
+  padding: 0 1.5rem;
+  height: 44px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.custom-filter-btn:hover {
+  background-color: #00234a;
+}
+
+@media (max-width: 900px) {
+  .kyc-review-filter-bar {
+    align-items: stretch;
+  }
+
+  .kyc-review-filter-bar .filter-group,
+  .kyc-status-filter-group,
+  .kyc-filter-actions {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .kyc-filter-actions .btn {
+    width: 100%;
+  }
+}
+.appl-filter{
+  background-color: #00142A;
+   color: white; padding: 0 1.5rem; height: 44px; font-weight: 700; font-size: 0.8rem; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer;
+}
 .content-tabs {
   display: flex;
   gap: 1rem;
@@ -7706,6 +7870,7 @@ html[data-theme="dark"] .date-input:focus {
   padding: 20px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+  margin:10px;
 }
 
 .kyc-dashboard-container .filter-group {
@@ -7714,14 +7879,18 @@ html[data-theme="dark"] .date-input:focus {
 
 .kyc-dashboard-container .filter-group label {
   display: block;
-  font-size: 5px;
+  font-size: 14px;
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.2px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  padding: 5px 0;
   color: var(--text-primary);
 }
-
+.new-kyc-filter-btn{
+  margin:20px;
+}
 .kyc-dashboard-container .filter-group select,
 .kyc-dashboard-container .filter-group input {
   width: 100%;
