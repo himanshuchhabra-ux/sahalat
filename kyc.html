@@ -1375,7 +1375,24 @@
 
             <div class="panel card duplicate-cases-card">
               <div class="card-title">
-                <i class="fas fa-user-secret"></i> Potential Duplicate Cases
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                  <span><i class="fas fa-user-secret"></i> Potential Duplicate Cases</span>
+                  <div style="display: flex; gap: 0.5rem; align-items: center;">
+                    <input
+                      type="text"
+                      id="duplicateCaseSearch"
+                      placeholder="Search cases..."
+                      style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9rem;"
+                    />
+                    <button
+                      class="btn btn-primary"
+                      onclick="searchDuplicateCases()"
+                      style="padding: 0.5rem 1rem;"
+                    >
+                      <i class="fas fa-search"></i> Search
+                    </button>
+                  </div>
+                </div>
               </div>
               <div class="duplicate-table-wrap">
                 <table class="case-table duplicate-cases-table">
@@ -1386,7 +1403,6 @@
                       <th>Matched Account</th>
                       <th>Identity Signals</th>
                       <th>Risk Score</th>
-                      <th>Status</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -1407,9 +1423,6 @@
                         </div>
                       </td>
                       <td class="metric-danger">Critical</td>
-                      <td class="duplicate-status-cell">
-                        <span class="chip chip-review">Pending Review</span>
-                      </td>
                       <td>
                         <div class="duplicate-actions">
                           <button
@@ -1470,9 +1483,7 @@
                         </div>
                       </td>
                       <td class="metric-warning">High</td>
-                      <td class="duplicate-status-cell">
-                        <span class="chip chip-pending">Investigating</span>
-                      </td>
+
                       <td>
                         <div class="duplicate-actions">
                           <button
@@ -1532,9 +1543,6 @@
                         </div>
                       </td>
                       <td class="metric-good">Medium</td>
-                      <td class="duplicate-status-cell">
-                        <span class="chip chip-approved">Open</span>
-                      </td>
                       <td>
                         <div class="duplicate-actions">
                           <button
@@ -2732,8 +2740,6 @@
               blockReasonGroup.style.display = "none";
               decisionSelect.innerHTML +=
                 '<option value="Mark as non-duplicate">Mark as non-duplicate</option>';
-              decisionSelect.innerHTML +=
-                '<option value="Keep under monitoring">Keep under monitoring</option>';
             }
 
             document.getElementById("duplicateNotes").value = "";
@@ -2871,6 +2877,53 @@
               "Opening performance details for " + reviewerName + ".",
               "success",
             );
+          }
+
+          function searchDuplicateCases() {
+            const searchInput = document.getElementById("duplicateCaseSearch").value.trim().toLowerCase();
+            
+            if (!searchInput) {
+              showNotification(
+                "Please enter a search term.",
+                "warning",
+              );
+              return;
+            }
+
+            const table = document.querySelector(".duplicate-cases-table tbody");
+            const rows = table.querySelectorAll("tr");
+            let matchCount = 0;
+
+            rows.forEach(row => {
+              const caseId = row.querySelector("td:nth-child(1)")?.textContent.toLowerCase() || "";
+              const primaryAccount = row.querySelector("td:nth-child(2)")?.textContent.toLowerCase() || "";
+              const matchedAccount = row.querySelector("td:nth-child(3)")?.textContent.toLowerCase() || "";
+              const riskScore = row.querySelector("td:nth-child(5)")?.textContent.toLowerCase() || "";
+
+              if (
+                caseId.includes(searchInput) ||
+                primaryAccount.includes(searchInput) ||
+                matchedAccount.includes(searchInput) ||
+                riskScore.includes(searchInput)
+              ) {
+                row.style.display = "";
+                matchCount++;
+              } else {
+                row.style.display = "none";
+              }
+            });
+
+            if (matchCount === 0) {
+              showNotification(
+                "No duplicate cases found matching '" + searchInput + "'.",
+                "info",
+              );
+            } else {
+              showNotification(
+                "Found " + matchCount + " matching case(s).",
+                "success",
+              );
+            }
           }
         </script>
       </main>
