@@ -2721,16 +2721,10 @@
               blockReasonGroup.style.display = "none";
               decisionSelect.innerHTML +=
                 '<option value="Merge into primary">Merge into primary</option>';
-              decisionSelect.innerHTML +=
-                '<option value="Merge into matched">Merge into matched</option>';
             } else if (actionType === "block") {
               blockReasonGroup.style.display = "block";
               decisionSelect.innerHTML +=
                 '<option value="Block primary account">Block primary account only</option>';
-              decisionSelect.innerHTML +=
-                '<option value="Block matched account">Block matched account only</option>';
-              decisionSelect.innerHTML +=
-                '<option value="Block both accounts">Block both accounts</option>';
               decisionSelect.innerHTML +=
                 '<option value="Block all linked accounts">Block all linked duplicate accounts</option>';
               document.getElementById("duplicateBlockReason").value = "";
